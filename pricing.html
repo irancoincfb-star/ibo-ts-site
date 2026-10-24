@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>تعرفه اشتراک و خرید IBO-TS — پرداخت USDT (TRC20/BEP20/TON) با ثبت سفارش و تاریخچه</title>
+  <meta name="description" content="تعرفه رسمی اشتراک IBO-TS (۱ هفته تا ۱ سال) با پرداخت USDT در شبکه TRC20/BEP20/TON؛ ثبت خودکار‌tx و تاریخچه کامل سفارش‌ها: موفق، در انتظار، ناموفق/منقضی — همه اعداد مستقیماً از سرور.">
+  <meta name="keywords" content="خرید اشتراک IBO-TS, تعرفه سیگنال, پرداخت USDT, ترید از کافه بازار, خرید ربات معامله گر">
+  <link rel="canonical" href="https://ibo-ts.com/pricing">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="تعرفه اشتراک IBO-TS">
+  <meta property="og:description" content="پلن‌های رسمی ۱ هفته تا ۱ سال؛ پرداخت USDT، سفارش و تاریخچه کامل، بدون اعداد نمایشی.">
+  <meta property="og:url" content="https://ibo-ts.com/pricing">
+  <meta property="og:image" content="https://ibo-ts.com/static/assets/ibots_logo_transparent.png">
+  <meta name="twitter:card" content="summary">
+  <link rel="icon" type="image/png" href="/static/assets/icons/favicon.png">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="/static/css/style.css">
+  <link rel="stylesheet" href="/static/css/template.css">
+  <style>
+    .plan-card { background:#fff; border:1.5px solid var(--border-light); border-radius:18px; padding:1.4rem 1.2rem; text-align:center; position:relative; }
+    .plan-card.popular { border-color: var(--brand-indigo); box-shadow:0 12px 28px -10px rgba(79,70,229,.28); }
+    .plan-badge { position:absolute; top:-12px; right:16px; background:linear-gradient(135deg,var(--brand-indigo),#2563EB); color:#fff; font-size:.72rem; font-weight:800; padding:.28rem .75rem; border-radius:999px; }
+    .plan-price { font-size:1.45rem; font-weight:900; color:var(--text-heading); }
+    .plan-price small { font-size:.8rem; color:var(--text-muted); font-weight:700; }
+    .plan-features { text-align:right; font-size:.85rem; color:var(--text-body); line-height:1.9; list-style:none; padding:0; margin:.9rem 0 1.1rem; }
+    .plan-features li::before { content:"✔"; color:var(--profit-emerald); margin-inline-end:.45rem; }
+    .state-chip { font-size:.72rem; font-weight:800; padding:.2rem .6rem; border-radius:999px; }
+    .st-success { background:var(--profit-bg); color:var(--profit-emerald); }
+    .st-pending { background:var(--amber-bg); color:var(--amber-gold); }
+    .st-expired { background:#F1F5F9; color:#64748B; }
+    .st-failed, .st-canceled { background:var(--loss-bg); color:var(--loss-rose); }
+  </style>
+</head>
+<body>
+
+<section class="hero-section" style="padding-top:5.5rem; padding-bottom:1rem;">
+  <div class="container" style="text-align:center;">
+    <div class="hero-badge-pill" style="margin-bottom:1.25rem;">
+      <span class="pulse-dot"></span>
+      <span>قیمت‌ها مستقیماً از سرور؛ هیچ عددی این‌جا دستی نمی‌نویسیم</span>
+    </div>
+    <h1 class="hero-heading">اشتراک خود را <span class="hero-gradient-text">چند دقیقه‌ای</span> فعال کنید</h1>
+    <p class="hero-description usdt-only" style="max-width:720px; margin:0 auto;">
+      پلن را انتخاب کنید، به آدرس رسمی USDT واریز کنید و TxHash را ثبت نمایید؛ سیستم تراکنش را
+      در بلاک‌چین بررسی می‌کند و اشتراک فوراً فعال می‌شود. تاریخچه سفارش‌هایتان همیشه در همین صفحه است.
+    </p>
+    <p class="hero-description myket-only" style="max-width:720px; margin:0 auto;">
+      پلن را انتخاب کنید و پرداخت را به‌صورت امن از درگاه رسمی مایکت انجام دهید؛ اشتراک بلافاصله فعال می‌شود.
+    </p>
+  </div>
+</section>
+
+<section class="container">
+  <h2 class="section-title" style="text-align:center;">پلن‌های رسمی</h2>
+  <div id="plansGrid" style="display:grid; gap:1rem; grid-template-columns:repeat(auto-fit,minmax(230px,300px)); justify-content:center;">
+    <div style="grid-column:1/-1; text-align:center; color:var(--text-muted);">در حال دریافت پلن‌های رسمی…</div>
+  </div>
+  <div id="plansError" style="display:none; text-align:center; color:var(--tx-muted,#64748B); margin:1rem 0;"></div>
+</section>
+
+<section class="container myket-hide" style="max-width:860px; padding-top:2rem;">
+  <div style="background:#fff; border:1.5px solid var(--border-light); border-radius:18px; padding:1.4rem;">
+    <h3 style="font-weight:900; margin-bottom:.5rem;"><i class="bi bi-wallet2"></i> آدرس‌های رسمی واریز USDT</h3>
+    <p style="color:var(--text-muted); font-size:.85rem; margin-bottom:.9rem;">فقط آدرس‌های رسمی زیر واریز پذیرفته می‌شود؛ ارسال با شبکه درست، الزامی است.</p>
+    <div id="walletsBox" style="display:grid; gap:.7rem;">
+      <div style="color:var(--text-muted); font-size:.85rem;">در حال دریافت آدرس‌ها…</div>
+    </div>
+  </div>
+</section>
+
+<section class="container myket-hide" style="max-width:860px; padding-top:1rem;">
+  <div style="background:#fff; border:1.5px solid var(--border-light); border-radius:18px; padding:1.4rem;">
+    <h3 style="font-weight:900; margin-bottom:.6rem;"><i class="bi bi-clipboard2-check"></i> ثبت تراکنش پرداختی (TxHash)</h3>
+    <div id="verifyLoginGate" style="display:none; color:var(--amber-gold); font-weight:700; font-size:.9rem; margin-bottom:.8rem;">
+      برای ثبت تراکنش، ابتدا <a href="/?auth=login" style="color:var(--brand-indigo);">وارد شوید یا ثبت‌نام کنید</a>.
+    </div>
+    <div style="display:grid; gap:.7rem; grid-template-columns:repeat(auto-fit,minmax(180px,1fr));">
+      <label style="font-size:.8rem; color:var(--text-muted);">شبکه
+        <select id="vNetwork" style="width:100%; margin-top:.3rem; padding:.55rem .75rem; border:1.5px solid var(--border-light); border-radius:10px; background:#fff;">
+          <option value="USDT_TRC20">USDT — TRC20 (ترون)</option>
+          <option value="USDT_BEP20">USDT — BEP20 (BNB Chain)</option>
+          <option value="USDT_TON">USDT — TON</option>
+        </select>
+      </label>
+      <label style="font-size:.8rem; color:var(--text-muted);">پلن
+        <select id="vPlan" style="width:100%; margin-top:.3rem; padding:.55rem .75rem; border:1.5px solid var(--border-light); border-radius:10px; background:#fff;"></select>
+      </label>
+      <label style="font-size:.8rem; color:var(--text-muted);">افزودن ربات معامله‌گر
+        <select id="vBot" style="width:100%; margin-top:.3rem; padding:.55rem .75rem; border:1.5px solid var(--border-light); border-radius:10px; background:#fff;">
+          <option value="false">خیر — فقط سیگنال‌ها</option>
+        </select>
+      </label>
+      <label style="font-size:.8rem; color:var(--text-muted);" class="span2" >TxHash / TXID
+        <input id="vTx" placeholder="مثال: a1b2c3…f9 (هش تراکنش واریز)" style="width:100%; margin-top:.3rem; padding:.55rem .75rem; border:1.5px solid var(--border-light); border-radius:10px; direction:ltr; font-family:monospace;">
+      </label>
+    </div>
+    <button id="vSubmit" class="btn btn-primary" style="margin-top:1rem;"><i class="bi bi-shield-check"></i> بررسی و فعال‌سازی</button>
+    <div id="vResult" style="margin-top:.8rem; font-size:.88rem; line-height:1.9;"></div>
+  </div>
+</section>
+
+<section class="container myket-hide" style="max-width:960px; padding-top:1.5rem; padding-bottom:3rem;">
+  <h2 class="section-title" style="text-align:center;">سفارش‌های من</h2>
+  <p class="section-subtitle" style="text-align:center;">تاریخچه واقعی پرداخت‌ها از سرور: موفق، در انتظار بررسی، ناموفق یا منقضی.</p>
+  <div style="background:#fff; border:1.5px solid var(--border-light); border-radius:18px; padding:1.2rem;">
+    <div id="ordersGate" style="display:none; text-align:center; color:var(--text-muted); font-size:.9rem;">
+      برای نمایش سفارش‌ها ابتدا <a href="/?auth=login" style="color:var(--brand-indigo);">وارد شوید</a>.
+    </div>
+    <div style="overflow-x:auto;">
+      <table id="ordersTable" style="width:100%; border-collapse:collapse; font-size:.85rem;">
+        <thead><tr style="color:var(--text-muted); border-bottom:1.5px solid var(--border-light);">
+          <th style="text-align:right; padding:.6rem .7rem;">پلن</th>
+          <th style="text-align:right; padding:.6rem .7rem;">مبلغ</th>
+          <th style="text-align:right; padding:.6rem .7rem;">روش</th>
+          <th style="text-align:right; padding:.6rem .7rem;">وضعیت</th>
+          <th style="text-align:right; padding:.6rem .7rem;">تاریخ ثبت</th>
+          <th style="text-align:right; padding:.6rem .7rem;">اعتبار تا</th>
+        </tr></thead>
+        <tbody id="ordersBody"></tbody>
+      </table>
+    </div>
+    <div id="ordersEmpty" style="display:none; text-align:center; color:var(--text-muted); padding:1.2rem 0;">
+      <i class="bi bi-inbox" style="font-size:1.4rem;"></i>
+      <p style="margin:.4rem 0 0;">هنوز سفارشی ثبت نکرده‌اید — همین حالا می‌توانید شروع کنید.</p>
+    </div>
+  </div>
+</section>
+
+<script src="/static/js/template.js?v=20261024a"></script>
+<script src="/static/js/purchase.js?v=20261024a"></script>
+<script>
+(function () {
+  const token = (function () { try { return localStorage.getItem('ibots_token'); } catch (e) { return null; } })();
+  const STATE_FA = {
+    success: ['st-success', 'موفق'],
+    pending: ['st-pending', 'در انتظار'],
+    expired: ['st-expired', 'منقضی'],
+    failed:  ['st-failed', 'ناموفق'],
+    canceled:['st-canceled', 'لغو شده']
+  };
+  const METHOD_FA = { crypto_usdt: 'USDT', bazaar: 'کافه بازار', myket: 'مایکت', iranapps: 'IranApps' };
+
+  function money(v, cur) {
+    if (v === null || v === undefined) return '—';
+    let txt = Number(v).toLocaleString('en-US');
+    return cur === 'usdt' ? (txt + ' USDT') : (txt + ' تومان');
+  }
+
+  function fmtDate(s) {
+    if (!s) return '—';
+    try { return new Date(s).toLocaleDateString('fa-IR', { year: 'numeric', month: '2-digit', day: '2-digit' }); }
+    catch (e) { return s; }
+  }
+
+  async function loadPlans() {
+    const grid = document.getElementById('plansGrid');
+    if (!grid) return;
+    try {
+      const r = await fetch('/api/v1/subscriptions/plans');
+      const d = await r.json();
+      if (!d || d.status !== 'success' || !Array.isArray(d.plans) || !d.plans.length) throw new Error('no plans');
+      const sel = document.getElementById('vPlan');
+      sel.innerHTML = d.plans.map(p =>
+        '<option value="' + p.code + '">' + p.title_fa + '</option>').join('');
+      grid.innerHTML = d.plans.map(p => {
+        const pop = p.is_popular ? ' popular' : '';
+        const fb = p.is_popular ? '<span class="plan-badge">محبوب‌ترین</span>' : '';
+        const disc = p.discount_label ? '<span class="state-chip st-pending" style="margin-inline-end:.4rem;">' + p.discount_label + '</span>' : '';
+        const toman = window.__iboUsdtRate ? Math.round(p.base_price_usdt * window.__iboUsdtRate) : p.base_price_toman;
+        return '<div class="plan-card' + pop + '">' + fb +
+          '<h3 style="font-weight:900; font-size:1.05rem; margin-bottom:.35rem;">' + p.title_fa + '</h3>' +
+          '<div class="plan-price usdt-only">' + disc + money(p.base_price_usdt, 'usdt') + '<br><small>' + money(toman, 'toman') + '</small></div>' +
+          '<div class="myket-only" style="font-weight:900; color:var(--brand-indigo); margin:.45rem 0;"><span class="mk-price" data-sku="ibo_plan_' + p.code + '">در حال دریافت قیمت از مایکت…</span></div>' +
+          '<ul class="plan-features">' +
+            '<li>دسترسی کامل به سیگنال‌های زنده</li>' +
+            '<li>مدت ' + p.duration_days + ' روز اعتبار</li>' +
+            (p.bot_addon_price_usdt > 0 ? '<li class="usdt-only">افزونه ربات معامله‌گر: ' + money(p.bot_addon_price_usdt, 'usdt') + '</li>' : '') +
+          '</ul>' +
+          '<button class="btn btn-emerald" style="width:100%; justify-content:center; cursor:pointer;" onclick="openBuyPopup && openBuyPopup(\'' + p.code + '\', false)">انتخاب و پرداخت</button>' +
+        '</div>';
+      }).join('');
+      if (window.iboRequestMyketPrices) window.iboRequestMyketPrices();
+    } catch (e) {
+      grid.innerHTML = '<div class="span2" style="grid-column:1/-1; text-align:center; color:#E11D48;">دریافت پلن‌ها ممکن نشد؛ چند لحظه بعد دوباره امتحان کنید.</div>';
+    }
+  }
+
+  async function loadWallets() {
+    const box = document.getElementById('walletsBox');
+    try {
+      const r = await fetch('/api/v1/subscriptions/plans');
+      const d = await r.json();
+      const w = (d || {}).deposit_wallets || {};
+      const items = Object.keys(w).map(function (k) {
+        return '<div style="display:flex; align-items:center; gap:.6rem; background:var(--canvas-subtle); border:1px solid var(--border-light); border-radius:12px; padding:.7rem .9rem;">' +
+          '<b style="font-size:.8rem; color:var(--brand-indigo); min-width:110px;">' + k.replace('USDT_', 'USDT - ') + '</b>' +
+          '<code style="flex:1; direction:ltr; font-size:.78rem; word-break:break-all;">' + w[k] + '</code>' +
+          '<button class="btn btn-sm btn-outline" style="padding:.3rem .7rem;" onclick="window.__copyAddr && window.__copyAddr(\'' + w[k] + '\', this)">کپی</button></div>';
+      }).join('');
+      box.innerHTML = items || '<div style="color:var(--text-muted);">آدرس‌های واریز در دسترس نیستند؛ با پشتیبانی تماس بگیرید.</div>';
+      window.__copyAddr = function (addr, btn) {
+        navigator.clipboard && navigator.clipboard.writeText(addr);
+        const old = btn.textContent; btn.textContent = 'کپی شد';
+        setTimeout(function () { btn.textContent = old; }, 1600);
+      };
+    } catch (e) {
+      box.innerHTML = '<div style="color:#E11D48;">خطا در دریافت آدرس‌ها؛ دوباره تلاش کنید.</div>';
+    }
+  }
+
+  function renderOrders(list) {
+    const body = document.getElementById('ordersBody');
+    if (!list || !list.length) {
+      document.getElementById('ordersEmpty').style.display = 'block';
+      body.innerHTML = '';
+      return;
+    }
+    document.getElementById('ordersEmpty').style.display = 'none';
+    body.innerHTML = list.map(function (o) {
+      const st = STATE_FA[o.state] ? STATE_FA[o.state] : ['st-expired', o.state];
+      const amt = o.price_usdt && Number(o.price_usdt) > 0 ? money(o.price_usdt, 'usdt')
+                : (o.price_toman ? money(o.price_toman, 'toman') : '—');
+      return '<tr>' +
+        '<td style="padding:.55rem .7rem; font-weight:800;">' + (o.plan_title || o.plan_code) + (o.bot_addon ? ' + ربات' : '') + '</td>' +
+        '<td style="padding:.55rem .7rem;">' + amt + '</td>' +
+        '<td style="padding:.55rem .7rem;">' + (METHOD_FA[o.payment_method] || o.payment_method || '—') + '</td>' +
+        '<td style="padding:.55rem .7rem;"><span class="state-chip ' + st[0] + '">' + st[1] + '</span></td>' +
+        '<td style="padding:.55rem .7rem;">' + fmtDate(o.created_at) + '</td>' +
+        '<td style="padding:.55rem .7rem;">' + (o.state === 'pending' ? 'پس از تأیید تراکنش' : fmtDate(o.expires_at)) + '</td>' +
+      '</tr>';
+    }).join('');
+  }
+
+  async function loadOrders() {
+    const gate = document.getElementById('ordersGate');
+    if (!token) { gate.style.display = 'block'; document.getElementById('ordersTable').style.display = 'none'; return; }
+    gate.style.display = 'none';
+    try {
+      const r = await fetch('/api/v1/subscriptions/orders', {
+        headers: { 'Authorization': 'Bearer ' + token }
+      });
+      const d = await r.json();
+      renderOrders((d || {}).orders || []);
+    } catch (e) {
+      document.getElementById('ordersEmpty').style.display = 'block';
+    }
+  }
+
+  async function submitVerify() {
+    const out = document.getElementById('vResult');
+    const btn = document.getElementById('vSubmit');
+    const tx = (document.getElementById('vTx').value || '').trim();
+    const plan = document.getElementById('vPlan').value;
+    const net = document.getElementById('vNetwork').value;
+    const bot = document.getElementById('vBot').value === 'true';
+    if (!token) { out.innerHTML = '<span style="color:var(--amber-gold); font-weight:700;">وارد حساب شوید سپس تراکنش را ثبت کنید.</span>'; return; }
+    if (!tx || !plan) { out.innerHTML = '<span style="color:var(--loss-rose); font-weight:700;">شبکه، پلن و TxHash را کامل وارد کنید.</span>'; return; }
+    btn.disabled = true; btn.style.opacity = .6;
+    out.innerHTML = 'در حال بررسی تراکنش در بلاک‌چین…';
+    try {
+      const r = await fetch('/api/v1/subscriptions/crypto-verify', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
+        body: JSON.stringify({ plan_code: plan, has_bot_addon: bot, network: net, tx_hash: tx })
+      });
+      const d = await r.json();
+      if (r.status === 402) {
+        out.innerHTML = '<span style="color:var(--loss-rose);">اشتراک فعال ندارید؛ پس از خرید دوباره امتحان کنید.</span>';
+      } else if (d && d.status === 'success') {
+        out.innerHTML = '<span style="color:var(--profit-emerald); font-weight:800;">✓ تراکنش تأیید شد و اشتراک فعال گردید.</span>';
+        document.getElementById('vTx').value = '';
+      } else {
+        out.innerHTML = '<span style="color:var(--amber-gold);">' + ((d && (d.message || d.detail)) || 'تراکنش قابل تأیید نبود؛ پس از چند تأییدِ شبکه دوباره ثبت کنید یا با پشتیبانی تماس بگیرید.') + '</span>';
+      }
+    } catch (e) {
+      out.innerHTML = '<span style="color:var(--loss-rose);">ارتباط با سرور برقرار نشد؛ دوباره تلاش کنید.</span>';
+    }
+    btn.disabled = false; btn.style.opacity = 1;
+    loadOrders();
+  }
+
+  async function refreshLiveRate() {
+    try {
+      const r = await fetch('/api/v1/market/usdt-rate');
+      const d = await r.json();
+      if (d && d.usdt_toman > 0) {
+        const changed = window.__iboUsdtRate !== d.usdt_toman;
+        window.__iboUsdtRate = d.usdt_toman;
+        if (changed && window.__iboPlansLoaded) loadPlans();
+      }
+    } catch (e) { /* keep last known rate */ }
+  }
+  window.__iboPlansLoaded = false;
+  const _loadPlans = loadPlans;
+  loadPlans = async function () {
+    await _loadPlans();
+    window.__iboPlansLoaded = true;
+  };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function () {
+      loadPlans(); loadWallets(); loadOrders();
+      document.getElementById('vSubmit').addEventListener('click', submitVerify);
+      if (!token) document.getElementById('verifyLoginGate').style.display = 'block';
+      setInterval(refreshLiveRate, 60000);
+      refreshLiveRate();
+    });
+  } else {
+    loadPlans(); loadWallets(); loadOrders();
+    document.getElementById('vSubmit').addEventListener('click', submitVerify);
+    if (!token) document.getElementById('verifyLoginGate').style.display = 'block';
+    setInterval(refreshLiveRate, 60000);
+    refreshLiveRate();
+  }
+})();
+</script>
+</body>
+</html>

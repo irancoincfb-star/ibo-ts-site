@@ -1,0 +1,51 @@
+{
+  "name": "IBO-TS | سیگنال و ربات معاملاتی هوشمند",
+  "short_name": "IBO-TS",
+  "description": "سامانه انحصاری الگوریتمی ارائه‌دهنده سیگنال‌های کریپتو و معامله خودکار با اتصال امن به ۱۸ صرافی بین‌المللی و ایرانی",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#FFFFFF",
+  "theme_color": "#4F46E5",
+  "lang": "fa-IR",
+  "dir": "rtl",
+  "categories": ["finance", "business", "utilities"],
+  "icons": [
+    {
+      "src": "/static/assets/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/static/assets/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "سیگنال‌های زنده",
+      "short_name": "سیگنال‌ها",
+      "description": "مشاهده سیگنال‌های فعال و باز",
+      "url": "/#signals",
+      "icons": [{ "src": "/static/assets/icons/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "پورتفولیو و موجودی",
+      "short_name": "پورتفولیو",
+      "description": "مدیریت حساب و موجودی صرافی",
+      "url": "/#portfolio",
+      "icons": [{ "src": "/static/assets/icons/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "ربات معامله‌گر",
+      "short_name": "ربات",
+      "description": "کنترل و تنظیمات اجرای خودکار",
+      "url": "/#trading-bot",
+      "icons": [{ "src": "/static/assets/icons/icon-192.png", "sizes": "192x192" }]
+    }
+  ]
+}

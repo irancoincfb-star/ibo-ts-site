@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>IBO-TS | سامانه انحصاری سیگنال‌های معاملاتی و ربات تریدر هوشمند ۱۸ صرافی</title>
+  
+  <!-- Canonical & Essential SEO -->
+  <link rel="canonical" href="https://ibo-ts.com/">
+  <meta name="description" content="سامانه الگوریتمی و هوشمند IBO-TS: ارائه سیگنال‌های فوق‌دقیق ارز دیجیتال و اجرای خودکار معاملات با اتصال امن API Key به ۱۸ صرافی بین‌المللی و ایرانی. مدیریت پیشرفته سرمایه، بدون دخالت احساسات انسانی و با نرخ برد تثبیت‌شده.">
+  <meta name="keywords" content="سیگنال ارز دیجیتال, ربات معامله گر خودکار, ترید اتوماتیک, صرافی نوبیتکس, بایننس, بای بیت, بیت پین, رمزینکس, ibo-ts, مدیریت ریسک ترید">
+  <meta name="author" content="IBO-TS Financial Technologies">
+  <meta name="robots" content="index, follow">
+  
+  <!-- Open Graph / Social Media -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://ibo-ts.com/">
+  <meta property="og:title" content="IBO-TS | سامانه انحصاری سیگنال‌های معاملاتی و ربات تریدر هوشمند">
+  <meta property="og:description" content="دریافت سیگنال‌های معتبر و اتصال خودکار به ۱۸ صرافی معتبر کریپتو. رشد پیوسته سرمایه با مدیریت ریسک انحصاری.">
+  <meta property="og:image" content="https://ibo-ts.com/static/assets/ibots_logo_transparent.png">
+  <meta property="og:site_name" content="IBO-TS">
+  <meta property="og:locale" content="fa_IR">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://ibo-ts.com/">
+  <meta name="twitter:title" content="IBO-TS TRADING SIGNALS">
+  <meta name="twitter:description" content="سیستم معاملاتی هوشمند و الگوریتمی متصل به ۱۸ صرافی ارز دیجیتال.">
+  <meta name="twitter:image" content="https://ibo-ts.com/static/assets/ibots_logo_transparent.png">
+
+  <!-- PWA & Mobile Web App Meta -->
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#4F46E5">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="IBO-TS">
+  <link rel="apple-touch-icon" href="/static/assets/icons/icon-192.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/static/assets/icons/favicon.png">
+  <link rel="shortcut icon" href="/static/assets/icons/favicon.ico">
+
+  <!-- Stylesheets & Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="/static/css/style.css?v=20261024a">
+  <link rel="stylesheet" href="/static/css/template.css?v=20261024a">
+
+  <!-- Google Identity Services SDK -->
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+
+  <!-- Structured Data JSON-LD for SEO, GEO & AEO -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://ibo-ts.com/#organization",
+        "name": "IBO-TS TRADING SIGNALS",
+        "url": "https://ibo-ts.com",
+        "logo": "https://ibo-ts.com/static/assets/ibots_logo_transparent.png",
+        "email": "support@ibo-ts.com",
+        "description": "ارائه‌دهنده سیستم‌های انحصاری معاملات الگوریتمی و سیگنال‌های بازارهای مالی"
+      },
+      {
+        "@type": "SoftwareApplication",
+        "name": "IBO-TS Trader Platform",
+        "applicationCategory": "FinanceApplication",
+        "operatingSystem": "Android, Web, PWA",
+        "downloadUrl": "https://ibo-ts.com/download/ibo-ts-trader.apk",
+        "offers": {
+          "@type": "Offer",
+          "priceCurrency": "USD",
+          "price": "29.00"
+        }
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "سامانه معاملاتی IBO-TS چیست و چه مزایایی دارد؟",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "IBO-TS یک بستر پیشرفته معاملاتی است که با استفاده از موتور الگوریتمی انحصاری و پایش عمیق رفتار نقدینگی، سودآورترین فرصت‌های ورود و خروج را شناسایی کرده و به صورت خودکار یا سیگنال روی ۱۸ صرافی اجرا می‌نماید."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "امنیت کلیدهای API کاربران چگونه تضمین می‌شود؟",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "کلیدهای API با استاندارد رمزنگاری پیشرفته سخت‌افزاری AES-256 ذخیره می‌شوند. سیستم صرفاً به مجوز معامله (Trade) نیاز دارد و فاقد هرگونه دسترسی برداشت وجه (Withdrawal) است."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+<style>
+@keyframes pulse {
+  0% { opacity: 1; }
+  50% { opacity: 0.5; }
+  100% { opacity: 1; }
+}
+</style>
+</head>
+<body>
+  <!-- ============ SPLASH (sync — covers page instantly from first paint) ============ -->
+  <div id="appSplash" style="position:fixed; inset:0; z-index:99999; background:#FFFFFF; display:flex; align-items:center; justify-content:center; flex-direction:column; opacity:1; transition:opacity .5s ease;">
+    <video id="splashVideo" muted autoplay loop playsinline style="display:none; position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:0; transition:opacity .6s ease; background:#FFFFFF;"></video>
+    <img src="/static/assets/ibots_logo_transparent.png" alt="IBO-TS" style="width:88px; height:88px; object-fit:contain; position:relative;">
+    <div style="position:relative; margin-top:1rem; font-weight:900; font-size:1.5rem; letter-spacing:-.5px; color:#0F172A;">IBO-TS</div>
+    <div style="position:relative; margin-top:.35rem; font-size:.72rem; font-weight:700; color:#64748B;">QUANTITATIVE TRADING PLATFORM</div>
+    <div style="position:relative; margin-top:1.2rem; width:120px; height:3px; border-radius:999px; background:#EEF2FF; overflow:hidden;">
+      <div style="width:40%; height:100%; border-radius:999px; background:linear-gradient(90deg,#4F46E5,#10B981); animation:__iboSplashBar 1.1s ease-in-out infinite;"></div>
+    </div>
+    <style>@keyframes __iboSplashBar{0%{margin-inline-start:-40%}100%{margin-inline-start:100%}}</style>
+  </div>
+
+
+  <!-- Splash: activates only when /static/assets/splash/splash.mp4 exists (PWA/APK/browser) -->
+
+
+  <!-- ==================== HEADER (shared chrome injected by template.js) ==================== -->
+
+  <!-- ==================== MARQUEE: 18 EXCHANGES & COINCAP SYMBOLS ==================== -->
+  <div class="marquee-bar">
+    <div class="marquee-track">
+      <!-- 18 Exchanges Official Logos -->
+      <div class="marquee-item"><img src="/static/assets/logos/binance.png" alt="Binance"><span>Binance</span></div>
+      <div class="marquee-item"><img src="/static/assets/logos/bybit.png" alt="Bybit"><span>Bybit</span></div>
+      <div class="marquee-item"><img src="/static/assets/logos/bitunix.png" alt="Bitunix"><span>Bitunix</span></div>
+      <div class="marquee-item"><img src="/static/assets/logos/bingx.png" alt="BingX"><span>BingX</span></div>
+      <div class="marquee-item"><img src="/static/assets/logos/okx.png" alt="OKX"><span>OKX</span></div>
+      <div class="marquee-item"><img src="/static/assets/logos/gateio.png" alt="Gate.io"><span>Gate.io</span></div>
+      <div class="marquee-item"><img src="/static/assets/logos/kucoin.png" alt="KuCoin"><span>KuCoin</span></div>
+      <div class="marquee-item"><img src="/static/assets/logos/mexc.png" alt="MEXC"><span>MEXC</span></div>
+      <div class="marquee-item"><img src="/static/assets/logos/bitget.png" alt="Bitget"><span>Bitget</span></div>
+      <div class="marquee-item"><img src="/static/assets/logos/nobitex.png" alt="Nobitex"><span>نوبیتکس (Nobitex)</span></div>
+      <div class="marquee-item"><img src="/static/assets/logos/wallex.png" alt="Wallex"><span>والکس (Wallex)</span></div>
+      <div class="marquee-item"><img src="/static/assets/logos/tabdeal.png" alt="Tabdeal"><span>تبدیل (Tabdeal)</span></div>
+      <div class="marquee-item"><span>آبان‌تتر (AbanTether)</span></div>
+      <div class="marquee-item"><img src="/static/assets/logos/ramzinex.png" alt="Ramzinex"><span>رمزینکس (Ramzinex)</span></div>
+      <div class="marquee-item"><img src="/static/assets/logos/bitpin.png" alt="Bitpin"><span>بیت‌پین (Bitpin)</span></div>
+      <div class="marquee-item"><img src="/static/assets/logos/sarmayex.png" alt="Sarmayex"><span>سرمایکس (Sarmayex)</span></div>
+      <div class="marquee-item"><img src="/static/assets/logos/exir.png" onerror="this.src='/static/assets/icons/favicon.png'" alt="Exir"><span>اکسیر (Exir)</span></div>
+      <div class="marquee-item"><img src="/static/assets/logos/ompfinex.png" onerror="this.src='/static/assets/icons/favicon.png'" alt="Ompfinex"><span>اوام‌پی فینکس (Ompfinex)</span></div>
+
+      <!-- CoinCap Official Symbols -->
+      <div class="marquee-item"><img src="/static/assets/symbols/btc.png" alt="BTC"><span class="mono">BTC/USDT</span></div>
+      <div class="marquee-item"><img src="/static/assets/symbols/eth.png" alt="ETH"><span class="mono">ETH/USDT</span></div>
+      <div class="marquee-item"><img src="/static/assets/symbols/sol.png" alt="SOL"><span class="mono">SOL/USDT</span></div>
+      <div class="marquee-item"><img src="/static/assets/symbols/bnb.png" alt="BNB"><span class="mono">BNB/USDT</span></div>
+      <div class="marquee-item"><img src="/static/assets/symbols/xrp.png" alt="XRP"><span class="mono">XRP/USDT</span></div>
+      <div class="marquee-item"><img src="/static/assets/symbols/doge.png" alt="DOGE"><span class="mono">DOGE/USDT</span></div>
+      <div class="marquee-item"><img src="/static/assets/symbols/ton.png" alt="TON"><span class="mono">TON/USDT</span></div>
+      <div class="marquee-item"><img src="/static/assets/symbols/ada.png" alt="ADA"><span class="mono">ADA/USDT</span></div>
+    </div>
+  </div>
+
+  <!-- ==================== LIVE USDT RATE STRIP (60s REFRESH) ==================== -->
+  <div class="live-usdt-strip">
+    <div class="container live-usdt-inner">
+      <div class="usdt-rate-box">
+        <span class="pulse-dot"></span>
+        <span>نرخ مرجع لحظه‌ای تتر (USDT):</span>
+        <strong id="liveUsdtRateDisplay" class="mono" style="font-size: 1.05rem; color: var(--profit-emerald);">263,300</strong>
+        <span>تومان</span>
+      </div>
+      <div style="display: flex; align-items: center; gap: 0.75rem;">
+        <span class="timer-pill">
+          <i class="bi bi-stopwatch"></i>
+          <span>به‌روزرسانی بعدی:</span>
+          <strong id="usdtTimerCountdown" class="mono">60</strong>s
+        </span>
+        <button class="btn-mini-refresh" onclick="fetchLiveUsdtRate(true)">
+          <i class="bi bi-arrow-repeat"></i> رفرش نرخ
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== HERO SECTION ==================== -->
+  <section class="hero-section">
+    <div class="container">
+      <div class="hero-grid">
+        <div>
+          <div class="hero-badge-pill">
+            <span class="pulse-dot"></span>
+            <span>موتور اسکن و اجرای الگوریتمی فعال بر روی ۱۸ صرافی رسمی</span>
+          </div>
+
+          <h1 class="hero-heading">
+            ترید خودکار و مطمئن با <span class="hero-gradient-text">سامانه هوشمند IBO-TS</span>
+          </h1>
+
+          <p class="hero-description">
+            پلتفرم پیشرفته و محاسباتی <strong>IBO-TS</strong> با حذف کامل خطاهای روانی و رفتاری تریدرها، ردپای ورود و خروج نقدینگی کلان را به صورت بلادرنگ شناسایی کرده و با کنترل سخت‌گیرانه ریسک، بالاترین نرخ برد تثبیت‌شده را برای کاربران به ارمغان می‌آورد.
+          </p>
+
+          <div class="hero-cta-row">
+            <a href="/pricing" class="btn btn-emerald btn-lg">
+              <i class="bi bi-lightning-charge-fill"></i> فعال‌سازی و خرید اشتراک
+            </a>
+            <a href="/performance" class="btn btn-primary btn-lg">
+              <i class="bi bi-graph-up-arrow"></i> کارنامه و چارت‌های PnL
+            </a>
+            <a href="/download" class="btn btn-amber btn-lg">
+              <i class="bi bi-android2"></i> دانلود اپلیکیشن اندروید
+            </a>
+          </div>
+
+          <div class="hero-kpis">
+            <div class="kpi-card">
+              <span id="heroWinRate" class="kpi-value mono" style="color: var(--profit-emerald-light);">—</span>
+              <span class="kpi-label">نرخ برد استراتژی (Win Rate)</span>
+            </div>
+            <div class="kpi-card">
+              <span class="kpi-value mono" style="color: var(--brand-indigo);">18</span>
+              <span class="kpi-label">صرافی بین‌المللی و داخلی</span>
+            </div>
+            <div class="kpi-card">
+              <span class="kpi-value mono" style="color: var(--amber-gold);">1% - 100%</span>
+              <span class="kpi-label">تخصیص سرمایه منعطف</span>
+            </div>
+            <div class="kpi-card">
+              <span class="kpi-value mono" style="color: var(--text-heading);">24/7</span>
+              <span class="kpi-label">پایش مداوم بازارها</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hero Right: Executive Terminal Card -->
+        <div class="executive-terminal">
+          <div class="terminal-header">
+            <div class="terminal-title">
+              <i class="bi bi-cpu-fill" style="color: var(--brand-indigo);"></i>
+              <span>هسته پردازش IBO-TS</span>
+            </div>
+            <span id="terminalStatusBadge" class="terminal-badge mono">STATUS: LIVE</span>
+          </div>
+
+          <div class="terminal-metric-row">
+            <span class="terminal-label">کل دوره‌های معاملاتی موفق ثبت‌شده:</span>
+            <span id="terminalTotalCycles" class="terminal-val mono">—</span>
+          </div>
+
+          <div class="terminal-metric-row">
+            <span class="terminal-label">سودآوری تجمعی استراتژی سود و زیان (PnL):</span>
+            <span id="terminalTotalPnL" class="terminal-val mono" style="color: var(--profit-emerald);">—</span>
+          </div>
+
+          <div class="terminal-metric-row">
+            <span class="terminal-label">ضریب سود ناخالص به زیان پلتفرم:</span>
+            <span id="terminalProfitFactor" class="terminal-val mono">—</span>
+          </div>
+
+          <div class="terminal-footer-security">
+            <i class="bi bi-shield-lock-fill" style="color: var(--profit-emerald); font-size: 1.1rem;"></i>
+            <span>رمزنگاری سخت‌افزاری کلیدهای API با پروتکل AES-256 بدون دسترسی برداشت</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== SECTION: 4 PNL CHARTS & METRICS ==================== -->
+  <section id="pnl-performance" class="section-pnl">
+    <div class="container">
+      <div class="section-head">
+        <span class="section-tag"><i class="bi bi-award-fill"></i> کارنامه رسمی و شفاف عملکرد</span>
+        <h2 class="section-title">چارت‌ها و نمودارهای تحلیل بازدهی استراتژی</h2>
+        <p class="section-subtitle">
+          گزارش آماری دقیق سود و زیان (PnL) استخراج‌شده از تاریخچه معاملات بسته شده. شفافیت مطلق در ارزیابی نرخ برد، بدون بازنمایی جزئیات متغیرهای محرمانه الگوریتم.
+        </p>
+
+        <!-- Timeframe Pills -->
+        <div class="timeframe-pill-group">
+          <button class="tf-btn" data-tf="24h" onclick="fetchPerformanceAnalytics('24h')">24 ساعت اخیر</button>
+          <button class="tf-btn" data-tf="7d" onclick="fetchPerformanceAnalytics('7d')">7 روز گذشته</button>
+          <button class="tf-btn" data-tf="30d" onclick="fetchPerformanceAnalytics('30d')">30 روز گذشته</button>
+          <button class="tf-btn active" data-tf="all" onclick="fetchPerformanceAnalytics('all')">کل دوره عملکرد</button>
+        </div>
+      </div>
+
+      <!-- 4 Visual Analytics & Charts Grid -->
+      <div class="charts-grid-four">
+        <!-- Chart 1: Donut Ratio (Take Profit vs Stop Loss) -->
+        <div class="chart-card">
+          <div class="chart-card-head">
+            <h3 class="chart-card-title"><i class="bi bi-pie-chart-fill" style="color: var(--profit-emerald);"></i> توزیع معاملات تارگت در برابر حد ضرر</h3>
+            <span class="mono" style="font-size: 0.82rem; font-weight: 800; color: var(--text-muted);">TP / SL RATIO</span>
+          </div>
+          <div class="chart-canvas-wrapper">
+            <canvas id="donutChartCanvas"></canvas>
+          </div>
+          <div style="display: flex; justify-content: center; gap: 2rem; margin-top: 1rem; font-size: 0.85rem; font-weight: 800;">
+            <div style="display: flex; align-items: center; gap: 0.4rem;">
+              <span style="width: 12px; height: 12px; background: #10B981; border-radius: 3px;"></span>
+              <span>سودده TP</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 0.4rem;">
+              <span style="width: 12px; height: 12px; background: #F43F5E; border-radius: 3px;"></span>
+              <span>حد ضرر SL</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Chart 2: Cumulative Equity Growth Curve -->
+        <div class="chart-card">
+          <div class="chart-card-head">
+            <h3 class="chart-card-title"><i class="bi bi-graph-up" style="color: var(--brand-indigo);"></i> روند صعودی و رشد پیوسته کل سرمایه</h3>
+            <span class="mono" style="font-size: 0.82rem; font-weight: 800; color: var(--brand-indigo);">CUMULATIVE GROWTH</span>
+          </div>
+          <div class="chart-canvas-wrapper">
+            <canvas id="equityChartCanvas"></canvas>
+          </div>
+          <div style="text-align: center; margin-top: 1rem; font-size: 0.82rem; color: var(--text-muted); font-weight: 700;">
+            مسیر پیوسته رشد سرمایه با مدیریت بهینه افت سرمایه
+          </div>
+        </div>
+
+        <!-- Chart 3: PnL Histogram -->
+        <div class="chart-card">
+          <div class="chart-card-head">
+            <h3 class="chart-card-title"><i class="bi bi-bar-chart-fill" style="color: var(--profit-emerald);"></i> توزیع بازدهی معاملات (سود / زیان)</h3>
+            <span class="mono" style="font-size: 0.82rem; font-weight: 800; color: var(--text-muted);">PnL HISTOGRAM</span>
+          </div>
+          <div class="chart-canvas-wrapper">
+            <canvas id="pnlHistogramCanvas"></canvas>
+          </div>
+          <div style="text-align: center; margin-top: 1rem; font-size: 0.82rem; color: var(--text-muted); font-weight: 700;">
+            درصد بازدهی هر معامله بسته‌شده در بازه انتخابی
+          </div>
+        </div>
+
+        <!-- Chart 4: Drawdown -->
+        <div class="chart-card">
+          <div class="chart-card-head">
+            <h3 class="chart-card-title"><i class="bi bi-activity" style="color: #F59E0B;"></i> نمودار افت سرمایه از سقف (Drawdown)</h3>
+            <span class="mono" style="font-size: 0.82rem; font-weight: 800; color: #F59E0B;">RISK CONTROL</span>
+          </div>
+          <div class="chart-canvas-wrapper">
+            <canvas id="drawdownChartCanvas"></canvas>
+          </div>
+          <div style="text-align: center; margin-top: 1rem; font-size: 0.82rem; color: var(--text-muted); font-weight: 700;">
+            میزان افت سرمایه نسبت به بالاترین سقف ثبت‌شده
+          </div>
+        </div>
+      </div>
+
+      <!-- KPI Summary 4-Row -->
+      <div class="kpi-four-row">
+        <div class="kpi-stat-box">
+          <span id="metricWinRate" class="kpi-stat-num mono" style="color: var(--profit-emerald);">—</span>
+          <span class="kpi-stat-title">نرخ برد استراتژی</span>
+        </div>
+        <div class="kpi-stat-box">
+          <span id="metricTotalTrades" class="kpi-stat-num mono">—</span>
+          <span class="kpi-stat-title">مجموع معاملات ثبت‌شده</span>
+        </div>
+        <div class="kpi-stat-box">
+          <span id="metricCumPnl" class="kpi-stat-num mono" style="color: var(--profit-emerald);">—</span>
+          <span class="kpi-stat-title">سود و زیان (PnL) کل دوره</span>
+        </div>
+        <div class="kpi-stat-box">
+          <span id="metricProfitFactor" class="kpi-stat-num mono">—</span>
+          <span class="kpi-stat-title">فاکتور سودآوری پلتفرم</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== SECTION: SUBSCRIPTION PLANS ==================== -->
+  <section id="pricing" class="section-pricing">
+    <div class="container">
+      <div class="section-head">
+        <span class="section-tag"><i class="bi bi-gem"></i> پلن‌های سرمایه‌گذاری و اشتراک</span>
+        <h2 class="section-title">انتخاب دوره اشتراک معاملاتی IBO-TS</h2>
+        <p class="section-subtitle">
+          تمامی مبالغ با نرخ لحظه‌ای تتر محاسبه می‌شوند. با انتخاب هر پلن، پرداخت به درگاه رسمی مایکت هدایت می‌شود.
+        </p>
+        </div>
+      </div>
+
+      <!-- Interactive Trading Bot Addon Switch -->
+      <div class="bot-addon-selector-card">
+        <div class="addon-info-left">
+          <div class="addon-icon"><i class="bi bi-robot"></i></div>
+          <div>
+            <div class="addon-title">افزونه ربات معامله‌گر خودکار اتوتریدر اختصاصی ۱۸ صرافی</div>
+            <div class="addon-desc">اجرای اتوماتیک سفارشات با API Key بدون نیاز به رصد دائمی چارت توسط کاربر</div>
+          </div>
+        </div>
+        <label class="addon-toggle-switch">
+          <input type="checkbox" id="botAddonToggle" onchange="toggleBotAddon(this.checked)">
+          <span class="toggle-slider"></span>
+        </label>
+      </div>
+
+      <!-- Pricing Plans Grid (5 Tiers) -->
+      <div id="pricingCardsGrid" class="pricing-grid">
+        <!-- Rendered dynamically by JavaScript with live rate and bot addon calculations -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== SECTION: WHY US (PSYCHOLOGICAL & EXCLUSIVE) ==================== -->
+  <section id="why-us" class="section-features">
+    <div class="container">
+      <div class="section-head">
+        <span class="section-tag pulse-tag"><i class="bi bi-stars"></i> مزیت‌های رقابتی و انحصاری</span>
+        <h2 class="section-title">چرا تریدرهای حرفه‌ای IBO-TS را انتخاب می‌کنند؟</h2>
+        <p class="section-subtitle">
+          بازار ارزهای دیجیتال میدان نبرد داده‌هاست. ما احساسات، تردید و طمع را با محاسبات سرد و منظم جایگزین کرده‌ایم.
+        </p>
+      </div>
+
+      <div class="features-grid-four">
+        <div class="feature-box feature-grad-1">
+          <div class="feature-icon-badge icon-grad-1">
+            <i class="bi bi-shield-check"></i>
+          </div>
+          <h3 class="feature-title">خنثی‌سازی تله‌های نقدینگی نهنگ‌ها</h3>
+          <p class="feature-text">
+            اکثر فعالان بازار در شکست‌های فیک به دام می‌افتند. هسته پردازشی IBO-TS جریان سفارشات تجمیعی را غربالگری کرده و تنها زمانی وارد معامله می‌شود که خلوص مومنتوم تایید شده باشد.
+          </p>
+        </div>
+
+        <div class="feature-box feature-grad-2">
+          <div class="feature-icon-badge icon-grad-2">
+            <i class="bi bi-sliders2"></i>
+          </div>
+          <h3 class="feature-title">مدیریت سرمایه ریاضیاتی</h3>
+          <p class="feature-text">
+            در صرافی‌های بین‌المللی، هر معامله بر مبنای 1% از موجودی تتر وارد می‌شود تا ریسک بازار خرد شود. در صرافی‌های ایرانی نیز کل دارایی به تتر سنجیده شده و در مارکت اسپات ترید می‌گردد.
+          </p>
+        </div>
+
+        <div class="feature-box feature-grad-3">
+          <div class="feature-icon-badge icon-grad-3">
+            <i class="bi bi-lightning-charge"></i>
+          </div>
+          <h3 class="feature-title">استراتژی انحصاری و اختصاصی</h3>
+          <p class="feature-text">
+            ما از هیچ اندیکاتور عمومی یا فرمول بازاری استفاده نمی‌کنیم. سیستم بر پایه الگوریتم‌های اختصاصی، پایش عمق نقدینگی و محاسبات آماری انحصاری استوار است.
+          </p>
+        </div>
+
+        <div class="feature-box feature-grad-4">
+          <div class="feature-icon-badge icon-grad-4">
+            <i class="bi bi-cpu-fill"></i>
+          </div>
+          <h3 class="feature-title">اجرای پرسرعت فرکانس بالا</h3>
+          <p class="feature-text">
+            ارسال و اجرای بلادرنگ سفارشات با تاخیر زیر 50 میلی‌ثانیه بر بستر سرورهای اختصاصی مستقر در مراکز داده متصل به 18 صرافی بین‌المللی و داخلی.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== SECTION: ABOUT US ==================== -->
+  <section id="about" class="section-about">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-content">
+          <span class="section-tag"><i class="bi bi-info-circle-fill"></i> هویت و رسالت پلتفرم</span>
+          <h2>درباره تیم مهندسی مالی IBO-TS</h2>
+          <p>
+            پلتفرم <strong>IBO-TS</strong> حاصل سال‌ها پژوهش در حوزه مهندسی مالی، ترید فرکانس بالا (HFT) و تحلیل رفتار نهنگ‌های کریپتو است. هدف ما توانمندسازی سرمایه‌گذاران با تکیه بر ابزارهای نظام‌مند و دور ماندن از تصمیمات هیجانی است.
+          </p>
+          <p>
+            تعهد ما ایجاد بستری ایمن، اتوماتیک و با کمترین تاخیر در اجرای سفارشات روی ۱۸ صرافی پیشرو است؛ بستری که کاربر بتواند بدون دغدغه بیداری شبانه، جریان مداوم معاملات را تجربه کند.
+          </p>
+        </div>
+
+        <div class="about-badges-grid">
+          <div class="about-badge-item badge-spectrum-1">
+            <h4><i class="bi bi-shield-lock-fill" style="color: var(--brand-indigo);"></i> امنیت سخت‌افزاری AES-256</h4>
+            <p>ذخیره‌سازی ایزوله کلیدها بدون دسترسی برداشت سرمایه</p>
+          </div>
+          <div class="about-badge-item badge-spectrum-2">
+            <h4><i class="bi bi-diagram-3-fill" style="color: var(--profit-emerald);"></i> پوشش سراسری ۱۸ صرافی</h4>
+            <p>همگام‌سازی همزمان میان صرافی‌های بین‌المللی و داخلی</p>
+          </div>
+          <div class="about-badge-item badge-spectrum-3">
+            <h4><i class="bi bi-activity" style="color: var(--amber-gold);"></i> اعتبارسنجی مداوم داده‌ها</h4>
+            <p>پایش مداوم قیمت، تارگت سود و حد ضرر پویا</p>
+          </div>
+          <div class="about-badge-item badge-spectrum-4">
+            <h4><i class="bi bi-headset" style="color: #EC4899;"></i> پشتیبانی اختصاصی 24/7</h4>
+            <p>رسیدگی فوری به پیام‌ها از طریق support@ibo-ts.com</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== USER DASHBOARD VIEW (GATED AFTER AUTH) ==================== -->
+  <section id="dashboardSection" class="dashboard-view-wrapper">
+    <div class="container">
+      <div class="dashboard-header-bar">
+        <div class="dashboard-user-greeting">
+          <h2>میز کار و داشبورد معاملاتی کاربر</h2>
+          <p>خوش آمدید | حساب: <span id="dashboardUserEmail" class="mono font-bold">کاربر گرامی</span></p>
+        </div>
+        <div style="display: flex; gap: 0.75rem;">
+          <button class="btn btn-danger btn-sm" onclick="triggerPanicKillSwitch()">
+            <i class="bi bi-shield-slash-fill"></i> توقف اضطراری (Panic Kill-Switch)
+          </button>
+        </div>
+      </div>
+
+      <!-- Telegram signal alerts (works with or without active subscription) -->
+      <div id="telegramCard" style="background:#FFFFFF;border:1.5px solid var(--border-light);border-radius:var(--radius-lg);padding:1.25rem 1.5rem;margin-bottom:1.5rem;display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap;">
+        <div style="display:flex;align-items:center;gap:0.9rem;">
+          <div style="width:44px;height:44px;border-radius:50%;background:#229ED9;display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.35rem;"><i class="bi bi-telegram"></i></div>
+          <div>
+            <h4 style="font-size:1rem;font-weight:900;color:var(--text-heading);margin:0;">دریافت سیگنال در تلگرام</h4>
+            <p id="telegramCardStatus" style="font-size:0.82rem;color:var(--text-muted);margin:2px 0 0;">در حال بررسی وضعیت اتصال...</p>
+          </div>
+        </div>
+        <div style="display:flex;gap:0.5rem;">
+          <button id="telegramLinkBtn" class="btn btn-primary btn-sm" onclick="connectTelegram()" style="display:none;">
+            <i class="bi bi-telegram"></i> اتصال تلگرام
+          </button>
+          <button id="telegramUnlinkBtn" class="btn btn-outline btn-sm" onclick="unlinkTelegram()" style="display:none;">
+            قطع اتصال
+          </button>
+        </div>
+      </div>
+
+      <!-- Locked Screen State for Non-Subscribers -->
+      <div id="dashboardLockScreen" class="subscription-lock-screen">
+        <div class="lock-icon-circle"><i class="bi bi-lock-fill"></i></div>
+        <h3 class="lock-title">داشبورد معاملاتی شما با اشتراک فعال باز می‌شود</h3>
+        <p class="lock-desc">
+          کاربر گرامی، داشبورد اختصاصی شما (اتصال صرافی، مانده و مارجین، اجرا/توقف/راه‌اندازی مجدد ربات،
+          تنظیم ریسک و مانیتورینگ زنده) پس از فعال‌سازی اشتراک به‌صورت کامل و شخصی برایتان باز می‌شود.
+          طبق سیاست شفافیت ما، در این حالت <b>داده‌ی نمایشی و نمونه‌ساز</b> جایگزین واقعیت نمی‌شود؛
+          داشبورد یا واقعاً باز است یا صادقانه قفل.
+        </p>
+        <a href="/pricing" class="btn btn-emerald btn-lg"><i class="bi bi-gem"></i> مشاهده و خرید پلن اشتراک</a>
+
+        <div style="max-width:720px; margin:2rem auto 0; text-align:right; background:var(--canvas-subtle); border:1.5px solid var(--border-light); border-radius:16px; padding:1.25rem 1.4rem;">
+          <h4 style="font-size:.98rem; font-weight:900; margin-bottom:.6rem;"><i class="bi bi-list-ol"></i> مسیر شما بعد از فعال‌سازی (۴ گام واقعی)</h4>
+          <ol style="font-size:.86rem; color:var(--text-body); line-height:2; margin:0; padding-inline-start:1.25rem;">
+            <li><b>اتصال صرافی:</b> صرافی خود را انتخاب و کلید <kbd>API Key</kbd> + <kbd>Secret</kbd> را — بدون مجوز برداشت — در Vault ثبت می‌کنید؛ سیستم فوراً آن را <b>تست</b> می‌کند و پاسخ OK می‌دهد.</li>
+            <li><b>مشاهده واقعی حساب:</b> چارت‌ها، نمودارها، ترازو مانده‌ی صرافی، سرمایه درگیر (مارجین) و پوزیشن‌های بازِ همان حساب برایتان زنده نمایش داده می‌شود.</li>
+            <li><b>کنترل کامل اجرا:</b> در هر لحظه می‌توانید ربات را <b>توقف/شروع مجدد</b> کنید، <b>Stop اضطراری (Panic Close)</b> را بزنید تا همه‌ی پوزیشن‌های آن حساب بسته شوند، و وضعیت را مانیتور کنید.</li>
+            <li><b>تنظیم کارشناسی ریسک:</b> مبلغ USDT ورودی هر معامله را به‌صورت درصدی از سرمایه (۱٪ تا ۱۰۰٪، پیش‌فرض محافظه‌کارانه ۱٪) و <b>حداکثر تعداد پوزیشن هم‌زمان</b> را تعیین می‌کنید.</li>
+          </ol>
+          <p style="font-size:.78rem; color:var(--text-muted); margin:.75rem 0 0; line-height:1.9;">
+            نمونه: با سرمایه ۱٬۰۰۰ USDT و ریسک ۱٪، هر پوزیشن در حدود ۱۰ USDT درگیر می‌شود؛ با حداکثر ۳ پوزیشن
+            هم‌زمان، بیشترین سرمایه درگیر شما حدود ۳۰ USDT می‌ماند — مثلاً حتی اگر همه SL بخورند، کل ریسک‌شده ≈ همان ۳۰ USDT است.
+          </p>
+        </div>
+      </div>
+
+      <!-- Unlocked Content for Active Subscribers -->
+      <div id="dashboardUnlockedContent" style="display: none;">
+        <!-- Trading Settings Slider -->
+        <div style="background: var(--canvas-subtle); border: 1.5px solid var(--border-light); border-radius: var(--radius-lg); padding: 1.75rem; margin-bottom: 2rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+            <div>
+              <h4 style="font-size: 1.1rem; font-weight: 900; color: var(--text-heading);">مدیریت درصد سرمایه در هر پوزیشن</h4>
+              <p style="font-size: 0.82rem; color: var(--text-muted);">پیش‌فرض سیستم ۱٪ می‌باشد (امکان تنظیم از ۱٪ تا ۱۰۰٪ بر مبنای USDT)</p>
+            </div>
+            <span id="capitalPctDisplay" class="mono font-bold" style="font-size: 1.4rem; color: var(--brand-indigo);">1%</span>
+          </div>
+          <input type="range" id="capitalPctSlider" min="1" max="100" value="1" style="width: 100%; accent-color: var(--brand-indigo);" oninput="updateCapitalAllocation(this.value)">
+        </div>
+
+        <!-- Live Subscribed Signals Feed -->
+        <div style="background: #FFFFFF; border: 1.5px solid var(--border-light); border-radius: var(--radius-lg); padding: 1.75rem; box-shadow: var(--shadow-md);">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;">
+            <h3 style="font-size: 1.2rem; font-weight: 900; color: var(--text-heading);">سیگنال‌های معاملاتی فعال (جریان زنده)</h3>
+            <span class="badge-direction badge-buy"><i class="bi bi-broadcast"></i> استریم زنده</span>
+          </div>
+          <div style="overflow-x: auto;">
+            <table style="width: 100%; border-collapse: collapse; text-align: right; font-size: 0.88rem;">
+              <thead>
+                <tr style="border-bottom: 1.5px solid var(--border-light); color: var(--text-muted);">
+                  <th style="padding: 10px;">نماد</th>
+                  <th style="padding: 10px;">جهت</th>
+                  <th style="padding: 10px;">قیمت ورود</th>
+                  <th style="padding: 10px;">حد سود (TP)</th>
+                  <th style="padding: 10px;">حد ضرر (SL)</th>
+                  <th style="padding: 10px;">سود فعلی</th>
+                  <th style="padding: 10px;">تاییدیه هسته</th>
+                </tr>
+              </thead>
+              <tbody id="unlockedSignalsTableBody">
+                <!-- Loaded dynamically -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== SECTION: FAQ ==================== -->
+  <section id="faq" class="section-faq">
+    <div class="container">
+      <div class="section-head">
+        <span class="section-tag"><i class="bi bi-question-circle-fill"></i> راهنمای جامع کاربران</span>
+        <h2 class="section-title">پرسش‌های متداول و پاسخ‌های تخصصی</h2>
+        <p class="section-subtitle">پاسخ شفاف به مهم‌ترین سوالات پیرامون سازوکار پلتفرم و نحوه اتصال صرافی‌ها</p>
+      </div>
+
+      <div class="faq-accordion-wrapper">
+        <div class="faq-item active">
+          <button class="faq-question-btn">
+            <span>سامانه معاملاتی IBO-TS دقیقا چگونه کار می‌کند؟</span>
+            <i class="bi bi-chevron-down faq-icon-arrow"></i>
+          </button>
+          <div class="faq-answer-panel">
+            <p>
+              IBO-TS یک موتور محاسباتی پیشرفته است که حرکات نقدینگی بازار را لحظه‌به‌لحظه اسکن می‌کند. پس از شناسایی موقعیت با احتمال برد بالا، سیگنال صادر شده و در صورت تمایل کاربر به فعال‌سازی اتوتریدر، از طریق اتصال امن API Key، سفارش در صرافی انتخابی شما اجرا می‌گردد.
+            </p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question-btn">
+            <span>آیا سرمایه من در اختیار IBO-TS قرار می‌گیرد؟</span>
+            <i class="bi bi-chevron-down faq-icon-arrow"></i>
+          </button>
+          <div class="faq-answer-panel">
+            <p>
+              خیر! دارایی‌های شما به طور کامل در حساب صرافی شخصی خودتان باقی می‌ماند. شما صرفاً مجوزهای معامله را در کلید API فعال می‌کنید و تیک مجوز برداشت وجه خاموش است. دسترسی به وجوه شما برای هیچ شخص ثالثی مقدور نیست.
+            </p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question-btn">
+            <span>تفاوت ترید در صرافی‌های بین‌المللی و صرافی‌های ایرانی چیست؟</span>
+            <i class="bi bi-chevron-down faq-icon-arrow"></i>
+          </button>
+          <div class="faq-answer-panel">
+            <p>
+              در صرافی‌های بین‌المللی نظیر بایننس، بای‌بیت، بیت‌یونیکس و اوکی‌اکس، معاملات بر مبنای قراردادهای فیوچرز USDT با اهرم کنترل‌شده و حد ضرر سخت‌گیرانه اجرا می‌شوند. در صرافی‌های ایرانی نظیر نوبیتکس، والکس، تبدیل و آبان‌تتر، معاملات روی بازار اسپات اجرا شده و موجودی به صورت تتر معادل مدیریت می‌شود.
+            </p>
+          </div>
+        </div>
+
+        <div class="faq-item myket-hide">
+          <button class="faq-question-btn">
+            <span>روش‌های پرداخت اشتراک چگونه است؟</span>
+            <i class="bi bi-chevron-down faq-icon-arrow"></i>
+          </button>
+          <div class="faq-answer-panel">
+            <p>
+              پرداخت از طریق رمزارز تتر USDT روی شبکه‌های TRC20 و BEP20 و TON با راستی‌آزمایی آنی بلاکچین و فعال‌سازی فوری ثانیه‌شمار اشتراک انجام می‌شود.
+            </p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question-btn">
+            <span>آیا در صورت قطع اینترنت من، معاملات ربات متوقف می‌شود؟</span>
+            <i class="bi bi-chevron-down faq-icon-arrow"></i>
+          </button>
+          <div class="faq-answer-panel">
+            <p>
+              خیر، موتور تریدینگ IBO-TS روی کلاسترهای ابری 24/7 اختصاصی با آپ‌تایم 99.9% فعال است و مستقل از روشن یا خاموش بودن دیوایس یا اینترنت کاربر، کلیه حد سودها و حد ضررها را مستقیماً در صرافی مدیریت می‌کند.
+            </p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question-btn">
+            <span>آیا می‌توانم فقط سیگنال‌ها را دریافت کنم و ربات معامله‌گر را خاموش نگه دارم؟</span>
+            <i class="bi bi-chevron-down faq-icon-arrow"></i>
+          </button>
+          <div class="faq-answer-panel">
+            <p>
+              بله، شما می‌توانید بدون فعال‌سازی افزونه ربات، پلن اشتراک مورد نظر خود را با هزینه پایه تهیه کنید و سیگنال‌ها را در داشبورد یا نوتیفیکیشن موبایل دریافت و به صورت دستی ترید نمایید.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== SECTION: CONTACT & SUPPORT ==================== -->
+  <section id="contact" class="section-contact">
+    <div class="container">
+      <div class="contact-card-box">
+        <div style="text-align: center; margin-bottom: 2rem;">
+          <span class="section-tag"><i class="bi bi-envelope-at-fill"></i> مرکز ارتباط و پشتیبانی</span>
+          <h2 style="font-size: var(--font-h2); font-weight: 900; color: var(--text-heading); margin-bottom: 0.5rem;">
+            ارتباط مستقیم با واحد پشتیبانی IBO-TS
+          </h2>
+          <p style="color: var(--text-muted); font-size: 0.95rem;">
+            پاسخگویی به سوالات، مشاوره خرید اشتراک و راهنمایی اتصال کلیدهای صرافی از طریق <strong>support@ibo-ts.com</strong>
+          </p>
+        </div>
+
+        <form id="contactForm" onsubmit="handleSupportMessageSubmit(event)">
+          <div class="contact-form-grid">
+            <div class="form-group">
+              <label class="form-label">نام و نام خانوادگی:</label>
+              <input type="text" id="contactName" class="form-input" placeholder="مثال: علی احمدی">
+            </div>
+            <div class="form-group">
+              <label class="form-label">آدرس ایمیل پاسخگویی:</label>
+              <input type="email" id="contactEmail" class="form-input" placeholder="user@gmail.com" required>
+            </div>
+          </div>
+          <div class="form-group" style="margin-bottom: 1.25rem;">
+            <label class="form-label">موضوع پیام:</label>
+            <input type="text" id="contactSubject" class="form-input" placeholder="راهنمایی در فعال‌سازی اتوتریدر">
+          </div>
+          <div class="form-group" style="margin-bottom: 1.5rem;">
+            <label class="form-label">متن پیام:</label>
+            <textarea id="contactMessage" class="form-textarea" rows="4" placeholder="پیام خود را به صورت دقیق یادداشت فرمایید..." required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary btn-lg" style="width: 100%;">
+            <i class="bi bi-send-fill"></i> ارسال پیام به واحد پشتیبانی
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== FOOTER ==================== -->
+
+  <!-- ==================== AUTH MODAL (OFFICIAL GOOGLE SSO & OTP) ==================== -->
+  <div id="authModal" class="modal-overlay">
+    <div class="modal-container-box">
+      <button class="modal-close-btn" onclick="closeAuthModal()">&times;</button>
+
+      <!-- View 1: Login -->
+      <div id="loginView">
+        <div class="modal-head-center">
+          <h3 class="modal-head-title">ورود به سامانه IBO-TS</h3>
+          <p class="modal-head-desc">جهت دسترسی به داشبورد و سیگنال‌های انحصاری</p>
+        </div>
+
+        <!-- Telegram Login: same google-signin-btn class => same exact size; the official widget (iframe) sits invisibly on top to capture clicks -->
+        <div id="tgLoginSection" style="display: none; margin-bottom: 1rem;">
+          <div id="tgLoginWrap" style="position: relative;">
+            <button id="tgLoginBtnView" class="google-signin-btn" style="justify-content: center; gap: 0.85rem; pointer-events: none;" type="button">
+              <svg viewBox="0 0 24 24" class="google-icon-svg" aria-hidden="true"><path fill="#2AABEE" d="m21.9 4.3-3.1 14.7c-.24 1.02-.86 1.27-1.74.79l-4.82-3.55-2.32 2.24c-.26.26-.47.47-.96.47l.34-4.86 8.86-8.01c.38-.34.17-.53-.19-.19l-10.9 6.85-4.65-1.45c-1.01-.32-1.03-1 -.21-1.28l17.49-6.75c.84-.31 1.58.2 1.2.79z"/></svg>
+              <span>ورود با تلگرام</span>
+            </button>
+            <div id="tgLoginWidget" style="position: absolute; inset: 0; opacity: 0; overflow: hidden; z-index: 2;"></div>
+          </div>
+        </div>
+
+        <!-- Official Google Sign-In Button Container -->
+        <button id="googleLoginBtn" class="google-signin-btn" onclick="triggerGoogleSignIn()">
+          <svg class="google-icon-svg" viewBox="0 0 24 24">
+            <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+            <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+            <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+            <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+          </svg>
+          <span>Login with Google</span>
+        </button>
+
+        <!-- OAuth2 redirect flow fallback (works everywhere incl. mirror host) -->
+        <a id="googleOAuthStart" style="display:none; text-align:center; font-size:.85rem; color:var(--text-muted); margin-top:.75rem; cursor:pointer;" onclick="onGoogleRedirectSignIn()">ورود با گوگل (دومین گزینه امن)</a>
+
+        <!-- Hidden GSI render target if client library renders native button -->
+        <div id="gsiButtonRenderContainer" style="display: flex; justify-content: center; margin-bottom: 1rem;"></div>
+
+        <div class="auth-divider-line">یا ورود با ایمیل و رمز عبور</div>
+
+        <form id="emailLoginForm" onsubmit="handleEmailLogin(event)">
+          <div class="form-group" style="margin-bottom: 1rem;">
+            <label class="form-label">ایمیل:</label>
+            <input type="email" id="loginEmail" class="form-input" placeholder="user@gmail.com" required>
+          </div>
+          <div class="form-group" style="margin-bottom: 1.5rem;">
+            <label class="form-label">رمز عبور:</label>
+            <input type="password" id="loginPassword" class="form-input" placeholder="••••••••" required>
+          </div>
+          <button type="submit" class="btn btn-primary" style="width: 100%; margin-bottom: 1rem;">
+            <i class="bi bi-box-arrow-in-left"></i> ورود به حساب
+          </button>
+        </form>
+
+        <p style="text-align: center; font-size: 0.85rem; color: var(--text-muted);">
+          حساب کاربری ندارید؟ <a href="javascript:void(0)" onclick="switchAuthView('register')" style="color: var(--brand-indigo); font-weight: 800;">ثبت‌نام جدید</a>
+        </p>
+      </div>
+
+      <!-- View 2: Register -->
+      <div id="registerView" style="display: none;">
+        <div class="modal-head-center">
+          <h3 class="modal-head-title">ثبت‌نام در سامانه IBO-TS</h3>
+          <p class="modal-head-desc">ارسال کد تایید ۶ رقمی به ایمیل شما</p>
+        </div>
+
+        <form id="registerForm" onsubmit="handleRegister(event)">
+          <div class="form-group" style="margin-bottom: 1rem;">
+            <label class="form-label">نام و نام خانوادگی:</label>
+            <input type="text" id="regFullName" class="form-input" placeholder="مثال: رضا محمدی">
+          </div>
+          <div class="form-group" style="margin-bottom: 1rem;">
+            <label class="form-label">آدرس ایمیل:</label>
+            <input type="email" id="regEmail" class="form-input" placeholder="your-email@gmail.com" required>
+          </div>
+          <div class="form-group" style="margin-bottom: 1.5rem;">
+            <label class="form-label">رمز عبور (حداقل ۶ کاراکتر):</label>
+            <input type="password" id="regPassword" class="form-input" placeholder="••••••••" minlength="6" required>
+          </div>
+          <button type="submit" class="btn btn-emerald" style="width: 100%; margin-bottom: 1rem;">
+            <i class="bi bi-envelope-check"></i> دریافت کد تایید ایمیل
+          </button>
+        </form>
+
+        <p style="text-align: center; font-size: 0.85rem; color: var(--text-muted);">
+          از قبل حساب دارید؟ <a href="javascript:void(0)" onclick="switchAuthView('login')" style="color: var(--brand-indigo); font-weight: 800;">ورود به حساب</a>
+        </p>
+      </div>
+
+      <!-- View 3: OTP Verification -->
+      <div id="otpView" style="display: none;">
+        <div class="modal-head-center">
+          <h3 class="modal-head-title">تایید کد احراز هویت</h3>
+          <p class="modal-head-desc">کد ۶ رقمی ارسال‌شده به <span id="otpTargetEmail" class="mono font-bold"></span> را وارد نمایید:</p>
+        </div>
+
+        <form id="otpVerifyForm" onsubmit="handleVerifyOtp(event)">
+          <input type="hidden" id="otpInputEmail">
+          <div class="otp-inputs-row">
+            <input type="text" maxlength="1" class="otp-digit" required>
+            <input type="text" maxlength="1" class="otp-digit" required>
+            <input type="text" maxlength="1" class="otp-digit" required>
+            <input type="text" maxlength="1" class="otp-digit" required>
+            <input type="text" maxlength="1" class="otp-digit" required>
+            <input type="text" maxlength="1" class="otp-digit" required>
+          </div>
+          <button type="submit" class="btn btn-primary" style="width: 100%; margin-bottom: 1rem;">
+            <i class="bi bi-check2-circle"></i> تایید و فعال‌سازی حساب
+          </button>
+        </form>
+
+        <p style="text-align: center; font-size: 0.82rem; color: var(--text-muted);">
+          کدی دریافت نکردید؟ <a href="javascript:void(0)" onclick="switchAuthView('register')" style="color: var(--brand-indigo); font-weight: 800;">ارسال مجدد کد</a>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast-container"></div>
+
+  <!-- Scripts -->
+  <script src="/static/vendor/chart.umd.min.js"></script>
+  <script src="/static/js/template.js?v=20261024a"></script>
+  <script src="/static/js/purchase.js?v=20261024a"></script>
+  <script src="/static/js/app.js?v=20261024a"></script>
+  <script>    // Auto-advance OTP boxes
+    document.addEventListener('DOMContentLoaded', () => {
+      const otpInputs = document.querySelectorAll('.otp-digit');
+      otpInputs.forEach((inp, idx) => {
+        inp.addEventListener('input', () => {
+          if (inp.value.length === 1 && idx < otpInputs.length - 1) {
+            otpInputs[idx + 1].focus();
+          }
+        });
+        inp.addEventListener('keydown', (e) => {
+          if (e.key === 'Backspace' && !inp.value && idx > 0) {
+            otpInputs[idx - 1].focus();
+          }
+        });
+      });
+    });
+
+    // PWA Service Worker Registration
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js').catch(err => {
+          console.warn('SW registration:', err);
+        });
+      });
+    }
+  </script>
+</body>
+</html>

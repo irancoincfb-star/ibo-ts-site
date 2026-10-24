@@ -1,0 +1,76 @@
+/* ============ IBO-TS shared page chrome (template.js v20261022a) ============ */
+/* Chrome mirrors index's .site-header/.site-footer DNA. The floating dock uses a
+   raised center HOME tile (absolute-centered) + equal side slots, glass white. */
+
+/* ─────────────── bottom dock ─────────────── */
+/* Flat, monochrome, uniform slots — no raised tile, no gradients, no motion. */
+.tpl-dock-fixed { position: fixed; inset-inline: 0; bottom: 0; z-index: 1200;
+  display: flex; justify-content: center; padding: 0 12px;
+  padding-bottom: calc(10px + env(safe-area-inset-bottom, 0px));
+  pointer-events: none; }
+
+.tpl-dock { pointer-events: auto; max-width: 560px; width: 100%;
+  background: rgba(255, 255, 255, 0.97);
+  backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+  border: 1px solid #E6EAF2;
+  border-radius: 18px;
+  box-shadow: 0 10px 28px -14px rgba(15, 23, 42, 0.28);
+  display: flex; align-items: stretch; justify-content: space-between;
+  padding: 0.3rem 0.35rem; }
+
+.tpl-dock-item { flex: 1; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 2px;
+  padding: 0.45rem 0.2rem; border-radius: 12px; text-decoration: none;
+  -webkit-tap-highlight-color: transparent; }
+.tpl-dock-item[aria-hidden] { visibility: hidden; }
+.tpl-dock-item i { font-size: 1.22rem; color: #94A3B8; transition: color .18s ease; }
+.tpl-dock-item b { font-size: 0.6rem; font-weight: 700; color: #94A3B8; }
+.tpl-dock-item:hover { background: #F8FAFC; }
+.tpl-dock-item:hover i, .tpl-dock-item:hover b { color: #4F46E5; }
+.tpl-dock-item.tpl-active { background: #EEF2FF; }
+.tpl-dock-item.tpl-active i, .tpl-dock-item.tpl-active b { color: #4F46E5; }
+
+@media (max-width: 480px) {
+  .tpl-dock { max-width: 100%; padding: 0.28rem 0.32rem; border-radius: 16px; }
+  .tpl-dock-item i { font-size: 1.16rem; }
+  .tpl-dock-item b { font-size: 0.56rem; }
+}
+
+/* ─────────────── mobile hamburger menu ─────────────── */
+.tpl-burger { display: none; appearance: none; border: 0; background: transparent; cursor: pointer;
+  width: 2.4rem; height: 2.4rem; border-radius: 12px; align-items: center; justify-content: center;
+  flex-direction: column; gap: 4px; padding: 0; }
+.tpl-burger span { display: block; width: 1.25rem; height: 2px; border-radius: 2px;
+  background: #0F172A; transition: transform .25s, opacity .2s; }
+@media (max-width: 992px) {
+  .tpl-burger { display: inline-flex; }
+  .tpl-main-nav { display: none; }
+}
+
+.tpl-menu-sheet { position: fixed; top: 0; right: 0; bottom: 0; width: min(86vw, 330px); z-index: 1500;
+  background: rgba(255,255,255,.97); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+  border-left: 1.5px solid rgba(226,232,240,.9); box-shadow: -18px 0 40px -18px rgba(15,23,42,.35);
+  transform: translateX(105%); transition: transform .32s cubic-bezier(.34,1.01,.64,1);
+  display: flex; flex-direction: column; padding: 1rem 1.1rem calc(1.2rem + env(safe-area-inset-bottom, 0px));
+  overflow-y: auto; }
+body.tpl-menu-open .tpl-menu-sheet { transform: translateX(0); }
+body.tpl-menu-open::after { content: ""; position: fixed; inset: 0; z-index: 1400;
+  background: rgba(15, 23, 42, .35); opacity: .6; transition: opacity .25s; }
+.tpl-menu-head { display: flex; align-items: center; gap: .7rem; padding-bottom: .9rem;
+  border-bottom: 1.5px solid rgba(226,232,240,.9); margin-bottom: .8rem; }
+.tpl-menu-head img { height: 42px; width: 42px; object-fit: contain; }
+.tpl-menu-head .brand-name { display: block; font-weight: 900; }
+.tpl-menu-head .brand-sub { display: block; font-size: .6rem; letter-spacing: 1px; color: #64748B; }
+.tpl-menu-links { display: flex; flex-direction: column; gap: .15rem; }
+.tpl-menu-link { display: flex; align-items: center; gap: .7rem; padding: .7rem .8rem;
+  border-radius: 12px; color: #0F172A; font-weight: 700; text-decoration: none;
+  transition: background .18s, color .18s; }
+.tpl-menu-link i { font-size: 1.1rem; color: #64748B; }
+.tpl-menu-link:hover, .tpl-menu-link:focus { background: rgba(79,70,229,.08); color: #4F46E5; }
+.tpl-menu-link:hover i { color: #4F46E5; }
+.tpl-menu-auth { margin-top: auto; border-top: 1.5px solid rgba(226,232,240,.9); padding-top: .8rem; }
+
+/* APK builds: hide download affordances everywhere (the app is already installed) */
+.ibots-apk .tpl-apkhide,
+.ibots-apk .tpl-menu-apkhide,
+.ibots-apk .tpl-dock-item[href="/download"] { display: none !important; }

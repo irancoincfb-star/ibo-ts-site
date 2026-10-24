@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>خطای داخلی سرور (500) | پلتفرم IBO-TS</title>
+  <link rel="icon" type="image/png" href="/static/assets/icons/favicon.png">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="/static/css/style.css">
+  <style>
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: #FFFFFF;
+      padding: 2rem;
+      text-align: center;
+    }
+    .error-card {
+      max-width: 580px;
+      width: 100%;
+      background: linear-gradient(145deg, #FFFFFF, #FFFBFB);
+      border: 2px solid rgba(244, 63, 94, 0.2);
+      border-radius: 24px;
+      padding: 3rem 2rem;
+      box-shadow: 0 20px 40px -15px rgba(244, 63, 94, 0.12);
+      position: relative;
+      overflow: hidden;
+    }
+    .error-card::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #F43F5E, #FB7185, #F59E0B, #4F46E5);
+    }
+    .error-logo {
+      height: 64px;
+      margin-bottom: 1.5rem;
+      filter: drop-shadow(0 4px 6px rgba(0,0,0,0.06));
+    }
+    .error-code {
+      font-size: 5.5rem;
+      font-weight: 900;
+      line-height: 1;
+      background: linear-gradient(135deg, #F43F5E, #FB7185);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 1rem;
+    }
+    .error-title {
+      font-size: 1.5rem;
+      font-weight: 900;
+      color: #0F172A;
+      margin-bottom: 0.75rem;
+    }
+    .error-desc {
+      font-size: 0.95rem;
+      color: #64748B;
+      line-height: 1.8;
+      margin-bottom: 2rem;
+    }
+    .btn-home {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: #4F46E5;
+      color: #FFFFFF;
+      font-weight: 800;
+      padding: 0.85rem 2rem;
+      border-radius: 12px;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 15px rgba(79, 70, 229, 0.25);
+    }
+    .btn-home:hover {
+      background: #4338CA;
+      transform: translateY(-2px);
+    }
+  </style>
+</head>
+<body>
+  <div class="error-card">
+    <img src="/static/assets/ibots_logo_transparent.png" alt="IBO-TS Official Logo" class="error-logo">
+    <div class="error-code mono">500</div>
+    <h1 class="error-title">خطای پردازشی موقت سرور</h1>
+    <p class="error-desc">
+      هسته پردازشی در حال حاضر با تراکنش بالایی مواجه شده است یا سرویس‌دهنده در حال بازیابی ارتباط است. تیم مهندسی مالی در حال بررسی است.
+    </p>
+    <a href="/" class="btn-home">
+      <i class="bi bi-arrow-clockwise"></i> تلاش مجدد و بازگشت
+    </a>
+  </div>
+</body>
+</html>

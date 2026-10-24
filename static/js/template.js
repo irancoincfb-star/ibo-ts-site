@@ -70,7 +70,9 @@
     const c = document.getElementById('tplAuthContainer');
     const token = (function () { try { return localStorage.getItem('ibots_token'); } catch (e) { return null; } })();
     if (token) {
-      c.innerHTML = '<a href="/" class="btn btn-primary btn-sm"><i class="bi bi-speedometer2"></i> داشبورد معاملاتی</a>';
+      c.innerHTML = '<div style="display: flex; align-items: center; gap: 0.5rem;">' +
+        '<a href="/" class="btn btn-emerald btn-sm"><i class="bi bi-speedometer2"></i> داشبورد معاملاتی</a>' +
+        '<a href="#" onclick="if(window.handleLogout){handleLogout();return false;}" class="btn btn-outline btn-sm" title="خروج از حساب"><i class="bi bi-box-arrow-right"></i> خروج</a></div>';
     } else {
       c.innerHTML = '<a href="/?auth=login" class="btn btn-primary btn-sm"><i class="bi bi-person-fill-lock"></i> ورود و ثبت‌نام</a>';
     }
@@ -210,12 +212,27 @@
     };
 
     if (apk) {
-      // APK: no download slot (the app IS installed) — 4 items
       dock.appendChild(item({ href: '/features', icon: 'bi-grid-1x2', label: 'امکانات' }));
       dock.appendChild(item({ href: '/signals', icon: 'bi-activity', label: 'سیگنال' }));
       dock.appendChild(item(null, true)); // HOME — centered absolutely
       dock.appendChild(item({ href: '/pricing', icon: 'bi-tag', label: 'تعرفه' }));
-      dock.appendChild(item(null));       // spacer keeps spacing even
+      const token = (function () { try { return localStorage.getItem('ibots_token'); } catch (e) { return null; } })();
+      if (token) {
+        const logoutLink = document.createElement('a');
+        logoutLink.href = '#';
+        logoutLink.className = 'tpl-dock-item';
+        logoutLink.setAttribute('aria-label', 'خروج از حساب');
+        logoutLink.innerHTML = '<i class="bi bi-box-arrow-right"></i><b>خروج</b>';
+        logoutLink.onclick = function (ev) { ev.preventDefault(); if (window.handleLogout) handleLogout(); };
+        dock.appendChild(logoutLink);
+      } else {
+        const spacer = document.createElement('a');
+        spacer.className = 'tpl-dock-item';
+        spacer.setAttribute('aria-hidden', 'true');
+        spacer.style.visibility = 'hidden';
+        spacer.style.pointerEvents = 'none';
+        dock.appendChild(spacer);
+      }
     } else {
       dock.appendChild(item({ href: '/features', icon: 'bi-grid-1x2', label: 'امکانات' }));
       dock.appendChild(item({ href: '/signals', icon: 'bi-activity', label: 'سیگنال' }));

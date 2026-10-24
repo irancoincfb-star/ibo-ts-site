@@ -443,6 +443,13 @@ async function handleGoogleCredentialResponse(response) {
 
 // Manual trigger button for Google OAuth
 function triggerGoogleSignIn() {
+  // In native Android app (WebView with IBO-TS-App UA): skip GIS popup (which
+  // fails to return correctly inside WebView) and go straight to the redirect flow.
+  const isApp = /IBO-TS-App/i.test(navigator.userAgent || '');
+  if (isApp || (typeof IN_MYKET_APP !== 'undefined' && IN_MYKET_APP)) {
+    onGoogleRedirectSignIn();
+    return;
+  }
   if (window.google && window.google.accounts && window.google.accounts.id) {
     window.google.accounts.id.prompt((notification) => {
       if (notification.isNotDisplayed()) {

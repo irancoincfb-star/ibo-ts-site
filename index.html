@@ -745,7 +745,7 @@
         <!-- Telegram Login: same google-signin-btn class => same exact size; the official widget (iframe) sits invisibly on top to capture clicks -->
         <div id="tgLoginSection" style="display: none; margin-bottom: 1rem;">
           <div id="tgLoginWrap" style="position: relative;">
-            <button id="tgLoginBtnView" class="google-signin-btn" style="justify-content: center; gap: 0.85rem; pointer-events: none;" type="button">
+            <button id="tgLoginBtnView" class="google-signin-btn" onclick="handleTelegramLoginManual()" style="justify-content: center; gap: 0.85rem;" type="button">
               <svg viewBox="0 0 24 24" class="google-icon-svg" aria-hidden="true"><path fill="#2AABEE" d="m21.9 4.3-3.1 14.7c-.24 1.02-.86 1.27-1.74.79l-4.82-3.55-2.32 2.24c-.26.26-.47.47-.96.47l.34-4.86 8.86-8.01c.38-.34.17-.53-.19-.19l-10.9 6.85-4.65-1.45c-1.01-.32-1.03-1 -.21-1.28l17.49-6.75c.84-.31 1.58.2 1.2.79z"/></svg>
               <span>ورود با تلگرام</span>
             </button>
@@ -855,6 +855,26 @@
   <!-- Scripts -->
   <script src="/static/vendor/chart.umd.min.js"></script>
   <script src="/static/js/template.js?v=20261024a"></script>
+  <script>
+    window.__IBO_APP_LINKS = {
+      bazaar: 'https://cafebazaar.ir/app/com.ibots.trading',
+      myket: 'https://myket.ir/app/com.ibots.trading',
+      crypto: ''
+    };
+    // Telegram login fallback: if widget not loaded within 3s, open bot link directly
+    window.handleTelegramLoginManual = function () {
+      var btn = document.getElementById('tgLoginBtnView');
+      var wrap = document.getElementById('tgLoginWrap');
+      var box = document.getElementById('tgLoginWidget');
+      if (box && box.querySelector('iframe')) {
+        // Widget loaded — click simulated by user tapping the visible area
+        return;
+      }
+      // Fallback: open Telegram bot chat directly
+      window.open('https://t.me/IBOTradingSignalsBot?start=login', '_blank');
+      showToast('ربات تلگرام در مرورگر جدید باز شد؛ لطفاً دکمه START را بزنید.', 'info');
+    };
+  </script>
   <script src="/static/js/purchase.js?v=20261024a"></script>
   <script src="/static/js/app.js?v=20261024a"></script>
   <script>    // Auto-advance OTP boxes

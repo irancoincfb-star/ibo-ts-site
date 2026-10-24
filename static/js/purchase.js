@@ -169,13 +169,17 @@
     storePrice = '';
     let methods;
     if (IN_MYKET_APP) {
+      // APK: all three gateways available (Myket IAB + Bazaar store + Crypto wallet)
       methods =
         '<div style="font-size:.78rem;color:#64748B;margin-bottom:.55rem;">' +
-          'طبق قوانین مایکت، خرید اشتراک داخل اپ فقط از درگاه رسمی مایکت انجام می‌شود.' +
+        'خرید اشتراک در اپ: مایکت، بازار یا پرداخت ارز دیجیتال' +
         '</div>' +
+        '<button class="pum-method" data-m="bazaar" style="display:flex;align-items:center;gap:.9rem;padding:1rem;border-radius:14px;border:1.5px solid #E2E8F0;background:#fff;cursor:pointer;text-align:start;">' +
+        LOGO.bazaar + '<span><b style="display:block;">' + METHOD_INFO.bazaar.title + '</b><small style="color:#64748B;">' + METHOD_INFO.bazaar.sub + '</small></span></button>' +
         '<button class="pum-method" data-m="myket" style="display:flex;align-items:center;gap:.9rem;padding:1rem;border-radius:14px;border:1.5px solid #E2E8F0;background:#fff;cursor:pointer;text-align:start;">' +
-          LOGO.myket + '<span><b style="display:block;">پرداخت امن با درگاه مایکت</b>' +
-          '<small style="color:#64748B;">خرید درون‌برنامه‌ای رسمی — همین صفحه</small></span></button>';
+        LOGO.myket + '<span><b style="display:block;">' + METHOD_INFO.myket.title + '</b><small style="color:#64748B;">' + METHOD_INFO.myket.sub + '</small></span></button>' +
+        '<button class="pum-method" data-m="crypto" style="display:flex;align-items:center;gap:.9rem;padding:1rem;border-radius:14px;border:1.5px solid #E2E8F0;background:#fff;cursor:pointer;text-align:start;">' +
+        LOGO.crypto + '<span><b style="display:block;">' + METHOD_INFO.crypto.title + '</b><small style="color:#64748B;">' + METHOD_INFO.crypto.sub + '</small></span></button>';
     } else {
       methods =
         '<button class="pum-method" data-m="bazaar" style="display:flex;align-items:center;gap:.9rem;padding:1rem;border-radius:14px;border:1.5px solid #E2E8F0;background:#fff;cursor:pointer;text-align:start;">' +

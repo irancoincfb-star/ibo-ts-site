@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.ibots.trading",
+      "sha256_cert_fingerprints": [
+        "E3:C8:72:D1:CE:1E:19:39:63:DE:48:7B:6D:80:FB:60:50:D0:2A:85:9E:D8:FE:BA:7D:41:09:1A:D3:7B:E4:CF"
+      ]
+    }
+  }
+]

@@ -4,9 +4,9 @@
 
 ## Products
 
-- **IBO-TS Trader Platform**: web dashboard and Android app for signals and automated execution.
-- **IBO-TS معامله‌گر هوشمند**: algorithmic engine connected to 18 exchanges with risk management.
-- **IBO-TS Telegram bot** (@IBOTradingSignalsBot): signal notifications and support.
+- [IBO-TS Trader Platform](https://ibo-ts.com/features): web dashboard and Android app for signals and automated execution.
+- [IBO-TS معامله‌گر هوشمند](https://ibo-ts.com/features): algorithmic engine connected to 18 exchanges with risk management.
+- [IBO-TS Telegram bot](https://t.me/IBOTradingSignalsBot): signal notifications and support.
 
 ## Core pages
 

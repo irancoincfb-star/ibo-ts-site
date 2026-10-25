@@ -74,7 +74,7 @@
         '<a href="/" class="btn btn-emerald btn-sm"><i class="bi bi-speedometer2"></i> داشبورد معاملاتی</a>' +
         '<a href="#" onclick="if(window.handleLogout){handleLogout();return false;}" class="btn btn-outline btn-sm" title="خروج از حساب"><i class="bi bi-box-arrow-right"></i> خروج</a></div>';
     } else {
-      c.innerHTML = '<a href="/?auth=login" class="btn btn-primary btn-sm"><i class="bi bi-person-fill-lock"></i> ورود و ثبت‌نام</a>';
+      c.innerHTML = '<a href="/#login" class="btn btn-primary btn-sm"><i class="bi bi-person-fill-lock"></i> ورود و ثبت‌نام</a>';
     }
 
     // Mobile hamburger sheet — available on every page (≤992px styles apply)
@@ -113,7 +113,7 @@
     const authCmd = token
       ? '<a href="/" class="tpl-menu-link"><i class="bi bi-speedometer2"></i> داشبورد معاملاتی</a>' +
         '<a href="/" class="tpl-menu-link tpl-api-logout" onclick="if(window.handleLogout){handleLogout();return false;}"><i class="bi bi-box-arrow-right"></i> خروج از حساب</a>'
-      : '<a href="/?auth=login" class="tpl-menu-link"><i class="bi bi-person-fill-lock"></i> ورود و ثبت‌نام</a>';
+      : '<a href="/#login" class="tpl-menu-link"><i class="bi bi-person-fill-lock"></i> ورود و ثبت‌نام</a>';
     const sheet = el(
       '<div class="tpl-menu-sheet" role="dialog" aria-label="فهرست اصلی">' +
         '<div class="tpl-menu-head"><img src="/static/assets/ibots_logo_transparent.png" alt="IBO-TS">' +

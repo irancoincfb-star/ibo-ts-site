@@ -90,11 +90,12 @@ document.addEventListener('DOMContentLoaded', async () => {
   // Entry from any other page's "ورود" link → open the auth modal right away
   try {
     const params = new URLSearchParams(location.search);
-    if (params.get('auth') === 'login') {
+    const hash = (location.hash || '').replace(/^#/, '');
+    if (params.get('auth') === 'login' || hash === 'login') {
       history.replaceState({}, '', location.pathname);
       openAuthModal('login');
     }
-    if (params.get('auth') === 'ok') {
+    if (params.get('auth') === 'ok' || hash === 'auth=ok' || hash === 'auth-ok') {
       history.replaceState({}, '', location.pathname);
       handleGoogleRedirectReturn();
     }

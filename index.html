@@ -3,11 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-  <title>IBO-TS | سامانه انحصاری سیگنال‌های معاملاتی و ربات تریدر هوشمند ۱۸ صرافی</title>
+  <title>IBO-TS | سیگنال معاملاتی و ربات تریدر هوشمند ۱۸ صرافی</title>
   
   <!-- Canonical & Essential SEO -->
   <link rel="canonical" href="https://ibo-ts.com/">
-  <meta name="description" content="سامانه الگوریتمی و هوشمند IBO-TS: ارائه سیگنال‌های فوق‌دقیق ارز دیجیتال و اجرای خودکار معاملات با اتصال امن API Key به ۱۸ صرافی بین‌المللی و ایرانی. مدیریت پیشرفته سرمایه، بدون دخالت احساسات انسانی و با نرخ برد تثبیت‌شده.">
+  <link rel="alternate" hreflang="fa" href="https://ibo-ts.com/">
+  <link rel="alternate" hreflang="x-default" href="https://ibo-ts.com/">
+  <meta name="description" content="سیگنال‌های دقیق ارز دیجیتال و اجرای خودکار معاملات با اتصال امن API به ۱۸ صرافی. مدیریت سرمایه و ریسک هوشمند.">
   <meta name="keywords" content="سیگنال ارز دیجیتال, ربات معامله گر خودکار, ترید اتوماتیک, صرافی نوبیتکس, بایننس, بای بیت, بیت پین, رمزینکس, ibo-ts, مدیریت ریسک ترید">
   <meta name="author" content="IBO-TS Financial Technologies">
   <meta name="robots" content="index, follow">
@@ -40,8 +42,8 @@
 
   <!-- Stylesheets & Bootstrap Icons -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-  <link rel="stylesheet" href="/static/css/style.css?v=20261024a">
-  <link rel="stylesheet" href="/static/css/template.css?v=20261024a">
+  <link rel="stylesheet" href="/static/css/style.css?v=20261025a">
+  <link rel="stylesheet" href="/static/css/template.css?v=20261025a">
 
   <!-- Google Identity Services SDK -->
   <script src="https://accounts.google.com/gsi/client" async defer></script>
@@ -109,7 +111,7 @@
   <!-- ============ SPLASH (sync — covers page instantly from first paint) ============ -->
   <div id="appSplash" style="position:fixed; inset:0; z-index:99999; background:#FFFFFF; display:flex; align-items:center; justify-content:center; flex-direction:column; opacity:1; transition:opacity .5s ease;">
     <video id="splashVideo" muted autoplay loop playsinline style="display:none; position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:0; transition:opacity .6s ease; background:#FFFFFF;"></video>
-    <img src="/static/assets/ibots_logo_transparent.png" alt="IBO-TS" style="width:88px; height:88px; object-fit:contain; position:relative;">
+    <img src="/static/assets/ibots_logo_transparent.png" alt="IBO-TS" width="88" height="88" style="width:88px; height:88px; object-fit:contain; position:relative;">
     <div style="position:relative; margin-top:1rem; font-weight:900; font-size:1.5rem; letter-spacing:-.5px; color:#0F172A;">IBO-TS</div>
     <div style="position:relative; margin-top:.35rem; font-size:.72rem; font-weight:700; color:#64748B;">QUANTITATIVE TRADING PLATFORM</div>
     <div style="position:relative; margin-top:1.2rem; width:120px; height:3px; border-radius:999px; background:#EEF2FF; overflow:hidden;">
@@ -128,34 +130,34 @@
   <div class="marquee-bar">
     <div class="marquee-track">
       <!-- 18 Exchanges Official Logos -->
-      <div class="marquee-item"><img src="/static/assets/logos/binance.png" alt="Binance"><span>Binance</span></div>
-      <div class="marquee-item"><img src="/static/assets/logos/bybit.png" alt="Bybit"><span>Bybit</span></div>
-      <div class="marquee-item"><img src="/static/assets/logos/bitunix.png" alt="Bitunix"><span>Bitunix</span></div>
-      <div class="marquee-item"><img src="/static/assets/logos/bingx.png" alt="BingX"><span>BingX</span></div>
-      <div class="marquee-item"><img src="/static/assets/logos/okx.png" alt="OKX"><span>OKX</span></div>
-      <div class="marquee-item"><img src="/static/assets/logos/gateio.png" alt="Gate.io"><span>Gate.io</span></div>
-      <div class="marquee-item"><img src="/static/assets/logos/kucoin.png" alt="KuCoin"><span>KuCoin</span></div>
-      <div class="marquee-item"><img src="/static/assets/logos/mexc.png" alt="MEXC"><span>MEXC</span></div>
-      <div class="marquee-item"><img src="/static/assets/logos/bitget.png" alt="Bitget"><span>Bitget</span></div>
-      <div class="marquee-item"><img src="/static/assets/logos/nobitex.png" alt="Nobitex"><span>نوبیتکس (Nobitex)</span></div>
-      <div class="marquee-item"><img src="/static/assets/logos/wallex.png" alt="Wallex"><span>والکس (Wallex)</span></div>
-      <div class="marquee-item"><img src="/static/assets/logos/tabdeal.png" alt="Tabdeal"><span>تبدیل (Tabdeal)</span></div>
+      <div class="marquee-item"><img src="/static/assets/logos/binance.png" width="24" height="24" alt="Binance"><span>Binance</span></div>
+      <div class="marquee-item"><img src="/static/assets/logos/bybit.png" width="24" height="24" alt="Bybit"><span>Bybit</span></div>
+      <div class="marquee-item"><img src="/static/assets/logos/bitunix.png" width="24" height="24" alt="Bitunix"><span>Bitunix</span></div>
+      <div class="marquee-item"><img src="/static/assets/logos/bingx.png" width="24" height="24" alt="BingX"><span>BingX</span></div>
+      <div class="marquee-item"><img src="/static/assets/logos/okx.png" width="24" height="24" alt="OKX"><span>OKX</span></div>
+      <div class="marquee-item"><img src="/static/assets/logos/gateio.png" width="24" height="24" alt="Gate.io"><span>Gate.io</span></div>
+      <div class="marquee-item"><img src="/static/assets/logos/kucoin.png" width="24" height="24" alt="KuCoin"><span>KuCoin</span></div>
+      <div class="marquee-item"><img src="/static/assets/logos/mexc.png" width="24" height="24" alt="MEXC"><span>MEXC</span></div>
+      <div class="marquee-item"><img src="/static/assets/logos/bitget.png" width="24" height="24" alt="Bitget"><span>Bitget</span></div>
+      <div class="marquee-item"><img src="/static/assets/logos/nobitex.png" width="24" height="24" alt="Nobitex"><span>نوبیتکس (Nobitex)</span></div>
+      <div class="marquee-item"><img src="/static/assets/logos/wallex.png" width="24" height="24" alt="Wallex"><span>والکس (Wallex)</span></div>
+      <div class="marquee-item"><img src="/static/assets/logos/tabdeal.png" width="24" height="24" alt="Tabdeal"><span>تبدیل (Tabdeal)</span></div>
       <div class="marquee-item"><span>آبان‌تتر (AbanTether)</span></div>
-      <div class="marquee-item"><img src="/static/assets/logos/ramzinex.png" alt="Ramzinex"><span>رمزینکس (Ramzinex)</span></div>
-      <div class="marquee-item"><img src="/static/assets/logos/bitpin.png" alt="Bitpin"><span>بیت‌پین (Bitpin)</span></div>
-      <div class="marquee-item"><img src="/static/assets/logos/sarmayex.png" alt="Sarmayex"><span>سرمایکس (Sarmayex)</span></div>
-      <div class="marquee-item"><img src="/static/assets/logos/exir.png" onerror="this.src='/static/assets/icons/favicon.png'" alt="Exir"><span>اکسیر (Exir)</span></div>
-      <div class="marquee-item"><img src="/static/assets/logos/ompfinex.png" onerror="this.src='/static/assets/icons/favicon.png'" alt="Ompfinex"><span>اوام‌پی فینکس (Ompfinex)</span></div>
+      <div class="marquee-item"><img src="/static/assets/logos/ramzinex.png" width="24" height="24" alt="Ramzinex"><span>رمزینکس (Ramzinex)</span></div>
+      <div class="marquee-item"><img src="/static/assets/logos/bitpin.png" width="24" height="24" alt="Bitpin"><span>بیت‌پین (Bitpin)</span></div>
+      <div class="marquee-item"><img src="/static/assets/logos/sarmayex.png" width="24" height="24" alt="Sarmayex"><span>سرمایکس (Sarmayex)</span></div>
+      <div class="marquee-item"><img src="/static/assets/logos/exir.png" width="24" height="24" onerror="this.src='/static/assets/icons/favicon.png'" alt="Exir"><span>اکسیر (Exir)</span></div>
+      <div class="marquee-item"><img src="/static/assets/logos/ompfinex.png" width="24" height="24" onerror="this.src='/static/assets/icons/favicon.png'" alt="Ompfinex"><span>اوام‌پی فینکس (Ompfinex)</span></div>
 
       <!-- CoinCap Official Symbols -->
-      <div class="marquee-item"><img src="/static/assets/symbols/btc.png" alt="BTC"><span class="mono">BTC/USDT</span></div>
-      <div class="marquee-item"><img src="/static/assets/symbols/eth.png" alt="ETH"><span class="mono">ETH/USDT</span></div>
-      <div class="marquee-item"><img src="/static/assets/symbols/sol.png" alt="SOL"><span class="mono">SOL/USDT</span></div>
-      <div class="marquee-item"><img src="/static/assets/symbols/bnb.png" alt="BNB"><span class="mono">BNB/USDT</span></div>
-      <div class="marquee-item"><img src="/static/assets/symbols/xrp.png" alt="XRP"><span class="mono">XRP/USDT</span></div>
-      <div class="marquee-item"><img src="/static/assets/symbols/doge.png" alt="DOGE"><span class="mono">DOGE/USDT</span></div>
-      <div class="marquee-item"><img src="/static/assets/symbols/ton.png" alt="TON"><span class="mono">TON/USDT</span></div>
-      <div class="marquee-item"><img src="/static/assets/symbols/ada.png" alt="ADA"><span class="mono">ADA/USDT</span></div>
+      <div class="marquee-item"><img src="/static/assets/symbols/btc.png" width="24" height="24" alt="BTC"><span class="mono">BTC/USDT</span></div>
+      <div class="marquee-item"><img src="/static/assets/symbols/eth.png" width="24" height="24" alt="ETH"><span class="mono">ETH/USDT</span></div>
+      <div class="marquee-item"><img src="/static/assets/symbols/sol.png" width="24" height="24" alt="SOL"><span class="mono">SOL/USDT</span></div>
+      <div class="marquee-item"><img src="/static/assets/symbols/bnb.png" width="24" height="24" alt="BNB"><span class="mono">BNB/USDT</span></div>
+      <div class="marquee-item"><img src="/static/assets/symbols/xrp.png" width="24" height="24" alt="XRP"><span class="mono">XRP/USDT</span></div>
+      <div class="marquee-item"><img src="/static/assets/symbols/doge.png" width="24" height="24" alt="DOGE"><span class="mono">DOGE/USDT</span></div>
+      <div class="marquee-item"><img src="/static/assets/symbols/ton.png" width="24" height="24" alt="TON"><span class="mono">TON/USDT</span></div>
+      <div class="marquee-item"><img src="/static/assets/symbols/ada.png" width="24" height="24" alt="ADA"><span class="mono">ADA/USDT</span></div>
     </div>
   </div>
 
@@ -468,6 +470,7 @@
         <div class="about-content">
           <span class="section-tag"><i class="bi bi-info-circle-fill"></i> هویت و رسالت پلتفرم</span>
           <h2>درباره تیم مهندسی مالی IBO-TS</h2>
+          <h3 style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;">تخصص‌های تیم مهندسی مالی</h3>
           <p>
             پلتفرم <strong>IBO-TS</strong> حاصل سال‌ها پژوهش در حوزه مهندسی مالی، ترید فرکانس بالا (HFT) و تحلیل رفتار نهنگ‌های کریپتو است. هدف ما توانمندسازی سرمایه‌گذاران با تکیه بر ابزارهای نظام‌مند و دور ماندن از تصمیمات هیجانی است.
           </p>
@@ -504,6 +507,7 @@
       <div class="dashboard-header-bar">
         <div class="dashboard-user-greeting">
           <h2>میز کار و داشبورد معاملاتی کاربر</h2>
+          <h3 style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;">اجزای داشبورد معاملاتی کاربر</h3>
           <p>خوش آمدید | حساب: <span id="dashboardUserEmail" class="mono font-bold">کاربر گرامی</span></p>
         </div>
         <div style="display: flex; gap: 0.75rem;">
@@ -787,7 +791,7 @@
         </form>
 
         <p style="text-align: center; font-size: 0.85rem; color: var(--text-muted);">
-          حساب کاربری ندارید؟ <a href="javascript:void(0)" onclick="switchAuthView('register')" style="color: var(--brand-indigo); font-weight: 800;">ثبت‌نام جدید</a>
+          حساب کاربری ندارید؟ <a href="#register" onclick="event.preventDefault();switchAuthView('register')" style="color: var(--brand-indigo); font-weight: 800;">ثبت‌نام جدید</a>
         </p>
       </div>
 
@@ -817,7 +821,7 @@
         </form>
 
         <p style="text-align: center; font-size: 0.85rem; color: var(--text-muted);">
-          از قبل حساب دارید؟ <a href="javascript:void(0)" onclick="switchAuthView('login')" style="color: var(--brand-indigo); font-weight: 800;">ورود به حساب</a>
+          از قبل حساب دارید؟ <a href="#register" onclick="event.preventDefault();switchAuthView('login')" style="color: var(--brand-indigo); font-weight: 800;">ورود به حساب</a>
         </p>
       </div>
 
@@ -844,7 +848,7 @@
         </form>
 
         <p style="text-align: center; font-size: 0.82rem; color: var(--text-muted);">
-          کدی دریافت نکردید؟ <a href="javascript:void(0)" onclick="switchAuthView('register')" style="color: var(--brand-indigo); font-weight: 800;">ارسال مجدد کد</a>
+          کدی دریافت نکردید؟ <a href="#register" onclick="event.preventDefault();switchAuthView('register')" style="color: var(--brand-indigo); font-weight: 800;">ارسال مجدد کد</a>
         </p>
       </div>
     </div>
@@ -854,7 +858,7 @@
 
   <!-- Scripts -->
   <script src="/static/vendor/chart.umd.min.js"></script>
-  <script src="/static/js/template.js?v=20261024a"></script>
+  <script src="/static/js/template.js?v=20261025a"></script>
   <script>
     window.__IBO_APP_LINKS = {
       bazaar: 'https://cafebazaar.ir/app/com.ibots.trading',
@@ -875,8 +879,8 @@
       showToast('ربات تلگرام در مرورگر جدید باز شد؛ لطفاً دکمه START را بزنید.', 'info');
     };
   </script>
-  <script src="/static/js/purchase.js?v=20261024a"></script>
-  <script src="/static/js/app.js?v=20261024a"></script>
+  <script src="/static/js/purchase.js?v=20261025a"></script>
+  <script src="/static/js/app.js?v=20261025a"></script>
   <script>    // Auto-advance OTP boxes
     document.addEventListener('DOMContentLoaded', () => {
       const otpInputs = document.querySelectorAll('.otp-digit');
@@ -903,5 +907,11 @@
       });
     }
   </script>
+
+<nav aria-label="پیوندهای سایت" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;">
+  <a href="/">خانه</a> <a href="/features">امکانات</a> <a href="/signals">سیگنال‌ها</a>
+  <a href="/performance">کارنامه عملکرد</a> <a href="/pricing">تعرفه اشتراک</a> <a href="/download">دانلود اپلیکیشن</a>
+  <a href="/faq">سوالات متداول</a> <a href="/support">پشتیبانی</a> <a href="/terms">قوانین</a> <a href="/privacy">حریم خصوصی</a>
+</nav>
 </body>
 </html>

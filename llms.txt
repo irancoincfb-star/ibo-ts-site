@@ -1,0 +1,28 @@
+# IBO-TS
+
+> IBO-TS is an algorithmic crypto trading platform that provides trading signals and automated trade execution through secure API connections to 18 international and Iranian exchanges. The service includes a web dashboard, Android app, Telegram bot, and risk-management tools. IBO-TS is not an exchange and never holds user funds.
+
+## Core pages
+
+- [Home](https://ibo-ts.com/): Product overview, supported exchanges, pricing summary and FAQ.
+- [Features](https://ibo-ts.com/features): Signal engine, automated trader, exchange scanner, risk management and dashboard.
+- [Signals](https://ibo-ts.com/signals): How signals are generated, entry/stop-loss/target levels and algorithmic confirmation.
+- [Performance](https://ibo-ts.com/performance): Transparent win rate, PnL and equity curve statistics.
+- [Pricing](https://ibo-ts.com/pricing): Subscription plans paid in USDT (TRC20/BEP20/TON) with order history.
+- [Download](https://ibo-ts.com/download): Android app via Cafe Bazaar, Myket or direct APK.
+- [FAQ](https://ibo-ts.com/faq): Account, signals, payments and security questions.
+- [Support](https://ibo-ts.com/support): Contact and ticketing.
+- [Terms](https://ibo-ts.com/terms): Terms of service and risk statement.
+- [Privacy](https://ibo-ts.com/privacy): Data handling and privacy policy.
+
+## Key facts
+
+- Supported exchanges: Binance, Bybit, Bitunix, BingX, OKX, Gate.io, KuCoin, MEXC, Bitget, Nobitex, Wallex, Tabdeal, Ramzinex, Bitpin, Sarmayex, Exir, Ompfinex and more (18 total).
+- Interface language: Persian (fa-IR). Currency: USDT.
+- Platforms: Web, Android (APK, Cafe Bazaar, Myket), Telegram bot.
+- Official domain: https://ibo-ts.com. Telegram support: @IBOTradingSignalsBot.
+
+## Notes
+
+- Trading involves risk; past performance does not guarantee future results.
+- Users keep custody of funds in their own exchange accounts.

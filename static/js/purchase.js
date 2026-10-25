@@ -242,7 +242,7 @@
     const auth = (function () { try { return localStorage.getItem('ibots_token'); } catch (e) { return null; } })();
     if (!auth) {
       toast('برای خرید اشتراک ابتدا وارد حساب کاربری شوید.', 'error');
-      location.href = '/?auth=login';
+      location.href = '/#login';
       return;
     }
     if (!window.IboApp || !IboApp.startMyketPurchase) {
@@ -261,7 +261,7 @@
 
   async function verifyMyketPurchase(purchaseToken, planCode, addon, sku, silent) {
     const auth = (function () { try { return localStorage.getItem('ibots_token'); } catch (e) { return null; } })();
-    if (!auth) { if (!silent) location.href = '/?auth=login'; return; }
+    if (!auth) { if (!silent) location.href = '/#login'; return; }
     try {
       const r = await fetch('/api/v1/subscriptions/store-verify-token', {
         method: 'POST',
@@ -284,7 +284,7 @@
         close();
       } else if (r.status === 401) {
         toast('نشست شما منقضی شده؛ دوباره وارد شوید.', 'error');
-        location.href = '/?auth=login';
+        location.href = '/#login';
       } else if (r.status === 503) {
         toast('راستی‌آزمایی مایکت موقتاً در دسترس نیست؛ چند دقیقه بعد تلاش کنید.', 'error');
       } else {
@@ -344,7 +344,7 @@
     const token = (function () { try { return localStorage.getItem('ibots_token'); } catch (e) { return null; } })();
     if (!token) {
       toast('برای ثبت تراکنش ابتدا وارد حساب کاربری شوید.', 'error');
-      location.href = '/?auth=login';
+      location.href = '/#login';
       return;
     }
     const btn = document.getElementById('pumSend');
@@ -361,7 +361,7 @@
         close();
         if (window.fetchCurrentSubscription) window.fetchCurrentSubscription();
       } else if (r.status === 401) {
-        toast('نشست شما منقضی شده؛ دوباره وارد شوید.', 'error'); location.href = '/?auth=login';
+        toast('نشست شما منقضی شده؛ دوباره وارد شوید.', 'error'); location.href = '/#login';
       } else if (r.status === 404) {
         toast('پلن اشتراک یافت نشد؛ دوباره تلاش کنید.', 'error');
       } else {

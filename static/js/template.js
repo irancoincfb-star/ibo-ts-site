@@ -81,6 +81,9 @@
             '<button type="button" class="tpl-burger" aria-label="منو" aria-expanded="false" aria-controls="tplMenuSheet">' +
               '<span class="tpl-burger-glyph" aria-hidden="true"><i></i><i></i><i></i><i></i></span>' +
             '</button>' +
+            '<button type="button" class="tpl-theme-toggle" aria-label="تغییر تم" aria-pressed="false" title="تغییر تم (روشن/تیره)">' +
+              '<i class="bi bi-sun-fill" aria-hidden="true"></i>' +
+            '</button>' +
             '<div id="tplAuthContainer"></div>' +
           '</div>' +
         '</div>' +
@@ -135,6 +138,40 @@
         }
       });
     }
+
+    // Theme Toggle (Dark/Light Mode)
+    const themeToggle = h.querySelector('.tpl-theme-toggle');
+    if (themeToggle) {
+      // Initialize theme from localStorage or system preference
+      function getTheme() {
+        const saved = localStorage.getItem('ibo-theme');
+        if (saved) return saved;
+        return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      }
+
+      function applyTheme(theme) {
+        document.documentElement.setAttribute('data-theme', theme);
+        localStorage.setItem('ibo-theme', theme);
+        const icon = themeToggle.querySelector('i');
+        if (icon) {
+          icon.className = theme === 'dark' ? 'bi bi-moon-fill' : 'bi bi-sun-fill';
+        }
+        themeToggle.setAttribute('aria-pressed', theme === 'dark' ? 'true' : 'false');
+      }
+
+      // Initialize
+      applyTheme(getTheme());
+
+      // Toggle on click
+      themeToggle.addEventListener('click', function (ev) {
+        ev.preventDefault();
+        ev.stopPropagation();
+        const current = document.documentElement.getAttribute('data-theme') || 'light';
+        const newTheme = current === 'dark' ? 'light' : 'dark';
+        applyTheme(newTheme);
+      });
+    }
+
     buildMenuSheet();
   }
 
@@ -356,16 +393,426 @@
     else document.body.style.paddingBottom = '6.5rem';
   }
 
-  /* ─────────────── anime-style burst on icon tap (nav + dock + menu) ─────────────── */
-  function bindBurst() {
-    document.addEventListener('click', function (ev) {
-      const t = ev.target.closest('.tpl-dock-item, .tpl-menu-link, .nav-link, .tpl-profile-chip');
-      if (!t) return;
-      t.classList.remove('tpl-burst');
-      void t.offsetWidth; // restart animation
-      t.classList.add('tpl-burst');
-      window.setTimeout(function () { t.classList.remove('tpl-burst'); }, 750);
-    }, { passive: true });
+  /* ─────────────── Toast Notification System ─────────────── */
+  function showToast(message, type = 'info', duration = 4000, action = null) {
+    // Create toast container if not exists
+    let container = document.getElementById('tpl-toast-container');
+    if (!container) {
+      container = document.createElement('div');
+      container.id = 'tpl-toast-container';
+      container.setAttribute('role', 'region');
+      container.setAttribute('aria-label', 'اعلان‌ها');
+      container.setAttribute('aria-live', 'polite');
+      container.setAttribute('aria-atomic', 'true');
+      container.style.cssText = `
+        position: fixed;
+        bottom: 80px;
+        right: 16px;
+        left: 16px;
+        z-index: 9999;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        pointer-events: none;
+        max-width: 400px;
+        margin: 0 auto;
+      `;
+      document.body.appendChild(container);
+    }
+
+    const toast = document.createElement('div');
+    const toastId = 'toast-' + Date.now() + '-' + Math.random().toString(36).substr(2, 9);
+    toast.id = toastId;
+    toast.setAttribute('role', 'alert');
+    toast.setAttribute('aria-live', 'assertive');
+    toast.setAttribute('aria-atomic', 'true');
+
+    const icons = {
+      success: 'bi-check-circle-fill',
+      error: 'bi-x-circle-fill',
+      warning: 'bi-exclamation-triangle-fill',
+      info: 'bi-info-circle-fill'
+    };
+
+    const bgColors = {
+      success: 'var(--tpl-toast-bg-success)',
+      error: 'var(--tpl-toast-bg-error)',
+      warning: 'var(--tpl-toast-bg-warning)',
+      info: 'var(--tpl-toast-bg-info)'
+    };
+
+    const borderColors = {
+      success: 'var(--tpl-toast-border-success)',
+      error: 'var(--tpl-toast-border-error)',
+      warning: 'var(--tpl-toast-border-warning)',
+      info: 'var(--tpl-toast-border-info)'
+    };
+
+    const textColors = {
+      success: 'var(--tpl-toast-success)',
+      error: 'var(--tpl-toast-error)',
+      warning: 'var(--tpl-toast-warning)',
+      info: 'var(--tpl-toast-info)'
+    };
+
+    const icon = icons[type] || icons.info;
+    const bgColor = bgColors[type] || bgColors.info;
+    const borderColor = borderColors[type] || borderColors.info;
+    const textColor = textColors[type] || textColors.info;
+
+    toast.style.cssText = `
+      background: ${bgColor};
+      border: 1.5px solid ${borderColor};
+      border-radius: 12px;
+      padding: 12px 16px;
+      color: ${textColor};
+      font-size: 0.875rem;
+      font-weight: 600;
+      line-height: 1.5;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.2), inset 0 0 0 1.5px ${borderColor};
+      animation: tpl-toast-in 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      direction: rtl;
+      text-align: right;
+      pointer-events: auto;
+    `;
+
+    toast.innerHTML = `
+      <i class="bi ${icons[type] || icons.info}" aria-hidden="true" style="font-size: 1.1rem; flex-shrink: 0; margin-top: 2px;"></i>
+      <span style="flex: 1;">${message}</span>
+      <button type="button" class="tpl-toast-close" aria-label="بستن" style="
+        background: none;
+        border: none;
+        color: inherit;
+        opacity: 0.6;
+        cursor: pointer;
+        padding: 4px;
+        font-size: 1rem;
+        line-height: 1;
+        flex-shrink: 0;
+        transition: opacity 0.2s;
+      ">&times;</button>
+    `;
+
+    // Add action button if provided
+    if (action && action.label && typeof action.onClick === 'function') {
+      const actionBtn = document.createElement('button');
+      actionBtn.type = 'button';
+      actionBtn.textContent = action.label;
+      actionBtn.style.cssText = `
+        margin-right: 8px;
+        padding: 6px 12px;
+        border-radius: 8px;
+        border: 1.5px solid currentColor;
+        background: transparent;
+        color: inherit;
+        font-weight: 700;
+        font-size: 0.75rem;
+        cursor: pointer;
+        transition: background 0.2s, color 0.2s;
+        flex-shrink: 0;
+      `;
+      actionBtn.onmouseover = () => { actionBtn.style.background = 'currentColor'; actionBtn.style.color = 'var(--tpl-bg-primary)'; };
+      actionBtn.onmouseout = () => { actionBtn.style.background = 'transparent'; actionBtn.style.color = 'inherit'; };
+      actionBtn.onclick = (e) => {
+        e.stopPropagation();
+        action.onClick();
+        removeToast(toastId);
+      };
+      toast.appendChild(actionBtn);
+    }
+
+    // Add close button handler
+    const closeBtn = toast.querySelector('.tpl-toast-close');
+    if (closeBtn) {
+      closeBtn.onclick = (e) => {
+        e.stopPropagation();
+        removeToast(toast.id);
+      };
+    }
+
+    // Click on toast to dismiss (optional)
+    toast.onclick = () => removeToast(toast.id);
+
+    // Add to container
+    container.appendChild(toast);
+
+    // Auto-remove after duration
+    const timeoutId = setTimeout(() => removeToast(toastId), duration);
+
+    // Store timeout ID for cleanup
+    toast._timeoutId = timeoutId;
+
+    function removeToast(id) {
+      const toastEl = document.getElementById(id);
+      if (!toastEl) return;
+      clearTimeout(toastEl._timeoutId);
+      toastEl.style.animation = 'tpl-toast-out 0.25s ease-in forwards';
+      setTimeout(() => {
+        if (toastEl.parentNode) toastEl.parentNode.removeChild(toastEl);
+      }, 250);
+    }
+
+    return { id: toastId, remove: () => removeToast(toastId) };
+  }
+
+  // Convenience methods
+  window.showToast = showToast;
+  window.toast = {
+    success: (msg, dur, act) => showToast(msg, 'success', dur, act),
+    error: (msg, dur, act) => showToast(msg, 'error', dur, act),
+    warning: (msg, dur, act) => showToast(msg, 'warning', dur, act),
+    info: (msg, dur, act) => showToast(msg, 'info', dur, act),
+  };
+
+  /* ─────────────── Onboarding Flow (First-time User Guide) ─────────────── */
+  function initOnboarding() {
+    const hasSeenOnboarding = localStorage.getItem('ibo-onboarding-complete');
+    if (hasSeenOnboarding) return;
+
+    const steps = [
+      {
+        target: '.tpl-dock',
+        title: 'نوار ناوبری پایین',
+        content: 'از این نوار برای دسترسی سریع به کارنامه، داشبورد، تعرفه و اپلیکیشن استفاده کنید.',
+        position: 'top'
+      },
+      {
+        target: '.tpl-burger',
+        title: 'منوی همبرگری',
+        content: 'اینجا به تمام بخش‌های سایت دسترسی دارید: معاملات، اشتراک، راهنما و قوانین.',
+        position: 'left'
+      },
+      {
+        target: '.tpl-profile-chip',
+        title: 'پروفایل کاربری',
+        content: 'اینجا می‌توانید نام، آواتار، رمز عبور و تنظیمات حساب خود را مدیریت کنید.',
+        position: 'left'
+      }
+    ];
+
+    let currentStep = 0;
+    let overlay = null;
+    let tooltip = null;
+    let highlight = null;
+
+    function createOverlay() {
+      overlay = document.createElement('div');
+      overlay.id = 'tpl-onboarding-overlay';
+      overlay.style.cssText = `
+        position: fixed;
+        inset: 0;
+        background: rgba(15, 23, 42, 0.7);
+        z-index: 9998;
+        animation: fadeIn 0.3s ease;
+      `;
+      document.body.appendChild(overlay);
+    }
+
+    function createTooltip(step) {
+      tooltip = document.createElement('div');
+      tooltip.id = 'tpl-onboarding-tooltip';
+      tooltip.style.cssText = `
+        position: fixed;
+        z-index: 9999;
+        max-width: 320px;
+        background: var(--tpl-card-bg);
+        border: 1.5px solid var(--tpl-card-border);
+        border-radius: 16px;
+        padding: 20px;
+        box-shadow: var(--tpl-shadow-xl);
+        direction: rtl;
+        text-align: right;
+        animation: slideUp 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      `;
+
+      tooltip.innerHTML = `
+        <div style="display: flex; align-items: flex-start; gap: 12px; margin-bottom: 16px;">
+          <div style="width: 36px; height: 36px; border-radius: 50%; background: var(--tpl-rgb-grad); display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: white; font-weight: 900; font-size: 1.1rem;">
+            ${step.index + 1}
+          </div>
+          <div style="flex: 1;">
+            <h4 style="margin: 0 0 4px; font-size: 1rem; font-weight: 900; color: var(--tpl-text-primary);">${step.title}</h4>
+            <p style="margin: 0; font-size: 0.875rem; color: var(--tpl-text-secondary); line-height: 1.6;">${step.content}</p>
+          </div>
+          <button type="button" class="tpl-onboarding-skip" aria-label="رد کردن" style="
+            background: none; border: none; color: var(--tpl-text-muted); font-size: 1.25rem; cursor: pointer; padding: 4px; line-height: 1;
+          ">&times;</button>
+        </div>
+        <p style="font-size: 0.75rem; color: var(--tpl-text-muted); margin: 12px 0 0; text-align: center;">
+          مرحله ${step.index + 1} از ${3}
+        </p>
+        <div style="display: flex; gap: 8px; margin-top: 20px;">
+          <button type="button" class="tpl-onboarding-prev" style="flex: 1; padding: 10px 16px; border-radius: 10px; border: 1.5px solid var(--tpl-border-medium); background: transparent; color: var(--tpl-text-secondary); font-weight: 700; font-size: 0.875rem; cursor: pointer;" ${step.index === 0 ? 'disabled style="opacity: 0.5; pointer-events: none;"' : ''}>
+            قبلی
+          </button>
+          <button type="button" class="tpl-onboarding-next" style="flex: 1; padding: 10px 16px; border-radius: 10px; background: var(--tpl-rgb-grad); background-size: 200% 200%; animation: tpl-rgb-flow 8s ease-in-out infinite; color: white; font-weight: 800; font-size: 0.875rem; border: none; cursor: pointer;">
+            ${step.index === 2 ? 'شروع کنید' : 'بعدی'}
+          </button>
+        </div>
+      `;
+
+      document.body.appendChild(tooltip);
+
+      // Position tooltip relative to target
+      positionTooltip(step);
+
+      // Event listeners
+      tooltip.querySelector('.tpl-onboarding-next').onclick = nextStep;
+      tooltip.querySelector('.tpl-onboarding-prev').onclick = prevStep;
+      tooltip.querySelector('.tpl-onboarding-skip').onclick = skipOnboarding;
+    }
+
+    function positionTooltip(step) {
+      if (!tooltip || !step.target) return;
+      const target = document.querySelector(step.target);
+      if (!target) return nextStep();
+
+      const rect = target.getBoundingClientRect();
+      const tooltipRect = { width: 320, height: 280 }; // approximate
+      let top, left;
+
+      switch (step.position) {
+        case 'top':
+          top = rect.top - 300;
+          left = rect.left + rect.width / 2 - 160;
+          break;
+        case 'left':
+          top = rect.top + rect.height / 2 - 140;
+          left = rect.left - 340;
+          break;
+        case 'right':
+          top = rect.top + rect.height / 2 - 140;
+          left = rect.right + 20;
+          break;
+        default:
+          top = rect.top - 300;
+          left = rect.left + rect.width / 2 - 160;
+      }
+
+      // Keep within viewport
+      left = Math.max(16, Math.min(left, window.innerWidth - 336));
+      top = Math.max(16, Math.min(top, window.innerHeight - 300));
+
+      tooltip.style.top = top + 'px';
+      tooltip.style.left = left + 'px';
+    }
+
+    function createHighlight(step) {
+      const target = document.querySelector(step.target);
+      if (!target) return;
+
+      highlight = document.createElement('div');
+      highlight.id = 'tpl-onboarding-highlight';
+      highlight.style.cssText = `
+        position: fixed;
+        z-index: 9997;
+        border-radius: 12px;
+        border: 3px solid var(--tpl-accent-primary);
+        box-shadow: 0 0 0 9999px rgba(15, 23, 42, 0.7);
+        animation: pulse 1.5s ease-in-out infinite;
+        pointer-events: none;
+      `;
+      document.body.appendChild(highlight);
+
+      updateHighlight(step);
+    }
+
+    function updateHighlight(step) {
+      if (!highlight) return;
+      const target = document.querySelector(step.target);
+      if (!target) return;
+      const rect = target.getBoundingClientRect();
+      highlight.style.top = (rect.top - 6) + 'px';
+      highlight.style.left = (rect.left - 6) + 'px';
+      highlight.style.width = (rect.width + 12) + 'px';
+      highlight.style.height = (rect.height + 12) + 'px';
+    }
+
+    function showStep(index) {
+      if (index >= 3) {
+        completeOnboarding();
+        return;
+      }
+      currentStep = index;
+      const step = { ...steps[index], index };
+
+      // Clean up previous
+      if (tooltip) tooltip.remove();
+      if (highlight) highlight.remove();
+
+      createTooltip(step);
+      createHighlight(step);
+      updateHighlight({ target: steps[index].target });
+    }
+
+    function nextStep() {
+      showStep(currentStep + 1);
+    }
+
+    function prevStep() {
+      showStep(currentStep - 1);
+    }
+
+    function skipOnboarding() {
+      completeOnboarding();
+    }
+
+    function completeOnboarding() {
+      localStorage.setItem('ibo-onboarding-complete', 'true');
+      cleanup();
+    }
+
+    function cleanup() {
+      if (overlay) overlay.remove();
+      if (tooltip) tooltip.remove();
+      if (highlight) highlight.remove();
+      document.body.style.overflow = '';
+    }
+
+    // Start onboarding
+    createOverlay();
+    showStep(0);
+  }
+
+  // Expose for manual trigger
+  window.startOnboarding = initOnboarding;
+
+  // Auto-start onboarding for new users (after a short delay)
+  setTimeout(() => {
+    if (!localStorage.getItem('ibo-onboarding-complete')) {
+      initOnboarding();
+    }
+  }, 2000);
+
+  /* ─────────────── Offline Indicator ─────────────── */
+  function initOfflineIndicator() {
+    // Create offline indicator element
+    const indicator = document.createElement('div');
+    indicator.id = 'tpl-offline-indicator';
+    indicator.className = 'tpl-offline-indicator';
+    indicator.innerHTML = '<i class="bi bi-wifi-off" aria-hidden="true"></i> <span>آفلاین هستید</span>';
+    document.body.appendChild(indicator);
+
+    function updateOnlineStatus() {
+      const indicator = document.getElementById('tpl-offline-indicator');
+      if (!indicator) return;
+      
+      if (navigator.onLine) {
+        indicator.classList.remove('visible');
+      } else {
+        indicator.classList.add('visible');
+      }
+    }
+
+    // Initial check
+    updateOnlineStatus();
+
+    // Listen for online/offline events
+    window.addEventListener('online', updateOnlineStatus);
+    window.addEventListener('offline', updateOnlineStatus);
   }
 
   /* ─────────────── boot ─────────────── */
@@ -374,6 +821,7 @@
     if (opts.footer) buildFooter();
     if (opts.dock) buildDock();
     bindBurst();
+    initOfflineIndicator();
     if (opts.header) {
       // Google OAuth redirect-flow fallback link (added by app.js on home)
       const go = document.getElementById('googleOAuthStart');

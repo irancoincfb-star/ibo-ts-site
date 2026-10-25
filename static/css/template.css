@@ -566,6 +566,26 @@ body.tpl-menu-open::after {
 .profile-meta b { color: var(--text-heading); }
 .profile-meta i { color: var(--tpl-rgb-ink); }
 
+/* Eye button for password fields */
+.profile-eye {
+  position: absolute;
+  right: .6rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 2rem; height: 2rem;
+  border-radius: 50%;
+  border: 1.5px solid rgba(226, 232, 240, .95);
+  background: rgba(255, 255, 255, .85);
+  color: #475569;
+  display: inline-flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  transition: background .18s, color .18s, border-color .18s;
+  z-index: 2;
+  font-size: .75rem;
+}
+.profile-eye:hover { background: #2a2a38; color: #fff; border-color: #2a2a38; }
+.profile-field { position: relative; }
+
 @media (max-width: 640px) {
   .profile-grid { grid-template-columns: 1fr; gap: 0; }
   .profile-head { gap: .8rem; }

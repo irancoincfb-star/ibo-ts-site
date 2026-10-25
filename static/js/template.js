@@ -78,6 +78,9 @@
             '<a href="/support" class="nav-link"><i class="bi bi-headset" aria-hidden="true"></i><span>پشتیبانی</span></a>' +
           '</nav>' +
           '<div class="header-actions">' +
+            '<button type="button" class="tpl-burger" aria-label="منو" aria-expanded="false" aria-controls="tplMenuSheet">' +
+              '<span class="tpl-burger-glyph" aria-hidden="true"><i></i><i></i><i></i><i></i></span>' +
+            '</button>' +
             '<div id="tplAuthContainer"></div>' +
           '</div>' +
         '</div>' +
@@ -98,10 +101,11 @@
         '</div>';
       loadProfileChip();
     } else {
-      c.innerHTML = '<a href="/#login" class="btn btn-primary btn-sm tpl-btn-flex"><i class="bi bi-person-fill-lock"></i> <span class="tpl-btn-label">ورود و ثبت‌نام</span></a>';
+      // Blue login button removed — menu + dock provide access; header kept clean
+      c.innerHTML = '<div class="tpl-header-auth" aria-label="دسترسی سریع"></div>';
     }
 
-    // Brand logo opens menu (replacing redundant burger button)
+    // Brand logo also opens menu (clean alternative to burger)
     const brand = h.querySelector('.brand-wrapper');
     if (brand) {
       brand.addEventListener('click', function (ev) {
@@ -111,16 +115,26 @@
       });
     }
 
-    document.addEventListener('click', function (ev) {
-      if (!document.body.classList.contains('tpl-menu-open')) return;
-      if (ev.target.closest('.tpl-menu-sheet') || ev.target.closest('.brand-wrapper')) return;
-      document.body.classList.remove('tpl-menu-open');
-    });
-    document.addEventListener('keydown', function (ev) {
-      if (ev.key === 'Escape' && document.body.classList.contains('tpl-menu-open')) {
+    // Burger button opens/closes menu sheet
+    const burger = h.querySelector('.tpl-burger');
+    if (burger) {
+      burger.addEventListener('click', function () {
+        const open = document.body.classList.toggle('tpl-menu-open');
+        burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+      document.addEventListener('click', function (ev) {
+        if (!document.body.classList.contains('tpl-menu-open')) return;
+        if (ev.target.closest('.tpl-menu-sheet') || ev.target.closest('.tpl-burger') || ev.target.closest('.brand-wrapper')) return;
         document.body.classList.remove('tpl-menu-open');
-      }
-    });
+        burger.setAttribute('aria-expanded', 'false');
+      });
+      document.addEventListener('keydown', function (ev) {
+        if (ev.key === 'Escape' && document.body.classList.contains('tpl-menu-open')) {
+          document.body.classList.remove('tpl-menu-open');
+          burger.setAttribute('aria-expanded', 'false');
+        }
+      });
+    }
     buildMenuSheet();
   }
 

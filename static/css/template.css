@@ -196,7 +196,7 @@ body.tpl-menu-open .tpl-burger-glyph i:nth-child(4) { transform: scale(0); opaci
   animation: tpl-rgb-halo 7s linear infinite;
   display: flex;
   align-items: stretch;
-  justify-content: space-between;
+  justify-content: space-evenly;
   padding: .3rem .35rem;
 }
 
@@ -258,16 +258,15 @@ body.tpl-menu-open .tpl-burger-glyph i:nth-child(4) { transform: scale(0); opaci
 .tpl-dock-item.tpl-active i, .tpl-dock-item.tpl-active b { color: var(--tpl-rgb-ink); }
 
 .tpl-dock-center {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  bottom: .4rem;
-  pointer-events: auto;
+  position: relative;
+  z-index: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: center;
   width: auto;
+  flex: 1;
+  padding: .3rem .15rem;
 }
 .tpl-dock-center i { color: var(--tpl-rgb-ink); }
 .tpl-dock-center b { color: var(--tpl-rgb-ink); }

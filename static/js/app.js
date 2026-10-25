@@ -875,7 +875,7 @@ async function fetchEngineStatus() {
         const badge = document.getElementById('terminalStatusBadge');
         if (badge) {
           badge.innerText = `STATUS: ${sc.is_running ? 'LIVE' : 'IDLE'} | CYCLE: ${sc.cycle || 0}`;
-          badge.style.color = sc.is_running ? '#10B981' : '#F43F5E';
+          badge.style.color = sc.is_running ? '#047857' : '#B91C1C';
         }
         const tCycles = document.getElementById('terminalTotalCycles');
         if (tCycles) {

@@ -24,7 +24,7 @@
   -webkit-tap-highlight-color: transparent; }
 .tpl-dock-item[aria-hidden] { visibility: hidden; }
 .tpl-dock-item i { font-size: 1.22rem; color: #94A3B8; transition: color .18s ease; }
-.tpl-dock-item b { font-size: 0.6rem; font-weight: 700; color: #94A3B8; }
+.tpl-dock-item b { font-size: 0.6rem; font-weight: 700; color: #64748B; }
 .tpl-dock-item:hover { background: #F8FAFC; }
 .tpl-dock-item:hover i, .tpl-dock-item:hover b { color: #4F46E5; }
 .tpl-dock-item.tpl-active { background: #EEF2FF; }

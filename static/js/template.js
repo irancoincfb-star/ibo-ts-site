@@ -155,7 +155,7 @@
               '<p style="font-size:.88rem;color:var(--text-muted);line-height:1.8;">سامانه پردازش ابری و الگوریتمی سیگنال‌های معاملاتی بازارهای مالی متصل به ۱۸ صرافی رسمی. مدیریت منظم ریسک و انضباط کامل معاملاتی.</p>' +
             '</div>' +
             '<div>' +
-              '<h4 class="footer-col-title">دسترسی سریع</h4>' +
+              '<h2 class="footer-col-title">دسترسی سریع</h2>' +
               '<ul class="footer-links-list">' +
                 '<li><a href="/features">امکانات سامانه</a></li>' +
                 '<li><a href="/performance">کارنامه عملکرد</a></li>' +
@@ -164,7 +164,7 @@
               '</ul>' +
             '</div>' +
             '<div>' +
-              '<h4 class="footer-col-title">قوانین و امنیت</h4>' +
+              '<h2 class="footer-col-title">قوانین و امنیت</h2>' +
               '<ul class="footer-links-list">' +
                 '<li><a href="/privacy">حریم خصوصی داده‌ها</a></li>' +
                 '<li><a href="/terms">شرایط استفاده و قوانین</a></li>' +
@@ -174,7 +174,7 @@
               '</ul>' +
             '</div>' +
             '<div>' +
-              '<h4 class="footer-col-title">بیانیه ریسک</h4>' +
+              '<h2 class="footer-col-title">بیانیه ریسک</h2>' +
               '<p style="font-size:.78rem;color:var(--text-muted);line-height:1.7;">معاملات در بازارهای مالی و دارایی‌های دیجیتال دارای ریسک ذاتی نوسانات قیمتی است. هیچ عملکرد گذشته‌ای تضمین‌کننده قطعی آینده نیست. کاربران باید مدیریت سرمایه مسئولانه را در اولویت قرار دهند.</p>' +
             '</div>' +
           '</div>' +

@@ -644,7 +644,7 @@ td .sym-logo {
   display: inline-block;
   padding: 0.35rem 1rem;
   background: var(--profit-bg);
-  color: var(--profit-emerald);
+  color: #047857;
   border: 1.5px solid var(--profit-border);
   border-radius: var(--radius-full);
   font-size: 0.82rem;

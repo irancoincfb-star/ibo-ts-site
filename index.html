@@ -136,6 +136,7 @@
 </style>
 </head>
 <body>
+<main id="appMain">
   <!-- ============ SPLASH (sync — covers page instantly from first paint) ============ -->
   <div id="appSplash" style="position:fixed; inset:0; z-index:99999; background:#FFFFFF; display:flex; align-items:center; justify-content:center; flex-direction:column; opacity:1; transition:opacity .5s ease;">
     <video id="splashVideo" muted autoplay loop playsinline style="display:none; position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:0; transition:opacity .6s ease; background:#FFFFFF;"></video>
@@ -243,7 +244,7 @@
 
           <div class="hero-kpis">
             <div class="kpi-card">
-              <span id="heroWinRate" class="kpi-value mono" style="color: var(--profit-emerald-light);">—</span>
+              <span id="heroWinRate" class="kpi-value mono" style="color: #047857;">—</span>
               <span class="kpi-label">نرخ برد استراتژی (Win Rate)</span>
             </div>
             <div class="kpi-card">
@@ -278,7 +279,7 @@
 
           <div class="terminal-metric-row">
             <span class="terminal-label">سودآوری تجمعی استراتژی سود و زیان (PnL):</span>
-            <span id="terminalTotalPnL" class="terminal-val mono" style="color: var(--profit-emerald);">—</span>
+            <span id="terminalTotalPnL" class="terminal-val mono" style="color: #047857;">—</span>
           </div>
 
           <div class="terminal-metric-row">
@@ -370,7 +371,7 @@
         <div class="chart-card">
           <div class="chart-card-head">
             <h3 class="chart-card-title"><i class="bi bi-activity" style="color: #F59E0B;"></i> نمودار افت سرمایه از سقف (Drawdown)</h3>
-            <span class="mono" style="font-size: 0.82rem; font-weight: 800; color: #F59E0B;">RISK CONTROL</span>
+            <span class="mono" style="font-size: 0.82rem; font-weight: 800; color: #B45309;">RISK CONTROL</span>
           </div>
           <div class="chart-canvas-wrapper">
             <canvas id="drawdownChartCanvas"></canvas>
@@ -384,7 +385,7 @@
       <!-- KPI Summary 4-Row -->
       <div class="kpi-four-row">
         <div class="kpi-stat-box">
-          <span id="metricWinRate" class="kpi-stat-num mono" style="color: var(--profit-emerald);">—</span>
+          <span id="metricWinRate" class="kpi-stat-num mono" style="color: #047857;">—</span>
           <span class="kpi-stat-title">نرخ برد استراتژی</span>
         </div>
         <div class="kpi-stat-box">
@@ -392,7 +393,7 @@
           <span class="kpi-stat-title">مجموع معاملات ثبت‌شده</span>
         </div>
         <div class="kpi-stat-box">
-          <span id="metricCumPnl" class="kpi-stat-num mono" style="color: var(--profit-emerald);">—</span>
+          <span id="metricCumPnl" class="kpi-stat-num mono" style="color: #047857;">—</span>
           <span class="kpi-stat-title">سود و زیان (PnL) کل دوره</span>
         </div>
         <div class="kpi-stat-box">
@@ -425,7 +426,7 @@
           </div>
         </div>
         <label class="addon-toggle-switch">
-          <input type="checkbox" id="botAddonToggle" onchange="toggleBotAddon(this.checked)">
+          <input type="checkbox" id="botAddonToggle" aria-label="فعال‌سازی ربات معامله‌گر خودکار" onchange="toggleBotAddon(this.checked)">
           <span class="toggle-slider"></span>
         </label>
       </div>
@@ -887,7 +888,8 @@
 
   <!-- Scripts -->
   <script src="/static/vendor/chart.umd.min.js"></script>
-  <script src="/static/js/template.js?v=20261025a"></script>
+  </main>
+<script src="/static/js/template.js?v=20261025a"></script>
   <script>
     window.__IBO_APP_LINKS = {
       bazaar: 'https://cafebazaar.ir/app/com.ibots.trading',

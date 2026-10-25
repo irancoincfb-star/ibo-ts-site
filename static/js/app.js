@@ -80,6 +80,205 @@ async function fetchPricingPlans() {
   }
 }
 
+// ==================== PROFILE VIEW (identity: name / email / password / avatar) ====================
+function showProfileView() {
+  if (!state.token) { openAuthModal('login'); return; }
+  const prof = document.getElementById('profileSection');
+  const dash = document.getElementById('dashboardSection');
+  if (!prof) return;
+  if (dash) dash.classList.remove('active');
+  prof.classList.add('active');
+  fillProfileForm();
+  fetchUserProfile().then(fillProfileForm);
+  prof.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function hideProfileView() {
+  const prof = document.getElementById('profileSection');
+  if (prof) prof.classList.remove('active');
+  if (location.hash) history.replaceState({}, '', location.pathname + location.search);
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function profileInitials(name) {
+  const parts = String(name || '').trim().split(/\s+/).filter(Boolean);
+  if (!parts.length) return 'IB';
+  return (parts[0][0] + (parts[1] ? parts[1][0] : '')).toUpperCase();
+}
+
+function setProfileMsg(kind, text) {
+  const m = document.getElementById('profileMsg');
+  if (!m) return;
+  m.hidden = false;
+  m.textContent = text;
+  m.className = 'profile-msg ' + (kind === 'ok' ? 'profile-msg-ok' : 'profile-msg-err');
+  clearTimeout(setProfileMsg._t);
+  setProfileMsg._t = setTimeout(function () { m.hidden = true; }, 6000);
+}
+
+function fillProfileForm() {
+  const u = state.user;
+  if (!u) return;
+  const full = (u.full_name || '').trim();
+  let first = (u.first_name || '').trim();
+  let last = (u.last_name || '').trim();
+  if (!first && full) {
+    const parts = full.split(/\s+/);
+    first = parts[0] || '';
+    last = parts.slice(1).join(' ');
+  }
+  const nameVal = (first + ' ' + last).trim() || full || u.email || '';
+  const set = function (id, v) { const e = document.getElementById(id); if (e) e.value = v; };
+  const txt = function (id, v) { const e = document.getElementById(id); if (e) e.textContent = v; };
+
+  set('pfFirstName', first);
+  set('pfLastName', last);
+  set('pfEmail', u.email || '');
+  txt('profileName', nameVal);
+  txt('profileEmailText', u.email || '');
+
+  const badge = document.getElementById('profileVerifyBadge');
+  if (badge) {
+    if (u.is_verified) {
+      badge.textContent = '✓ ایمیل تایید شده';
+      badge.className = 'profile-badge profile-badge-ok';
+    } else {
+      badge.textContent = 'در انتظار تایید ایمیل';
+      badge.className = 'profile-badge profile-badge-wait';
+    }
+  }
+
+  const img = document.getElementById('profileAvatarImg');
+  const ini = document.getElementById('profileAvatarInitials');
+  if (img && ini) {
+    if (u.avatar_url) {
+      img.hidden = false;
+      img.onerror = function () {
+        img.style.display = 'none';
+        ini.style.display = '';
+        ini.textContent = profileInitials(nameVal);
+      };
+      img.onload = function () { img.style.display = 'block'; ini.style.display = 'none'; };
+      img.src = u.avatar_url;
+    } else {
+      img.hidden = true;
+      img.style.display = 'none';
+      ini.style.display = '';
+      ini.textContent = profileInitials(nameVal);
+    }
+  }
+
+  const curLabel = document.getElementById('pfCurrentLabel');
+  if (curLabel) {
+    curLabel.textContent = (u.auth_provider === 'email_manual')
+      ? 'رمز عبور فعلی'
+      : 'رمز عبور فعلی (اگر رمز ندارید خالی بگذارید)';
+  }
+
+  txt('profileSince', u.created_at ? new Date(u.created_at).toLocaleDateString('fa-IR') : '—');
+  const providers = {
+    email_manual: 'ایمیل و رمز عبور',
+    email: 'ایمیل و رمز عبور',
+    google_sso: 'ورود با گوگل',
+    telegram_login: 'ورود با تلگرام'
+  };
+  txt('profileProvider', providers[u.auth_provider] || u.auth_provider || '—');
+}
+
+async function saveProfileInfo(ev) {
+  ev.preventDefault();
+  const first = (document.getElementById('pfFirstName') || {}).value || '';
+  const last = (document.getElementById('pfLastName') || {}).value || '';
+  if (!first.trim() && !last.trim()) {
+    setProfileMsg('err', 'نام یا نام خانوادگی را وارد کنید');
+    return;
+  }
+  try {
+    const res = await fetch('/api/v1/auth/me/profile', {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + state.token },
+      body: JSON.stringify({ first_name: first.trim(), last_name: last.trim() })
+    });
+    const d = await res.json().catch(function () { return {}; });
+    if (!res.ok) { setProfileMsg('err', d.detail || 'خطا در ذخیره اطلاعات'); return; }
+    state.user = d.user || state.user;
+    fillProfileForm();
+    setProfileMsg('ok', 'اطلاعات هویتی با موفقیت ذخیره شد.');
+  } catch (e) {
+    setProfileMsg('err', 'خطای شبکه؛ دوباره تلاش کنید');
+  }
+}
+
+async function saveProfilePassword(ev) {
+  ev.preventDefault();
+  const cur = (document.getElementById('pfCurrentPw') || {}).value || '';
+  const n1 = (document.getElementById('pfNewPw') || {}).value || '';
+  const n2 = (document.getElementById('pfNewPw2') || {}).value || '';
+  if (n1.length < 8) { setProfileMsg('err', 'رمز عبور جدید باید حداقل ۸ کاراکتر باشد'); return; }
+  if (n1.length > 128) { setProfileMsg('err', 'رمز عبور جدید باید حداکثر ۱۲۸ کاراکتر باشد'); return; }
+  if (n1 !== n2) { setProfileMsg('err', 'تکرار رمز عبور جدید مطابقت ندارد'); return; }
+  try {
+    const res = await fetch('/api/v1/auth/me/password', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + state.token },
+      body: JSON.stringify({ current_password: cur, new_password: n1 })
+    });
+    const d = await res.json().catch(function () { return {}; });
+    if (!res.ok) { setProfileMsg('err', d.detail || 'خطا در تغییر رمز عبور'); return; }
+    ['pfCurrentPw', 'pfNewPw', 'pfNewPw2'].forEach(function (id) {
+      const e = document.getElementById(id);
+      if (e) e.value = '';
+    });
+    setProfileMsg('ok', 'رمز عبور با موفقیت تغییر کرد.');
+  } catch (e) {
+    setProfileMsg('err', 'خطای شبکه؛ دوباره تلاش کنید');
+  }
+}
+
+async function handleAvatarFile(input) {
+  const f = input.files && input.files[0];
+  if (!f) return;
+  input.value = '';
+  if (!/^image\/(png|jpeg|webp)$/.test(f.type)) {
+    setProfileMsg('err', 'فرمت تصویر باید PNG، JPG یا WebP باشد');
+    return;
+  }
+  if (f.size > 2 * 1024 * 1024) {
+    setProfileMsg('err', 'حجم تصویر نباید بیشتر از ۲ مگابایت باشد');
+    return;
+  }
+  setProfileMsg('ok', 'در حال بارگذاری تصویر پروفایل...');
+  try {
+    const b64 = await new Promise(function (res, rej) {
+      const r = new FileReader();
+      r.onload = function () { res(r.result); };
+      r.onerror = function () { rej(new Error('read')); };
+      r.readAsDataURL(f);
+    });
+    const res = await fetch('/api/v1/auth/me/avatar', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + state.token },
+      body: JSON.stringify({ image_base64: b64 })
+    });
+    const d = await res.json().catch(function () { return {}; });
+    if (!res.ok) { setProfileMsg('err', d.detail || 'خطا در بارگذاری تصویر'); return; }
+    if (state.user) state.user.avatar_url = d.avatar_url;
+    fillProfileForm();
+    setProfileMsg('ok', 'تصویر پروفایل بروزرسانی شد.');
+  } catch (e) {
+    setProfileMsg('err', 'خطای شبکه؛ دوباره تلاش کنید');
+  }
+}
+
+function initProfileView() {
+  const info = document.getElementById('profileInfoForm');
+  if (info) info.addEventListener('submit', saveProfileInfo);
+  const pw = document.getElementById('profilePasswordForm');
+  if (pw) pw.addEventListener('submit', saveProfilePassword);
+  const av = document.getElementById('profileAvatarInput');
+  if (av) av.addEventListener('change', function () { handleAvatarFile(av); });
+}
+
 // ==================== INITIALIZATION ====================
 document.addEventListener('DOMContentLoaded', async () => {
   // APK build detection (WebView UA "IBO-TS-App/…") — drives UI affordances
@@ -99,8 +298,11 @@ document.addEventListener('DOMContentLoaded', async () => {
       history.replaceState({}, '', location.pathname);
       handleGoogleRedirectReturn();
     }
+    if (hash === 'dashboard') showDashboardView();
+    if (hash === 'profile') showProfileView();
   } catch (e) {}
   checkAuth();
+  initProfileView();
   initTelegramWebApp();
   startUsdtRateEngine();
   startCountdown();
@@ -111,6 +313,14 @@ document.addEventListener('DOMContentLoaded', async () => {
   initFAQAccordion();
   initGoogleIdentity();
   fetchPricingPlans();
+});
+
+// Hash routes (in-page links from header/dock/menu: /#profile, /#dashboard, /#login)
+window.addEventListener('hashchange', function () {
+  const h = (location.hash || '').replace(/^#/, '');
+  if (h === 'profile') showProfileView();
+  else if (h === 'dashboard') showDashboardView();
+  else if (h === 'login') openAuthModal('login');
 });
 
 // ==================== SPLASH (video-backed; activates only when asset exists) ====================

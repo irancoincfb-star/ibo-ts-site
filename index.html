@@ -49,55 +49,81 @@
   <script src="https://accounts.google.com/gsi/client" async defer></script>
 
   <!-- Structured Data JSON-LD for SEO, GEO & AEO -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "Organization",
-        "@id": "https://ibo-ts.com/#organization",
-        "name": "IBO-TS TRADING SIGNALS",
-        "url": "https://ibo-ts.com",
-        "logo": "https://ibo-ts.com/static/assets/ibots_logo_transparent.png",
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://ibo-ts.com/#organization",
+      "name": "IBO-TS TRADING SIGNALS",
+      "url": "https://ibo-ts.com",
+      "logo": "https://ibo-ts.com/static/assets/ibots_logo_transparent.png",
+      "email": "support@ibo-ts.com",
+      "description": "IBO-TS ارائه‌دهنده سیستم‌های انحصاری معاملات الگوریتمی و سیگنال‌های بازارهای مالی برای ۱۸ صرافی",
+      "alternateName": "IBO-TS",
+      "sameAs": [
+        "https://t.me/IBOTradingSignalsBot"
+      ],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "customer support",
         "email": "support@ibo-ts.com",
-        "description": "ارائه‌دهنده سیستم‌های انحصاری معاملات الگوریتمی و سیگنال‌های بازارهای مالی"
-      },
-      {
-        "@type": "SoftwareApplication",
-        "name": "IBO-TS Trader Platform",
-        "applicationCategory": "FinanceApplication",
-        "operatingSystem": "Android, Web, PWA",
-        "downloadUrl": "https://ibo-ts.com/download/ibo-ts-trader.apk",
-        "offers": {
-          "@type": "Offer",
-          "priceCurrency": "USD",
-          "price": "29.00"
-        }
-      },
-      {
-        "@type": "FAQPage",
-        "mainEntity": [
-          {
-            "@type": "Question",
-            "name": "سامانه معاملاتی IBO-TS چیست و چه مزایایی دارد؟",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "IBO-TS یک بستر پیشرفته معاملاتی است که با استفاده از موتور الگوریتمی انحصاری و پایش عمیق رفتار نقدینگی، سودآورترین فرصت‌های ورود و خروج را شناسایی کرده و به صورت خودکار یا سیگنال روی ۱۸ صرافی اجرا می‌نماید."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "امنیت کلیدهای API کاربران چگونه تضمین می‌شود؟",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "کلیدهای API با استاندارد رمزنگاری پیشرفته سخت‌افزاری AES-256 ذخیره می‌شوند. سیستم صرفاً به مجوز معامله (Trade) نیاز دارد و فاقد هرگونه دسترسی برداشت وجه (Withdrawal) است."
-            }
-          }
+        "availableLanguage": [
+          "fa",
+          "en"
         ]
-      }
-    ]
-  }
-  </script>
+      },
+      "dateModified": "2026-10-25"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "name": "IBO-TS Trader Platform",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "Android, Web, PWA",
+      "downloadUrl": "https://ibo-ts.com/download/ibo-ts-trader.apk",
+      "offers": {
+        "@type": "Offer",
+        "priceCurrency": "USD",
+        "price": "29.00"
+      },
+      "description": "IBO-TS Trader Platform: سیگنال الگوریتمی و اجرای خودکار معاملات در ۱۸ صرافی با مدیریت ریسک",
+      "dateModified": "2026-10-25"
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "سامانه معاملاتی IBO-TS چیست و چه مزایایی دارد؟",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "IBO-TS یک بستر پیشرفته معاملاتی است که با استفاده از موتور الگوریتمی انحصاری و پایش عمیق رفتار نقدینگی، سودآورترین فرصت‌های ورود و خروج را شناسایی کرده و به صورت خودکار یا سیگنال روی ۱۸ صرافی اجرا می‌نماید."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "امنیت کلیدهای API کاربران چگونه تضمین می‌شود؟",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "کلیدهای API با استاندارد رمزنگاری پیشرفته سخت‌افزاری AES-256 ذخیره می‌شوند. سیستم صرفاً به مجوز معامله (Trade) نیاز دارد و فاقد هرگونه دسترسی برداشت وجه (Withdrawal) است."
+          }
+        }
+      ],
+      "dateModified": "2026-10-25"
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://ibo-ts.com/#website",
+      "url": "https://ibo-ts.com",
+      "name": "IBO-TS",
+      "inLanguage": "fa-IR",
+      "publisher": {
+        "@id": "https://ibo-ts.com/#organization"
+      },
+      "dateModified": "2026-10-25"
+    }
+  ]
+}</script>
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <style>
 @keyframes pulse {
@@ -912,6 +938,7 @@
   <a href="/">خانه</a> <a href="/features">امکانات</a> <a href="/signals">سیگنال‌ها</a>
   <a href="/performance">کارنامه عملکرد</a> <a href="/pricing">تعرفه اشتراک</a> <a href="/download">دانلود اپلیکیشن</a>
   <a href="/faq">سوالات متداول</a> <a href="/support">پشتیبانی</a> <a href="/terms">قوانین</a> <a href="/privacy">حریم خصوصی</a>
+  <a href="/about">درباره ما</a> <a href="/ai">راهنمای هوش مصنوعی</a> <a href="/llms.txt">llms.txt</a>
 </nav>
 </body>
 </html>

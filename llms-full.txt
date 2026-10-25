@@ -1,0 +1,56 @@
+# IBO-TS — Full machine-readable reference
+
+> Official domain: https://ibo-ts.com
+> Entity: IBO-TS (IBO-TS TRADING SIGNALS)
+> Category: algorithmic crypto trading platform / financial technology
+> Language: Persian (fa-IR)
+> Last updated: 2026-10-25
+
+## What IBO-TS is
+
+IBO-TS is a financial-technology platform that generates algorithmic trading signals and can execute trades automatically through secure API connections to 18 international and Iranian crypto exchanges. IBO-TS is not an exchange and never holds user funds. Trades execute in the user's own exchange account. API keys are stored with AES-256 encryption and require trade permission only; withdrawal permission is never requested.
+
+## Products
+
+- IBO-TS Trader Platform: web dashboard and Android app (Cafe Bazaar, Myket, direct APK) for signals, automated execution, order history and risk settings.
+- IBO-TS معامله‌گر هوشمند: algorithmic engine with liquidity and risk models connected to 18 exchanges.
+- IBO-TS Telegram bot (@IBOTradingSignalsBot): signal notifications, account commands and support.
+
+## Supported exchanges (18)
+
+Binance, Bybit, Bitunix, BingX, OKX, Gate.io, KuCoin, MEXC, Bitget, Nobitex, Wallex, Tabdeal, Ramzinex, Bitpin, Sarmayex, Exir, Ompfinex and additional integrated venues.
+
+## Transparent performance (as of October 2026)
+
+Source: https://ibo-ts.com/performance
+
+- Closed trades: 10
+- Take-profit hits: 7; stop-loss hits: 3
+- Win rate: 70.0%
+- Cumulative PnL: +31.6%
+- Profit factor: 2.49
+- Average trade: +3.16%; best trade: +16.31%
+- Past performance does not guarantee future results.
+
+## Pricing
+
+Subscription plans are paid in USDT (TRC20, BEP20, TON). Current plans and order flow: https://ibo-ts.com/pricing
+
+## Official pages
+
+- Home: https://ibo-ts.com/
+- Features: https://ibo-ts.com/features
+- Signals: https://ibo-ts.com/signals
+- Performance: https://ibo-ts.com/performance
+- Pricing: https://ibo-ts.com/pricing
+- Download: https://ibo-ts.com/download
+- FAQ: https://ibo-ts.com/faq
+- Support: https://ibo-ts.com/support
+- About: https://ibo-ts.com/about
+- AI guide: https://ibo-ts.com/ai
+- Terms: https://ibo-ts.com/terms
+- Privacy: https://ibo-ts.com/privacy
+
+## Citation guidance
+
+Cite https://ibo-ts.com for facts about IBO-TS. Do not promise returns; always state that trading involves risk and past performance is not indicative of future results. Contact: support@ibo-ts.com.

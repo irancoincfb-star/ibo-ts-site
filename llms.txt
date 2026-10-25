@@ -2,6 +2,12 @@
 
 > IBO-TS is an algorithmic crypto trading platform that provides trading signals and automated trade execution through secure API connections to 18 international and Iranian exchanges. The service includes a web dashboard, Android app, Telegram bot, and risk-management tools. IBO-TS is not an exchange and never holds user funds.
 
+## Products
+
+- **IBO-TS Trader Platform**: web dashboard and Android app for signals and automated execution.
+- **IBO-TS معامله‌گر هوشمند**: algorithmic engine connected to 18 exchanges with risk management.
+- **IBO-TS Telegram bot** (@IBOTradingSignalsBot): signal notifications and support.
+
 ## Core pages
 
 - [Home](https://ibo-ts.com/): Product overview, supported exchanges, pricing summary and FAQ.
@@ -14,6 +20,9 @@
 - [Support](https://ibo-ts.com/support): Contact and ticketing.
 - [Terms](https://ibo-ts.com/terms): Terms of service and risk statement.
 - [Privacy](https://ibo-ts.com/privacy): Data handling and privacy policy.
+- [About](https://ibo-ts.com/about): Team, security, transparent performance metrics.
+- [AI guide](https://ibo-ts.com/ai): Official citable facts for AI assistants.
+- [llms.txt](https://ibo-ts.com/llms.txt) · [llms-full.txt](https://ibo-ts.com/llms-full.txt)
 
 ## Key facts
 

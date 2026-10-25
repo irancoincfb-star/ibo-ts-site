@@ -168,6 +168,7 @@
               '<ul class="footer-links-list">' +
                 '<li><a href="/privacy">حریم خصوصی داده‌ها</a></li>' +
                 '<li><a href="/terms">شرایط استفاده و قوانین</a></li>' +
+                '<li><a href="/about">درباره ما</a></li>' +
                 '<li><a href="/faq">پرسش‌های متداول</a></li>' +
                 '<li><a href="/support">ارتباط با پشتیبانی</a></li>' +
               '</ul>' +
@@ -179,7 +180,7 @@
           '</div>' +
           '<div class="footer-bottom-bar">' +
             '<span>© 2026 IBO-TS Financial Technologies. کلیه حقوق محفوظ است.</span>' +
-            '<span>پشتیبانی تلگرام: @IBOTradingSignalsBot | دامنه رسمی: ibo-ts.com</span>' +
+            '<span>پشتیبانی تلگرام: @IBOTradingSignalsBot | دامنه رسمی: ibo-ts.com | <a href="/llms.txt" style="color:inherit">llms.txt</a></span>' +
           '</div>' +
         '</div>' +
       '</footer>');

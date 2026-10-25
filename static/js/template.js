@@ -78,9 +78,6 @@
             '<a href="/support" class="nav-link"><i class="bi bi-headset" aria-hidden="true"></i><span>پشتیبانی</span></a>' +
           '</nav>' +
           '<div class="header-actions">' +
-            '<button type="button" class="tpl-burger" aria-label="منو" aria-expanded="false" aria-controls="tplMenuSheet">' +
-              '<span class="tpl-burger-glyph" aria-hidden="true"><i></i><i></i><i></i><i></i></span>' +
-            '</button>' +
             '<div id="tplAuthContainer"></div>' +
           '</div>' +
         '</div>' +
@@ -104,27 +101,27 @@
       c.innerHTML = '<a href="/#login" class="btn btn-primary btn-sm tpl-btn-flex"><i class="bi bi-person-fill-lock"></i> <span class="tpl-btn-label">ورود و ثبت‌نام</span></a>';
     }
 
-    // Mobile hamburger sheet — available on every page (≤992px styles apply)
-    const burger = h.querySelector('.tpl-burger');
-    if (burger) {
-      burger.addEventListener('click', function () {
-        const open = document.body.classList.toggle('tpl-menu-open');
-        burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+    // Brand logo opens menu (replacing redundant burger button)
+    const brand = h.querySelector('.brand-wrapper');
+    if (brand) {
+      brand.addEventListener('click', function (ev) {
+        if (ev.ctrlKey || ev.metaKey || ev.altKey) return;
+        ev.preventDefault();
+        document.body.classList.toggle('tpl-menu-open');
       });
-      document.addEventListener('click', function (ev) {
-        if (!document.body.classList.contains('tpl-menu-open')) return;
-        if (ev.target.closest('.tpl-menu-sheet') || ev.target.closest('.tpl-burger')) return;
-        document.body.classList.remove('tpl-menu-open');
-        burger.setAttribute('aria-expanded', 'false');
-      });
-      document.addEventListener('keydown', function (ev) {
-        if (ev.key === 'Escape' && document.body.classList.contains('tpl-menu-open')) {
-          document.body.classList.remove('tpl-menu-open');
-          burger.setAttribute('aria-expanded', 'false');
-        }
-      });
-      buildMenuSheet();
     }
+
+    document.addEventListener('click', function (ev) {
+      if (!document.body.classList.contains('tpl-menu-open')) return;
+      if (ev.target.closest('.tpl-menu-sheet') || ev.target.closest('.brand-wrapper')) return;
+      document.body.classList.remove('tpl-menu-open');
+    });
+    document.addEventListener('keydown', function (ev) {
+      if (ev.key === 'Escape' && document.body.classList.contains('tpl-menu-open')) {
+        document.body.classList.remove('tpl-menu-open');
+      }
+    });
+    buildMenuSheet();
   }
 
   // Live avatar/initials for the header profile chip (identity preview)

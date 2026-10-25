@@ -6,14 +6,14 @@
      window.__IBO_TPL = { footer: false }          // page ships its own footer
      window.__IBO_TPL = { dock: false }            // page opt-out of the bottom dock
    Logo/branding same assets as the SPA => one visual identity everywhere.
-   v20261025b: RGB glass nav (header+dock matched), grouped icon menu,
+   v20261025d: RGB glass nav (header+dock matched), grouped icon menu, dark mode, toast, onboarding, offline indicator,
    dock shortcuts -> کارنامه + داشبورد معاملاتی, profile chip. */
 (function () {
   'use strict';
   if (window.__IBO_TPL_LOADED) return;
   window.__IBO_TPL_LOADED = true;
 
-  const V = '20261025b';
+  const V = '20261025d';
   const opts = Object.assign({ header: true, footer: true, dock: true }, window.__IBO_TPL || {});
 
   // APK build flag (WebView UA "IBO-TS-App/…") — hides PWA-specific affordances via CSS

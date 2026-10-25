@@ -687,12 +687,15 @@
           <div class="profile-grid">
             <label class="profile-field" id="pfCurrentWrap"><span id="pfCurrentLabel">رمز عبور فعلی</span>
               <input class="form-input" type="password" id="pfCurrentPw" autocomplete="current-password">
+              <button type="button" class="profile-eye" onclick="var f=this.previousElementSibling; f.type=f.type==='password'?'text':'password'; this.querySelector('i').className=f.type==='text'?'bi bi-eye-slash-fill':'bi bi-eye-fill';" aria-label="نمایش رمز عبور"><i class="bi bi-eye-fill" aria-hidden="true"></i></button>
             </label>
             <label class="profile-field">رمز عبور جدید (حداقل ۸ کاراکتر)
               <input class="form-input" type="password" id="pfNewPw" minlength="8" autocomplete="new-password">
+              <button type="button" class="profile-eye" onclick="var f=this.previousElementSibling; f.type=f.type==='password'?'text':'password'; this.querySelector('i').className=f.type==='text'?'bi bi-eye-slash-fill':'bi bi-eye-fill';" aria-label="نمایش رمز عبور"><i class="bi bi-eye-fill" aria-hidden="true"></i></button>
             </label>
             <label class="profile-field">تکرار رمز عبور جدید
               <input class="form-input" type="password" id="pfNewPw2" minlength="8" autocomplete="new-password">
+              <button type="button" class="profile-eye" onclick="var f=this.previousElementSibling; f.type=f.type==='password'?'text':'password'; this.querySelector('i').className=f.type==='text'?'bi bi-eye-slash-fill':'bi bi-eye-fill';" aria-label="نمایش رمز عبور"><i class="bi bi-eye-fill" aria-hidden="true"></i></button>
             </label>
           </div>
           <div class="profile-actions">

@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
+  <script>
+  /* Early theme bootstrap — prevents any light flash before CSS paints */
+  (function(){try{var t=localStorage.getItem('ibo-theme');if(t!=='dark'&&t!=='light'){t=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}var d=document.documentElement;d.setAttribute('data-theme',t);d.setAttribute('data-bs-theme',t);d.style.colorScheme=t;}catch(e){}})();
+  </script>
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
   <title>حریم خصوصی و امنیت داده‌ها — IBO-TS</title>
@@ -34,10 +39,10 @@
 <section style="padding-top:5.5rem;">
   <div class="container" style="max-width:860px;">
     <h1 class="hero-heading" style="font-size:1.9rem;">حریم خصوصی و امنیت داده‌ها</h1>
-    <p style="color:var(--text-muted); font-size:.88rem; margin-bottom:2rem;">آخرین بازنگری: مهر ۱۴۰۵ — داده‌ی شما، مقدم بر همه‌چیز</p>
+    <p style="color:var(--text-muted); font-size:.88rem; margin-bottom:2rem;">آخرین بازنگری: مهر 1405 — داده‌ی شما، مقدم بر همه‌چیز</p>
 
-    <div style="background:#fff; border:1.5px solid var(--border-light); border-radius:16px; padding:1.4rem 1.5rem; margin-bottom:1rem;">
-      <h2 style="font-size:1.05rem; font-weight:900; margin-bottom:.5rem;">۱) چه داده‌هایی جمع می‌شود؟</h2>
+    <div style="background:var(--canvas-card); border:1.5px solid var(--border-light); border-radius:16px; padding:1.4rem 1.5rem; margin-bottom:1rem;">
+      <h2 style="font-size:1.05rem; font-weight:900; margin-bottom:.5rem;">1) چه داده‌هایی جمع می‌شود؟</h2>
       <ul style="font-size:.9rem; color:var(--text-body); line-height:2.05; margin:0; padding-inline-start:1.3rem;">
         <li><b>حساب:</b> ایمیل و/یا شناسه تلگرام/گوگل، نام نمایشی، تاریخ ثبت‌نام.</li>
         <li><b>اتصال صرافی:</b> فقط API Key و Secret برای موتور اُتو-ترید (همان چیزی که خودتان در Vault ثبت می‌کنید) — و هیچ‌وقت «مجوز برداشت» نمی‌خواهیم؛ اگر صرافی اجازه ساخت کلید با برداشت را بدهد، ما فقط نسخه بدونِ برداشت را می‌پذیریم.</li>
@@ -46,27 +51,27 @@
       </ul>
     </div>
 
-    <div style="background:#fff; border:1.5px solid var(--border-light); border-radius:16px; padding:1.4rem 1.5rem; margin-bottom:1rem;">
-      <h2 style="font-size:1.05rem; font-weight:900; margin-bottom:.5rem;">۲) چطور محافظت می‌شوند؟</h2>
+    <div style="background:var(--canvas-card); border:1.5px solid var(--border-light); border-radius:16px; padding:1.4rem 1.5rem; margin-bottom:1rem;">
+      <h2 style="font-size:1.05rem; font-weight:900; margin-bottom:.5rem;">2) چطور محافظت می‌شوند؟</h2>
       <p style="font-size:.9rem; color:var(--text-body); line-height:2; margin:0;">کلیدهای صرافی هم‌زمان با ثبت در Vault) با استاندارد AES رمزنگاری می‌شوند و فقط برای همان کاربر و فقط هنگام اجرای دستورِ خودش، لحظه‌ای رمزگشایی می‌شوند؛ کل سرویس روی HTTPS است و داده‌ها از هیچ کانال شخص ثالثی خارج نمی‌شوند.</p>
     </div>
 
-    <div style="background:#fff; border:1.5px solid var(--border-light); border-radius:16px; padding:1.4rem 1.5rem; margin-bottom:1rem;">
-      <h2 style="font-size:1.05rem; font-weight:900; margin-bottom:.5rem;">۳) چرا از داده استفاده می‌کنیم؟</h2>
+    <div style="background:var(--canvas-card); border:1.5px solid var(--border-light); border-radius:16px; padding:1.4rem 1.5rem; margin-bottom:1rem;">
+      <h2 style="font-size:1.05rem; font-weight:900; margin-bottom:.5rem;">3) چرا از داده استفاده می‌کنیم؟</h2>
       <p style="font-size:.9rem; color:var(--text-body); line-height:2; margin:0;">فقط برای ارائه سرویس (سیگنال و اتوترید)، پشتیبانی و امنیت حساب. به‌هیچ‌وجه داده‌ی کاربران را نمی‌خریم و نمی‌فروشیم؛ داده در هیچ «شبکه تبلیغاتی» استفاده نمی‌شود و حتا لوگوی اشتراکِ فعال شما نیز فقط در توزیع سیگنال نمایش داده می‌شود.</p>
     </div>
 
-    <div style="background:#fff; border:1.5px solid var(--border-light); border-radius:16px; padding:1.4rem 1.5rem; margin-bottom:1rem;">
-      <h2 style="font-size:1.05rem; font-weight:900; margin-bottom:.5rem;">۴) حقوق شما</h2>
+    <div style="background:var(--canvas-card); border:1.5px solid var(--border-light); border-radius:16px; padding:1.4rem 1.5rem; margin-bottom:1rem;">
+      <h2 style="font-size:1.05rem; font-weight:900; margin-bottom:.5rem;">4) حقوق شما</h2>
       <ul style="font-size:.9rem; color:var(--text-body); line-height:2.05; margin:0; padding-inline-start:1.3rem;">
         <li>مشاهده/ویرایش داده حساب — از همان داشبورد، بدون تماس با پشتیبانی.</li>
         <li>حذف هر کلید صرافی — فوراً و از خود Vault (حتی پس از آن هم توضیح می‌بینید چه حذف شد).</li>
-        <li>درخواست حذف کامل حساب و داده‌های مرتبط — از پشتیبانی؛ حداکثر تا ۳۰ روز انجام می‌شود.</li>
+        <li>درخواست حذف کامل حساب و داده‌های مرتبط — از پشتیبانی؛ حداکثر تا 30 روز انجام می‌شود.</li>
       </ul>
     </div>
 
-    <div style="background:#fff; border:1.5px solid var(--border-light); border-radius:16px; padding:1.4rem 1.5rem; margin-bottom:1rem;">
-      <h2 style="font-size:1.05rem; font-weight:900; margin-bottom:.5rem;">۵) ارتباطات و کانال تلگرام</h2>
+    <div style="background:var(--canvas-card); border:1.5px solid var(--border-light); border-radius:16px; padding:1.4rem 1.5rem; margin-bottom:1rem;">
+      <h2 style="font-size:1.05rem; font-weight:900; margin-bottom:.5rem;">5) ارتباطات و کانال تلگرام</h2>
       <p style="font-size:.9rem; color:var(--text-body); line-height:2; margin:0;">پرسش‌ها و گزارش‌ها فقط با آدرس‌های رسمی (ربات تلگرام و فرم داشبورد) پیگیری می‌شوند؛ اطلاعات حساب را در هیچ گروه شخص ثالث ارسال نمی‌کنیم؛ همچنین هرگز Secret Key را در تلگرام به کسی ننویسید.</p>
     </div>
 
@@ -78,7 +83,7 @@
 </section>
 
 </main>
-<script src="/static/js/template.js?v=2.3.2"></script>
+<script src="/static/js/template.js?v=20261027d"></script>
 
 <nav aria-label="پیوندهای سایت" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;">
   <a href="/">خانه</a> <a href="/features">امکانات</a> <a href="/signals">سیگنال‌ها</a>

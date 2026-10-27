@@ -1,10 +1,15 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
+  <script>
+  /* Early theme bootstrap — prevents any light flash before CSS paints */
+  (function(){try{var t=localStorage.getItem('ibo-theme');if(t!=='dark'&&t!=='light'){t=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}var d=document.documentElement;d.setAttribute('data-theme',t);d.setAttribute('data-bs-theme',t);d.style.colorScheme=t;}catch(e){}})();
+  </script>
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
   <title>درباره IBO-TS — تیم، امنیت و آمار شفاف عملکرد</title>
-  <meta name="description" content="درباره IBO-TS: پلتفرم معاملات الگوریتمی متصل به ۱۸ صرافی، امنیت AES-256، آمار شفاف عملکرد و راه‌های ارتباط.">
+  <meta name="description" content="درباره IBO-TS: پلتفرم معاملات الگوریتمی متصل به 18 صرافی، امنیت AES-256، آمار شفاف عملکرد و راه‌های ارتباط.">
   <link rel="canonical" href="https://ibo-ts.com/about">
   <link rel="alternate" hreflang="fa" href="https://ibo-ts.com/about">
   <link rel="alternate" hreflang="x-default" href="https://ibo-ts.com/about">
@@ -13,19 +18,19 @@
   <meta property="og:locale" content="fa_IR">
   <meta property="og:url" content="https://ibo-ts.com/about">
   <meta property="og:title" content="درباره IBO-TS — تیم، امنیت و آمار شفاف عملکرد">
-  <meta property="og:description" content="درباره IBO-TS: پلتفرم معاملات الگوریتمی متصل به ۱۸ صرافی، امنیت AES-256، آمار شفاف عملکرد و راه‌های ارتباط.">
+  <meta property="og:description" content="درباره IBO-TS: پلتفرم معاملات الگوریتمی متصل به 18 صرافی، امنیت AES-256، آمار شفاف عملکرد و راه‌های ارتباط.">
   <meta property="og:image" content="https://ibo-ts.com/static/assets/ibots_logo_transparent.png">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="درباره IBO-TS — تیم، امنیت و آمار شفاف عملکرد">
-  <meta name="twitter:description" content="درباره IBO-TS: پلتفرم معاملات الگوریتمی متصل به ۱۸ صرافی، امنیت AES-256، آمار شفاف عملکرد و راه‌های ارتباط.">
+  <meta name="twitter:description" content="درباره IBO-TS: پلتفرم معاملات الگوریتمی متصل به 18 صرافی، امنیت AES-256، آمار شفاف عملکرد و راه‌های ارتباط.">
   <meta name="twitter:image" content="https://ibo-ts.com/static/assets/ibots_logo_transparent.png">
     <link rel="preconnect" href="https://cdn.jsdelivr.net">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="icon" type="image/png" href="/static/assets/icons/favicon.png">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-  <link rel="stylesheet" href="/static/css/style.css?v=2.3.2">
-  <link rel="stylesheet" href="/static/css/template.css?v=2.3.2">
+  <link rel="stylesheet" href="/static/css/style.css?v=20261027d">
+  <link rel="stylesheet" href="/static/css/template.css?v=20261027d">
   <script type="application/ld+json">{"@context": "https://schema.org", "@type": "AboutPage", "@id": "https://ibo-ts.com/about#page", "url": "https://ibo-ts.com/about", "name": "درباره IBO-TS", "inLanguage": "fa-IR", "dateModified": "2026-10-25", "about": {"@id": "https://ibo-ts.com/#organization"}, "isPartOf": {"@id": "https://ibo-ts.com/#website"}}</script>
 </head>
 <body>
@@ -35,24 +40,24 @@
   <div class="container" style="max-width:860px;">
 
     <h1 class="hero-heading" style="font-size:1.9rem;">درباره IBO-TS</h1>
-    <p style="color:var(--text-muted); font-size:.9rem; margin-bottom:2rem;">سامانه الگوریتمی معاملات و سیگنال‌های بازارهای مالی — آخرین به‌روزرسانی: آبان ۱۴۰۵ (اکتبر ۲۰۲۶)</p>
+    <p style="color:var(--text-muted); font-size:.9rem; margin-bottom:2rem;">سامانه الگوریتمی معاملات و سیگنال‌های بازارهای مالی — آخرین به‌روزرسانی: آبان 1405 (اکتبر 2026)</p>
 
-    <div style="background:#fff; border:1.5px solid var(--border-light); border-radius:16px; padding:1.4rem 1.5rem; margin-bottom:1rem;">
+    <div style="background:var(--canvas-card); border:1.5px solid var(--border-light); border-radius:16px; padding:1.4rem 1.5rem; margin-bottom:1rem;">
       <h2 style="font-size:1.05rem; font-weight:900; margin-bottom:.5rem;">IBO-TS چیست؟</h2>
-      <p style="font-size:.9rem; color:var(--text-body); line-height:2; margin:0;">IBO-TS یک پلتفرم فناوری مالی است که سیگنال‌های معاملاتی الگوریتمی تولید می‌کند و اجرای خودکار معاملات را از طریق اتصال امن API به ۱۸ صرافی بین‌المللی و ایرانی فراهم می‌کند. IBO-TS صرافی نیست و هیچ‌گاه دارایی کاربران را نگهداری نمی‌کند؛ معاملات همیشه در حساب صرافی خود کاربر اجرا می‌شوند.</p>
+      <p style="font-size:.9rem; color:var(--text-body); line-height:2; margin:0;">IBO-TS یک پلتفرم فناوری مالی است که سیگنال‌های معاملاتی الگوریتمی تولید می‌کند و اجرای خودکار معاملات را از طریق اتصال امن API به 18 صرافی بین‌المللی و ایرانی فراهم می‌کند. IBO-TS صرافی نیست و هیچ‌گاه دارایی کاربران را نگهداری نمی‌کند؛ معاملات همیشه در حساب صرافی خود کاربر اجرا می‌شوند.</p>
     </div>
 
-    <div style="background:#fff; border:1.5px solid var(--border-light); border-radius:16px; padding:1.4rem 1.5rem; margin-bottom:1rem;">
+    <div style="background:var(--canvas-card); border:1.5px solid var(--border-light); border-radius:16px; padding:1.4rem 1.5rem; margin-bottom:1rem;">
       <h2 style="font-size:1.05rem; font-weight:900; margin-bottom:.5rem;">آمار شفاف عملکرد</h2>
-      <p style="font-size:.9rem; color:var(--text-body); line-height:2; margin:0;">بر اساس معاملات بسته‌شده ثبت‌شده در سامانه تا اکتبر ۲۰۲۶: <strong>۱۰ معامله</strong>، <strong>نرخ برد ۷۰٪</strong> (۷ تارگت، ۳ حد ضرر)، <strong>سود تجمعی ۳۱.۶٪</strong>، <strong>فاکتور سود ۲.۴۹</strong>، میانگین سود هر معامله ۳.۱۶٪ و بهترین معامله ۱۶.۳۱٪. آمار کامل و به‌روز در <a href="/performance" style="color:var(--brand-indigo);font-weight:800;">کارنامه عملکرد</a> منتشر می‌شود. عملکرد گذشته تضمینی برای آینده نیست.</p>
+      <p style="font-size:.9rem; color:var(--text-body); line-height:2; margin:0;">بر اساس معاملات بسته‌شده ثبت‌شده در سامانه تا اکتبر 2026: <strong>10 معامله</strong>، <strong>نرخ برد 70٪</strong> (7 تارگت، 3 حد ضرر)، <strong>سود تجمعی 31.6٪</strong>، <strong>فاکتور سود 2.49</strong>، میانگین سود هر معامله 3.16٪ و بهترین معامله 16.31٪. آمار کامل و به‌روز در <a href="/performance" style="color:var(--brand-indigo);font-weight:800;">کارنامه عملکرد</a> منتشر می‌شود. عملکرد گذشته تضمینی برای آینده نیست.</p>
     </div>
 
-    <div style="background:#fff; border:1.5px solid var(--border-light); border-radius:16px; padding:1.4rem 1.5rem; margin-bottom:1rem;">
+    <div style="background:var(--canvas-card); border:1.5px solid var(--border-light); border-radius:16px; padding:1.4rem 1.5rem; margin-bottom:1rem;">
       <h2 style="font-size:1.05rem; font-weight:900; margin-bottom:.5rem;">امنیت و مالکیت دارایی</h2>
       <p style="font-size:.9rem; color:var(--text-body); line-height:2; margin:0;">کلیدهای API با رمزنگاری AES-256 ذخیره می‌شوند و فقط مجوز معامله (Trade) دارند؛ دسترسی برداشت (Withdrawal) هرگز درخواست نمی‌شود. کاربران می‌توانند در هر لحظه کلید را در صرافی خود باطل کنند. جزئیات در <a href="/privacy" style="color:var(--brand-indigo);font-weight:800;">حریم خصوصی</a> و <a href="/terms" style="color:var(--brand-indigo);font-weight:800;">قوانین</a> آمده است.</p>
     </div>
 
-    <div style="background:#fff; border:1.5px solid var(--border-light); border-radius:16px; padding:1.4rem 1.5rem; margin-bottom:1rem;">
+    <div style="background:var(--canvas-card); border:1.5px solid var(--border-light); border-radius:16px; padding:1.4rem 1.5rem; margin-bottom:1rem;">
       <h2 style="font-size:1.05rem; font-weight:900; margin-bottom:.5rem;">پلتفرم‌ها و دسترسی</h2>
       <p style="font-size:.9rem; color:var(--text-body); line-height:2; margin:0;">داشبورد وب، اپلیکیشن اندروید (کافه بازار، مایکت و APK مستقیم)، ربات تلگرام و مینی‌اپ. پشتیبانی: <a href="mailto:support@ibo-ts.com" style="color:var(--brand-indigo);font-weight:800;">support@ibo-ts.com</a> و <a href="https://t.me/IBOTradingSignalsBot" rel="noopener" style="color:var(--brand-indigo);font-weight:800;">@IBOTradingSignalsBot</a>. صفحه رسمی در <a href="https://cafebazaar.ir/app/com.ibots.trading" rel="noopener" style="color:var(--brand-indigo);font-weight:800;">کافه بازار</a> و <a href="https://myket.ir/app/com.ibots.trading" rel="noopener" style="color:var(--brand-indigo);font-weight:800;">مایکت</a>.</p>
     </div>
@@ -67,7 +72,7 @@
 </section>
 
 </main>
-<script src="/static/js/template.js?v=2.3.2"></script>
+<script src="/static/js/template.js?v=20261027d"></script>
 
 <nav aria-label="پیوندهای سایت" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;">
   <a href="/">خانه</a> <a href="/features">امکانات</a> <a href="/signals">سیگنال‌ها</a>

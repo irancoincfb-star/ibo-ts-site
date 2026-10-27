@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
+  <script>
+  /* Early theme bootstrap — prevents any light flash before CSS paints */
+  (function(){try{var t=localStorage.getItem('ibo-theme');if(t!=='dark'&&t!=='light'){t=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}var d=document.documentElement;d.setAttribute('data-theme',t);d.setAttribute('data-bs-theme',t);d.style.colorScheme=t;}catch(e){}})();
+  </script>
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
   <title>کارنامه و عملکرد واقعی IBO-TS — نرخ برد، PnL و منحنی سود</title>
@@ -44,9 +49,9 @@
 
 <section class="container" style="padding-top:1.5rem;">
   <div style="display:flex; gap:.6rem; justify-content:center; flex-wrap:wrap; margin-bottom:1.5rem;" id="pnlTimeframe">
-    <button class="btn btn-sm btn-primary" data-tf="30d">۳۰ روز اخیر</button>
-    <button class="btn btn-sm btn-outline" data-tf="7d">۷ روز اخیر</button>
-    <button class="btn btn-sm btn-outline" data-tf="24h">۲۴ ساعت اخیر</button>
+    <button class="btn btn-sm btn-primary" data-tf="30d">30 روز اخیر</button>
+    <button class="btn btn-sm btn-outline" data-tf="7d">7 روز اخیر</button>
+    <button class="btn btn-sm btn-outline" data-tf="24h">24 ساعت اخیر</button>
     <button class="btn btn-sm btn-outline" data-tf="all">کل تاریخچه</button>
   </div>
 
@@ -55,16 +60,18 @@
     <div class="kpi-card kpi-real" style="padding:1.1rem; text-align:center;"><span class="kpi-value mono" id="kpiTrades" style="color:var(--brand-indigo);">—</span><span class="kpi-label">تعداد معاملات ثبت‌شده</span></div>
     <div class="kpi-card kpi-real" style="padding:1.1rem; text-align:center;"><span class="kpi-value mono" id="kpiCum" style="color:var(--brand-indigo);">—</span><span class="kpi-label">سود تجمعی (٪)</span></div>
     <div class="kpi-card kpi-real" style="padding:1.1rem; text-align:center;"><span class="kpi-value mono" id="kpiPF">—</span><span class="kpi-label">پروفیت فاکتور</span></div>
+    <div class="kpi-card kpi-real" style="padding:1.1rem; text-align:center;"><span class="kpi-value mono" id="kpiSignals" style="color:var(--brand-indigo);">—</span><span class="kpi-label">سیگنال‌های صادرشده</span></div>
   </div>
+  <p id="signalStatsNote" style="text-align:center; color:var(--text-muted); font-size:.82rem; margin:.75rem 0 0;"></p>
 
   <!-- منحنی سود + یادآوری، صرفاً از داده واقعی -->
-  <div style="background:#fff; border:1.5px solid rgba(226,232,240,.85); border-radius:18px; padding:1.5rem; margin-top:1.25rem;">
+  <div style="background:var(--canvas-card); border:1.5px solid var(--border-light); border-radius:18px; padding:1.5rem; margin-top:1.25rem;">
     <h3 style="font-weight:900; margin-bottom:.4rem;">منحنی سود تجمعی (٪)</h3>
     <p style="color:var(--text-muted); font-size:.85rem; margin:0 0 1rem;">بر اساس آخرین معاملات ثبت‌شده در بازه انتخابی.</p>
     <div id="equityWrap" style="width:100%; min-height:220px;"></div>
   </div>
 
-  <div style="background:#fff; border:1.5px solid rgba(226,232,240,.85); border-radius:18px; padding:1.5rem; margin-top:1.25rem;">
+  <div style="background:var(--canvas-card); border:1.5px solid var(--border-light); border-radius:18px; padding:1.5rem; margin-top:1.25rem;">
     <h3 style="font-weight:900; margin-bottom:1rem;">آخرین معاملات ثبت‌شده</h3>
     <div style="overflow-x:auto;">
       <table id="tradesTable" style="width:100%; border-collapse:collapse; font-size:.86rem;">
@@ -89,7 +96,7 @@
 </section>
 
 </main>
-<script src="/static/js/template.js?v=2.3.2"></script>
+<script src="/static/js/template.js?v=20261027d"></script>
 <script>
 (function () {
   var fmt = function (n, d) { return (n === null || n === undefined || isNaN(n)) ? '—' : Number(n).toFixed(d === undefined ? 1 : d); };
@@ -126,10 +133,14 @@
         if (!d || d.status !== 'success') throw new Error('bad payload');
         var m = d.metrics || {};
         document.getElementById('kpiWinrate').textContent = fmt(m.win_rate_pct) + '٪';
-        document.getElementById('kpiTrades').textContent = m.total_trades === 0 ? '۰' : m.total_trades;
+        document.getElementById('kpiTrades').textContent = m.total_trades === 0 ? '0' : m.total_trades;
         document.getElementById('kpiCum').textContent = (m.cumulative_pnl_pct > 0 ? '+' : '') + fmt(m.cumulative_pnl_pct) + '٪';
         document.getElementById('kpiCum').style.color = color(m.cumulative_pnl_pct);
         document.getElementById('kpiPF').textContent = fmt(m.profit_factor, 2);
+        var ss = d.signal_stats || {};
+        document.getElementById('kpiSignals').textContent = ss.emitted_total != null ? ss.emitted_total : '—';
+        var last = ss.last_emitted_utc ? new Date(ss.last_emitted_utc).toLocaleString('en-GB') : '—';
+        document.getElementById('signalStatsNote').textContent = 'ثبت‌شده در ژورنال موتور — آخرین سیگنال: ' + last;
         var eq = d.equity_curve || [];
         drawEquity(eq);
         var tb = document.querySelector('#tradesTable tbody');

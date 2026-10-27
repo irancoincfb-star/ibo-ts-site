@@ -4,6 +4,11 @@
  * Pure Vanilla JS, Google Identity Services, Live USDT/TMN Converter & Multi-Exchange Vault
  */
 
+const PERFORMANCE_REFRESH_MS = 15000;
+const LIVE_SIGNALS_REFRESH_MS = 10000;
+const HEALTH_CHECK_MS = 30000;      // Backend + scanner health every 30s
+const CONNECTION_TIMEOUT_MS = 10000; // Consider connection dead after 10s silence
+
 const state = {
   token: localStorage.getItem('ibots_token') || null,
   user: null,
@@ -17,12 +22,18 @@ const state = {
   exchangeBalances: {},
   depositWallets: null,
   pricingPlans: [
-    { code: '1w', title: 'اشتراک هفتگی پایه (افتتاحیه)', days: 7, baseUsdt: 10, addonUsdt: 15, tag: 'افتتاحیه — ۷ روزه', icon: 'bi-lightning-charge' },
-    { code: '1m', title: 'اشتراک ۱ ماهه طلایی VIP (افتتاحیه)', days: 30, baseUsdt: 30, addonUsdt: 15, tag: 'افتتاحیه — محبوب‌ترین', popular: true, icon: 'bi-gem', isVip: true },
-    { code: '3m', title: 'اشتراک ۳ ماهه کوانتوم (افتتاحیه)', days: 90, baseUsdt: 75, addonUsdt: 15, tag: 'افتتاحیه — ۱۵% تخفیف', icon: 'bi-stars' },
-    { code: '6m', title: 'اشتراک ۶ ماهه الماس دایموند (افتتاحیه)', days: 180, baseUsdt: 120, addonUsdt: 15, tag: 'افتتاحیه — ۲۵% تخفیف', icon: 'bi-diamond-fill', isDiamond: true },
-    { code: '1y', title: 'اشتراک سالانه صندوق‌های سرمایه‌گذاری و ولث (افتتاحیه)', days: 365, baseUsdt: 200, addonUsdt: 15, tag: 'افتتاحیه — ۴۰% تخفیف طلایی', icon: 'bi-bank2' }
-  ]
+    { code: '1w', title: 'اشتراک هفتگی پایه (افتتاحیه)', days: 7, baseUsdt: 10, addonUsdt: 15, tag: 'افتتاحیه — 7 روزه', icon: 'bi-lightning-charge' },
+    { code: '1m', title: 'اشتراک 1 ماهه طلایی VIP (افتتاحیه)', days: 30, baseUsdt: 30, addonUsdt: 15, tag: 'افتتاحیه — محبوب‌ترین', popular: true, icon: 'bi-gem', isVip: true },
+    { code: '3m', title: 'اشتراک 3 ماهه کوانتوم (افتتاحیه)', days: 90, baseUsdt: 75, addonUsdt: 15, tag: 'افتتاحیه — 15% تخفیف', icon: 'bi-stars' },
+    { code: '6m', title: 'اشتراک 6 ماهه الماس دایموند (افتتاحیه)', days: 180, baseUsdt: 120, addonUsdt: 15, tag: 'افتتاحیه — 25% تخفیف', icon: 'bi-diamond-fill', isDiamond: true },
+    { code: '1y', title: 'اشتراک سالانه صندوق‌های سرمایه‌گذاری و ولث (افتتاحیه)', days: 365, baseUsdt: 200, addonUsdt: 15, tag: 'افتتاحیه — 40% تخفیف طلایی', icon: 'bi-bank2' }
+  ],
+  // Connection monitoring
+  connectionStatus: 'unknown',       // 'healthy' | 'degraded' | 'offline' | 'unknown'
+  lastHealthCheck: 0,
+  healthCheckInterval: null,
+  consecutiveFailures: 0,
+  lastSuccessfulRequest: 0,
 };
 
 // Market logo URL: official per-symbol library (daily Bitunix market scan).
@@ -175,7 +186,7 @@ function fillProfileForm() {
       : 'رمز عبور فعلی (اگر رمز ندارید خالی بگذارید)';
   }
 
-  txt('profileSince', u.created_at ? new Date(u.created_at).toLocaleDateString('fa-IR') : '—');
+  txt('profileSince', u.created_at ? new Date(u.created_at).toLocaleDateString('en-CA') : '—');
   const providers = {
     email_manual: 'ایمیل و رمز عبور',
     email: 'ایمیل و رمز عبور',
@@ -214,8 +225,8 @@ async function saveProfilePassword(ev) {
   const cur = (document.getElementById('pfCurrentPw') || {}).value || '';
   const n1 = (document.getElementById('pfNewPw') || {}).value || '';
   const n2 = (document.getElementById('pfNewPw2') || {}).value || '';
-  if (n1.length < 8) { setProfileMsg('err', 'رمز عبور جدید باید حداقل ۸ کاراکتر باشد'); return; }
-  if (n1.length > 128) { setProfileMsg('err', 'رمز عبور جدید باید حداکثر ۱۲۸ کاراکتر باشد'); return; }
+  if (n1.length < 8) { setProfileMsg('err', 'رمز عبور جدید باید حداقل 8 کاراکتر باشد'); return; }
+  if (n1.length > 128) { setProfileMsg('err', 'رمز عبور جدید باید حداکثر 128 کاراکتر باشد'); return; }
   if (n1 !== n2) { setProfileMsg('err', 'تکرار رمز عبور جدید مطابقت ندارد'); return; }
   try {
     const res = await fetch('/api/v1/auth/me/password', {
@@ -244,7 +255,7 @@ async function handleAvatarFile(input) {
     return;
   }
   if (f.size > 2 * 1024 * 1024) {
-    setProfileMsg('err', 'حجم تصویر نباید بیشتر از ۲ مگابایت باشد');
+    setProfileMsg('err', 'حجم تصویر نباید بیشتر از 2 مگابایت باشد');
     return;
   }
   setProfileMsg('ok', 'در حال بارگذاری تصویر پروفایل...');
@@ -308,8 +319,22 @@ document.addEventListener('DOMContentLoaded', async () => {
   startCountdown();
   fetchPerformanceAnalytics('all');
   fetchEngineStatus();
-  setInterval(() => fetchPerformanceAnalytics('all'), 1800000);
+  startHealthMonitor();
+  // Keep the public performance dashboard live instead of refreshing twice
+  // per hour. Pause polling while the tab is hidden.
+  setInterval(() => {
+    if (document.visibilityState === 'visible') {
+      fetchPerformanceAnalytics(state.currentTimeframe || 'all');
+    }
+  }, PERFORMANCE_REFRESH_MS);
   setInterval(fetchEngineStatus, 30000);
+  setInterval(refreshLiveDashboardFeed, LIVE_SIGNALS_REFRESH_MS);
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'visible') {
+      fetchPerformanceAnalytics(state.currentTimeframe || 'all');
+      refreshLiveDashboardFeed();
+    }
+  });
   initFAQAccordion();
   initGoogleIdentity();
   fetchPricingPlans();
@@ -838,7 +863,7 @@ async function handleRegister(e) {
     return;
   }
 
-  showToast('در حال پردازش و صدور کد تایید ۶ رقمی...', 'info');
+  showToast('در حال پردازش و صدور کد تایید 6 رقمی...', 'info');
   try {
     const res = await fetch('/api/v1/auth/register', {
       method: 'POST',
@@ -907,7 +932,7 @@ async function handleVerifyOtp(e) {
   const digits = Array.from(document.querySelectorAll('.otp-digit')).map(i => i.value).join('');
 
   if (digits.length !== 6) {
-    showToast('لطفاً کد تایید ۶ رقمی را به صورت کامل وارد فرمایید.', 'error');
+    showToast('لطفاً کد تایید 6 رقمی را به صورت کامل وارد فرمایید.', 'error');
     return;
   }
 
@@ -1037,13 +1062,13 @@ function renderPricingCards() {
         <ul class="plan-features-list">
           <li><i class="bi bi-check-circle-fill"></i> سیگنال‌های بلادرنگ و نامحدود</li>
           <li><i class="bi bi-check-circle-fill"></i> ارسال پوش‌نوتیفیکیشن لحظه‌ای</li>
-          <li><i class="bi bi-check-circle-fill"></i> پایش ۹ صرافی بین‌المللی</li>
-          <li><i class="bi bi-check-circle-fill"></i> پایش ۹ صرافی معتبر ایرانی</li>
+          <li><i class="bi bi-check-circle-fill"></i> پایش 9 صرافی بین‌المللی</li>
+          <li><i class="bi bi-check-circle-fill"></i> پایش 9 صرافی معتبر ایرانی</li>
           ${state.botAddonActive 
             ? `<li style="color: var(--brand-indigo); font-weight: 800;"><i class="bi bi-robot" style="color: var(--brand-indigo);"></i> اتصال مستقیم ربات اتوتریدر با API</li>`
             : `<li style="color: var(--text-muted);"><i class="bi bi-dash-circle"></i> بدون اتصال ربات معامله‌گر</li>`
           }
-          <li><i class="bi bi-check-circle-fill"></i> مدیریت سرمایه ریاضیاتی از ۱٪ تا ۱۰۰٪</li>
+          <li><i class="bi bi-check-circle-fill"></i> مدیریت سرمایه ریاضیاتی از 1٪ تا 100٪</li>
           <li><i class="bi bi-check-circle-fill"></i> پشتیبانی اولویت‌دار اختصاصی</li>
         </ul>
 
@@ -1074,6 +1099,66 @@ const chartInstances = {
   drawdown: null
 };
 
+// ── Theme-aware chart palette ──────────────────────────────────────────
+// The moon/sun button flips <html data-theme>; charts must repaint with the
+// same palette in the same tick (grids, ticks, tooltips, donut borders).
+function isDarkTheme() {
+  return document.documentElement.getAttribute('data-theme') === 'dark';
+}
+
+function chartThemeColors() {
+  return isDarkTheme()
+    ? {
+        grid: 'rgba(43, 62, 94, 0.65)',
+        tick: '#94A3B8',
+        tooltipBg: 'rgba(7, 13, 24, 0.95)',
+        tooltipText: '#F8FAFC',
+        border: '#101B30'
+      }
+    : {
+        grid: 'rgba(226, 232, 240, 0.6)',
+        tick: '#64748B',
+        tooltipBg: 'rgba(15, 23, 42, 0.92)',
+        tooltipText: '#FFFFFF',
+        border: '#FFFFFF'
+      };
+}
+
+function applyChartTheme() {
+  if (typeof Chart === 'undefined') return;
+  const c = chartThemeColors();
+  Chart.defaults.color = c.tick;
+  Chart.defaults.borderColor = c.grid;
+  Object.values(chartInstances).forEach(function (chart) {
+    if (!chart || !chart.options) return;
+    // Tooltips
+    if (chart.options.plugins && chart.options.plugins.tooltip) {
+      chart.options.plugins.tooltip.backgroundColor = c.tooltipBg;
+      chart.options.plugins.tooltip.titleColor = c.tooltipText;
+      chart.options.plugins.tooltip.bodyColor = c.tooltipText;
+    }
+    // Scales (grid + ticks)
+    const scales = chart.options.scales || {};
+    Object.keys(scales).forEach(function (key) {
+      const s = scales[key] || {};
+      if (s.grid) s.grid.color = c.grid;
+      if (s.ticks) s.ticks.color = c.tick;
+    });
+    // Donut segment borders match the card surface
+    if (chart === chartInstances.donut && chart.data && chart.data.datasets && chart.data.datasets[0]) {
+      chart.data.datasets[0].borderColor = c.border;
+    }
+    chart.update('none');
+  });
+}
+
+document.addEventListener('ibo:themechange', function () {
+  applyChartTheme();
+});
+document.addEventListener('DOMContentLoaded', function () {
+  applyChartTheme();
+});
+
 
 async function fetchEngineStatus() {
   try {
@@ -1089,7 +1174,7 @@ async function fetchEngineStatus() {
         }
         const tCycles = document.getElementById('terminalTotalCycles');
         if (tCycles) {
-          tCycles.innerText = (sc.cycle || 0).toLocaleString('fa-IR');
+          tCycles.innerText = (sc.cycle || 0).toLocaleString('en-US');
         }
         // Update the hero badge pill if it exists
         const heroBadge = document.querySelector('.hero-badge-pill span:last-child');
@@ -1101,6 +1186,96 @@ async function fetchEngineStatus() {
   } catch (e) {
     console.error('Engine status fetch failed:', e);
   }
+}
+
+// ==================== CONNECTION HEALTH MONITOR ====================
+// Monitors backend + scanner connectivity with auto-stale detection.
+// Falls back to showing stale/offline state instead of silent data freeze.
+
+function updateConnectionBadge(status) {
+  let el = document.getElementById('connectionStatusBadge');
+  if (!el) {
+    el = document.createElement('span');
+    el.id = 'connectionStatusBadge';
+    el.style.cssText = 'font-size: 0.72rem; padding: 4px 10px; border-radius: 12px; background: rgba(15,23,42,0.6); color: #94a3b8; border: 1px solid rgba(148,163,184,0.3); margin-left: 8px;';
+    const container = document.getElementById('terminalStatusBadge')?.parentNode || document.body;
+    container.appendChild(el);
+  }
+  const map = {
+    healthy: ['سالم', '#047857'],
+    degraded: ['کم‌فشار', '#D97706'],
+    offline: ['آف‌لاین', '#B91C1C'],
+    unknown: ['ناشناخته', '#64748B'],
+  };
+  const [text, color] = map[status] || map['unknown'];
+  el.innerText = text;
+  el.style.color = color;
+  el.title = `آخرین بررسی: ${new Date().toLocaleTimeString('en-GB')}`;
+}
+
+async function checkSystemHealth() {
+  const start = Date.now();
+  state.lastHealthCheck = start;
+  try {
+    const res = await fetch('/api/v1/signals/health', { signal: AbortSignal.timeout(CONNECTION_TIMEOUT_MS) });
+    if (res.ok) {
+      const data = await res.json();
+      state.consecutiveFailures = 0;
+      state.lastSuccessfulRequest = Date.now();
+      const scannerOk = data.scanner && data.scanner.ok;
+      const overall = scannerOk ? 'healthy' : (data.status === 'degraded' ? 'degraded' : 'offline');
+      state.connectionStatus = overall;
+      updateConnectionBadge(overall);
+
+      // Update scanner status UI
+      const sc = data.scanner || {};
+      const badge = document.getElementById('terminalStatusBadge');
+      if (badge) {
+        badge.innerText = `STATUS: ${sc.is_running ? 'LIVE' : 'IDLE'} | CYCLE: ${sc.cycle || 0} | Strict: ${sc.engine_strictness || '—'}`;
+        badge.style.color = sc.is_running ? '#047857' : '#B91C1C';
+      }
+      const tCycles = document.getElementById('terminalTotalCycles');
+      if (tCycles) {
+        tCycles.innerText = (sc.cycle || 0).toLocaleString('en-US');
+      }
+      const heroBadge = document.querySelector('.hero-badge-pill span:last-child');
+      if (heroBadge && sc.total_markets) {
+        heroBadge.innerText = `موتور اسکن و اجرای الگوریتمی فعال بر روی ${sc.total_markets} بازار بلادرنگ`;
+      }
+      console.log(`[health] ${overall} — ${Date.now() - start}ms`);
+    } else {
+      throw new Error(`HTTP ${res.status}`);
+    }
+  } catch (e) {
+    state.consecutiveFailures++;
+    const failures = state.consecutiveFailures;
+    if (failures >= 3) {
+      state.connectionStatus = 'offline';
+      updateConnectionBadge('offline');
+      console.error('[health] system offline after', failures, 'failures:', e.message);
+    } else {
+      state.connectionStatus = 'degraded';
+      updateConnectionBadge('degraded');
+      console.warn('[health] degraded:', e.message);
+    }
+  }
+}
+
+function startHealthMonitor() {
+  // Initial check
+  checkSystemHealth();
+  // Periodic check every 30s when tab visible
+  state.healthCheckInterval = setInterval(() => {
+    if (document.visibilityState === 'visible') {
+      checkSystemHealth();
+    }
+  }, HEALTH_CHECK_MS);
+  // Immediate re-check when tab becomes visible
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'visible') {
+      checkSystemHealth();
+    }
+  });
 }
 
 
@@ -1130,7 +1305,10 @@ function startCountdown() {
   tick();
   setInterval(tick, 1000);
 }
+let performanceRequestSeq = 0;
+
 async function fetchPerformanceAnalytics(timeframe = 'all') {
+  const requestSeq = ++performanceRequestSeq;
   state.currentTimeframe = timeframe;
   // Update UI Pills
   document.querySelectorAll('.tf-btn').forEach(btn => {
@@ -1141,6 +1319,8 @@ async function fetchPerformanceAnalytics(timeframe = 'all') {
     const res = await fetch(`/api/v1/signals/performance?timeframe=${timeframe}`);
     if (res.ok) {
       const data = await res.json();
+      // A slower older request must never overwrite a newer timeframe.
+      if (requestSeq !== performanceRequestSeq) return;
       state.pnlData = data;
       renderKPIValues(data.metrics);
 
@@ -1206,8 +1386,18 @@ function renderDonutChart(donut) {
   const canvas = document.getElementById('donutChartCanvas');
   if (!canvas || typeof Chart === 'undefined') return;
 
-  const tpVal = (donut && donut.data) ? (donut.data[0] || 0) : 0;
-  const slVal = (donut && donut.data) ? (donut.data[1] || 0) : 0;
+  const data = (donut && Array.isArray(donut.data))
+    ? donut.data.map(v => Number(v) || 0)
+    : [0, 0];
+  const labels = (donut && Array.isArray(donut.labels) && donut.labels.length === data.length)
+    ? donut.labels
+    : ['معاملات سودده (TP)', 'معاملات حد ضرر (SL)', 'سیگنال‌های باز (OPEN)'];
+  const colors = (donut && Array.isArray(donut.colors) && donut.colors.length === data.length)
+    ? donut.colors
+    : ['#10B981', '#F43F5E', '#3B82F6'];
+  const tpVal = data[0] || 0;
+  const slVal = data[1] || 0;
+  const total = data.reduce((a, b) => a + b, 0);
   const winRate = (donut && donut.win_rate != null)
     ? donut.win_rate
     : ((tpVal + slVal) > 0 ? ((tpVal / (tpVal + slVal)) * 100).toFixed(1) : 0);
@@ -1217,13 +1407,19 @@ function renderDonutChart(donut) {
   if (centerValEl) centerValEl.innerText = `${winRate}%`;
 
   const tpCountEl = document.getElementById('donutTpCount');
-  if (tpCountEl) tpCountEl.innerText = tpVal.toLocaleString('fa-IR');
+  if (tpCountEl) tpCountEl.innerText = tpVal.toLocaleString('en-US');
 
   const slCountEl = document.getElementById('donutSlCount');
-  if (slCountEl) slCountEl.innerText = slVal.toLocaleString('fa-IR');
+  if (slCountEl) slCountEl.innerText = slVal.toLocaleString('en-US');
+
+  const openCountEl = document.getElementById('donutOpenCount');
+  if (openCountEl) openCountEl.innerText = (data[2] || 0).toLocaleString('en-US');
 
   if (chartInstances.donut) {
-    chartInstances.donut.data.datasets[0].data = [tpVal, slVal];
+    chartInstances.donut.data.labels = labels;
+    chartInstances.donut.data.datasets[0].data = data;
+    chartInstances.donut.data.datasets[0].backgroundColor = colors;
+    chartInstances.donut.data.datasets[0].hoverBackgroundColor = colors;
     chartInstances.donut.update('active');
     return;
   }
@@ -1232,13 +1428,13 @@ function renderDonutChart(donut) {
   chartInstances.donut = new Chart(ctx, {
     type: 'doughnut',
     data: {
-      labels: ['معاملات سودده (TP)', 'معاملات حد ضرر (SL)'],
+      labels: labels,
       datasets: [{
-        data: [tpVal, slVal],
-        backgroundColor: ['#10B981', '#F43F5E'],
-        hoverBackgroundColor: ['#059669', '#E11D48'],
+        data: data,
+        backgroundColor: colors,
+        hoverBackgroundColor: colors,
         borderWidth: 2,
-        borderColor: '#FFFFFF',
+        borderColor: chartThemeColors().border,
         hoverOffset: 4
       }]
     },
@@ -1250,16 +1446,17 @@ function renderDonutChart(donut) {
         legend: { display: false },
         tooltip: {
           rtl: true,
-          backgroundColor: 'rgba(15, 23, 42, 0.92)',
+          backgroundColor: chartThemeColors().tooltipBg,
+          titleColor: chartThemeColors().tooltipText,
+          bodyColor: chartThemeColors().tooltipText,
           padding: 10,
           cornerRadius: 8,
           bodyFont: { family: 'Vazirmatn', size: 12 },
           callbacks: {
             label: function(ctx) {
               const val = ctx.raw || 0;
-              const total = tpVal + slVal;
-              const pct = ((val / total) * 100).toFixed(1);
-              return ` ${ctx.label}: ${val.toLocaleString('fa-IR')} معامله (${pct}%)`;
+              const pct = total > 0 ? ((val / total) * 100).toFixed(1) : '0.0';
+              return ` ${ctx.label}: ${val.toLocaleString('en-US')} (${pct}%)`;
             }
           }
         }
@@ -1306,7 +1503,7 @@ function renderEquityChart(curve) {
         pointRadius: 0,
         pointHoverRadius: 5,
         pointHoverBackgroundColor: '#4F46E5',
-        pointHoverBorderColor: '#FFFFFF',
+        pointHoverBorderColor: chartThemeColors().border,
         pointHoverBorderWidth: 2
       }]
     },
@@ -1321,7 +1518,9 @@ function renderEquityChart(curve) {
         legend: { display: false },
         tooltip: {
           rtl: true,
-          backgroundColor: 'rgba(15, 23, 42, 0.92)',
+          backgroundColor: chartThemeColors().tooltipBg,
+          titleColor: chartThemeColors().tooltipText,
+          bodyColor: chartThemeColors().tooltipText,
           padding: 10,
           cornerRadius: 8,
           titleFont: { family: 'Vazirmatn', size: 11 },
@@ -1339,18 +1538,18 @@ function renderEquityChart(curve) {
           grid: { display: false },
           ticks: {
             font: { family: 'JetBrains Mono', size: 9 },
-            color: '#94A3B8',
+            color: chartThemeColors().tick,
             maxTicksLimit: 6
           }
         },
         y: {
           display: true,
           grid: {
-            color: 'rgba(226, 232, 240, 0.6)'
+            color: chartThemeColors().grid
           },
           ticks: {
             font: { family: 'JetBrains Mono', size: 10 },
-            color: '#64748B',
+            color: chartThemeColors().tick,
             callback: function(v) { return `+${v}%`; }
           }
         }
@@ -1396,7 +1595,9 @@ function renderHistogramChart(hist) {
         legend: { display: false },
         tooltip: {
           rtl: true,
-          backgroundColor: 'rgba(15, 23, 42, 0.92)',
+          backgroundColor: chartThemeColors().tooltipBg,
+          titleColor: chartThemeColors().tooltipText,
+          bodyColor: chartThemeColors().tooltipText,
           padding: 8,
           cornerRadius: 8,
           bodyFont: { family: 'JetBrains Mono', size: 11 },
@@ -1413,15 +1614,15 @@ function renderHistogramChart(hist) {
           grid: { display: false },
           ticks: {
             font: { family: 'JetBrains Mono', size: 9 },
-            color: '#94A3B8',
+            color: chartThemeColors().tick,
             maxTicksLimit: 8
           }
         },
         y: {
-          grid: { color: 'rgba(226, 232, 240, 0.6)' },
+          grid: { color: chartThemeColors().grid },
           ticks: {
             font: { family: 'JetBrains Mono', size: 10 },
-            color: '#64748B',
+            color: chartThemeColors().tick,
             callback: function(v) { return `${v > 0 ? '+' : ''}${v}%`; }
           }
         }
@@ -1474,7 +1675,9 @@ function renderDrawdownChart(dd) {
         legend: { display: false },
         tooltip: {
           rtl: true,
-          backgroundColor: 'rgba(15, 23, 42, 0.92)',
+          backgroundColor: chartThemeColors().tooltipBg,
+          titleColor: chartThemeColors().tooltipText,
+          bodyColor: chartThemeColors().tooltipText,
           padding: 8,
           cornerRadius: 8,
           bodyFont: { family: 'JetBrains Mono', size: 11 },
@@ -1488,17 +1691,17 @@ function renderDrawdownChart(dd) {
           grid: { display: false },
           ticks: {
             font: { family: 'JetBrains Mono', size: 9 },
-            color: '#94A3B8',
+            color: chartThemeColors().tick,
             maxTicksLimit: 6
           }
         },
         y: {
           min: -5,
           max: 0,
-          grid: { color: 'rgba(226, 232, 240, 0.6)' },
+          grid: { color: chartThemeColors().grid },
           ticks: {
             font: { family: 'JetBrains Mono', size: 10 },
-            color: '#64748B',
+            color: chartThemeColors().tick,
             callback: function(v) { return `${v}%`; }
           }
         }
@@ -1508,6 +1711,18 @@ function renderDrawdownChart(dd) {
 }
 
 // ==================== DASHBOARD VIEW & GATED ACCESS ====================
+function isDashboardActive() {
+  const dash = document.getElementById('dashboardSection');
+  return !!dash && dash.classList.contains('active');
+}
+
+function refreshLiveDashboardFeed() {
+  if (document.visibilityState === 'hidden') return;
+  if (!isDashboardActive()) return;
+  if (!state.subscription || state.subscription.payment_status !== 'active') return;
+  fetchSubscribedSignalsFeed();
+}
+
 function showDashboardView() {
   if (!state.token) {
     openAuthModal('login');
@@ -1539,27 +1754,35 @@ function renderDashboardAccessState() {
   }
 }
 
+let liveFeedRequestSeq = 0;
+
 async function fetchSubscribedSignalsFeed() {
   if (!state.token) return;
+  const requestSeq = ++liveFeedRequestSeq;
   try {
     const res = await fetch('/api/v1/signals/live?limit=15', {
       headers: { 'Authorization': `Bearer ${state.token}` }
     });
     if (res.ok) {
       const data = await res.json();
+      if (requestSeq !== liveFeedRequestSeq) return;
       const container = document.getElementById('unlockedSignalsTableBody');
       if (container && data.signals) {
-        container.innerHTML = data.signals.map(s => `
-          <tr>
-            <td>${symLogoImg(s.symbol)}<span class="mono font-bold">${s.symbol}</span></td>
-            <td><span class="badge-direction ${s.direction === 'BUY' ? 'badge-buy' : 'badge-sell'}">${s.direction}</span></td>
-            <td class="mono">${s.entry_price}</td>
-            <td class="mono" style="color: var(--profit-emerald);">${s.tp_price} (+${s.tp_pct}%)</td>
-            <td class="mono" style="color: var(--loss-rose);">${s.sl_price} (-${s.sl_pct}%)</td>
-            <td class="mono ${s.live_pnl_pct >= 0 ? 'text-emerald' : 'text-rose'}">${s.live_pnl_pct > 0 ? '+' : ''}${s.live_pnl_pct}%</td>
-            <td><span style="font-size: 0.75rem; background: var(--canvas-subtle); padding: 2px 8px; border-radius: 4px;">${s.verification_note}</span></td>
-          </tr>
-        `).join('');
+        if (!data.signals.length) {
+          container.innerHTML = `<tr><td colspan="7" style="text-align:center; padding: 18px; color: var(--text-muted);">در حال حاضر سیگنال بازی وجود ندارد.</td></tr>`;
+        } else {
+          container.innerHTML = data.signals.map(s => `
+            <tr>
+              <td>${symLogoImg(s.symbol)}<span class="mono font-bold">${s.symbol}</span></td>
+              <td><span class="badge-direction ${s.direction === 'BUY' ? 'badge-buy' : 'badge-sell'}">${s.direction}</span></td>
+              <td class="mono">${s.entry_price}</td>
+              <td class="mono" style="color: var(--profit-emerald);">${s.tp_price} (+${s.tp_pct}%)</td>
+              <td class="mono" style="color: var(--loss-rose);">${s.sl_price} (-${s.sl_pct}%)</td>
+              <td class="mono ${s.live_pnl_pct >= 0 ? 'text-emerald' : 'text-rose'}">${s.live_pnl_pct > 0 ? '+' : ''}${s.live_pnl_pct}%</td>
+              <td><span style="font-size: 0.75rem; background: var(--canvas-subtle); padding: 2px 8px; border-radius: 4px;">${s.verification_note}</span></td>
+            </tr>
+          `).join('');
+        }
       }
     }
   } catch (e) {
@@ -1604,7 +1827,7 @@ async function updateCapitalAllocation(pct) {
 }
 
 async function triggerPanicKillSwitch() {
-  if (!confirm('آیا از توقف اضطراری و بستن تمامی پوزیشن‌های باز در ۱۸ صرافی اطمینان دارید؟')) return;
+  if (!confirm('آیا از توقف اضطراری و بستن تمامی پوزیشن‌های باز در 18 صرافی اطمینان دارید؟')) return;
   showToast('در حال بستن تمامی پوزیشن‌ها...', 'info');
   try {
     const res = await fetch('/api/v1/trading/panic-close-all', {

@@ -144,19 +144,33 @@
     if (themeToggle) {
       // Initialize theme from localStorage or system preference
       function getTheme() {
-        const saved = localStorage.getItem('ibo-theme');
-        if (saved) return saved;
-        return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        let saved = null;
+        try { saved = localStorage.getItem('ibo-theme'); } catch (e) {}
+        if (saved === 'dark' || saved === 'light') return saved;
+        try {
+          return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        } catch (e) {
+          return 'light';
+        }
       }
 
       function applyTheme(theme) {
+        const isDark = theme === 'dark';
         document.documentElement.setAttribute('data-theme', theme);
-        localStorage.setItem('ibo-theme', theme);
+        document.documentElement.setAttribute('data-bs-theme', theme);
+        document.documentElement.style.colorScheme = theme;
+        try { localStorage.setItem('ibo-theme', theme); } catch (e) {}
         const icon = themeToggle.querySelector('i');
         if (icon) {
-          icon.className = theme === 'dark' ? 'bi bi-moon-fill' : 'bi bi-sun-fill';
+          icon.className = isDark ? 'bi bi-moon-stars-fill' : 'bi bi-sun-fill';
         }
-        themeToggle.setAttribute('aria-pressed', theme === 'dark' ? 'true' : 'false');
+        themeToggle.setAttribute('aria-pressed', isDark ? 'true' : 'false');
+        themeToggle.setAttribute('aria-label', isDark ? 'تغییر به حالت روشن' : 'تغییر به حالت تاریک');
+        themeToggle.title = isDark ? 'حالت روشن (Light)' : 'حالت تاریک (Dark)';
+        const meta = document.querySelector('meta[name="theme-color"]');
+        if (meta) meta.setAttribute('content', isDark ? '#070D18' : '#4F46E5');
+        // Let charts / page widgets restyle themselves in the same tick.
+        document.dispatchEvent(new CustomEvent('ibo:themechange', { detail: { theme: theme } }));
       }
 
       // Initialize
@@ -291,7 +305,7 @@
                 '<img src="/static/assets/ibots_logo_transparent.png" alt="IBO-TS" style="height:40px;">' +
                 '<span class="brand-name">IBO-TS</span>' +
               '</div>' +
-              '<p style="font-size:.88rem;color:var(--text-muted);line-height:1.8;">سامانه پردازش ابری و الگوریتمی سیگنال‌های معاملاتی بازارهای مالی متصل به ۱۸ صرافی رسمی. مدیریت منظم ریسک و انضباط کامل معاملاتی.</p>' +
+              '<p style="font-size:.88rem;color:var(--text-muted);line-height:1.8;">سامانه پردازش ابری و الگوریتمی سیگنال‌های معاملاتی بازارهای مالی متصل به 18 صرافی رسمی. مدیریت منظم ریسک و انضباط کامل معاملاتی.</p>' +
             '</div>' +
             '<div>' +
               '<h2 class="footer-col-title">دسترسی سریع</h2>' +
@@ -813,6 +827,17 @@
     // Listen for online/offline events
     window.addEventListener('online', updateOnlineStatus);
     window.addEventListener('offline', updateOnlineStatus);
+  }
+
+  /* Icon-tap burst: a tiny RGB pop on dock / menu / header taps. */
+  function bindBurst() {
+    const selector = '.tpl-dock-item, .tpl-dock-center, .tpl-menu-link, .tpl-main-nav .nav-link, .tpl-burger';
+    document.addEventListener('pointerdown', function (ev) {
+      const item = ev.target.closest(selector);
+      if (!item || item.classList.contains('tpl-burst')) return;
+      item.classList.add('tpl-burst');
+      setTimeout(function () { item.classList.remove('tpl-burst'); }, 760);
+    }, { passive: true });
   }
 
   /* ─────────────── boot ─────────────── */

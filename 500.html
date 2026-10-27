@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
+  <script>
+  /* Early theme bootstrap — prevents any light flash before CSS paints */
+  (function(){try{var t=localStorage.getItem('ibo-theme');if(t!=='dark'&&t!=='light'){t=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}var d=document.documentElement;d.setAttribute('data-theme',t);d.setAttribute('data-bs-theme',t);d.style.colorScheme=t;}catch(e){}})();
+  </script>
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>خطای داخلی سرور (500) | پلتفرم IBO-TS</title>
@@ -17,7 +22,7 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      background: #FFFFFF;
+      background: var(--canvas-bg);
       padding: 2rem;
       text-align: center;
     }

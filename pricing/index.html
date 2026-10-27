@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
+  <script>
+  /* Early theme bootstrap — prevents any light flash before CSS paints */
+  (function(){try{var t=localStorage.getItem('ibo-theme');if(t!=='dark'&&t!=='light'){t=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}var d=document.documentElement;d.setAttribute('data-theme',t);d.setAttribute('data-bs-theme',t);d.style.colorScheme=t;}catch(e){}})();
+  </script>
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
   <title>تعرفه اشتراک IBO-TS — پرداخت USDT و ثبت سفارش</title>
@@ -11,7 +16,7 @@
   <link rel="alternate" hreflang="x-default" href="https://ibo-ts.com/pricing">
   <meta property="og:type" content="website">
   <meta property="og:title" content="تعرفه اشتراک IBO-TS">
-  <meta property="og:description" content="پلن‌های رسمی ۱ هفته تا ۱ سال؛ پرداخت USDT، سفارش و تاریخچه کامل، بدون اعداد نمایشی.">
+  <meta property="og:description" content="پلن‌های رسمی 1 هفته تا 1 سال؛ پرداخت USDT، سفارش و تاریخچه کامل، بدون اعداد نمایشی.">
   <meta property="og:url" content="https://ibo-ts.com/pricing">
   <meta property="og:image" content="https://ibo-ts.com/static/assets/ibots_logo_transparent.png">
   <meta name="twitter:card" content="summary">
@@ -23,7 +28,7 @@
   <link rel="stylesheet" href="/static/css/style.css">
   <link rel="stylesheet" href="/static/css/template.css">
   <style>
-    .plan-card { background:#fff; border:1.5px solid var(--border-light); border-radius:18px; padding:1.4rem 1.2rem; text-align:center; position:relative; }
+    .plan-card { background:var(--canvas-card); border:1.5px solid var(--border-light); border-radius:18px; padding:1.4rem 1.2rem; text-align:center; position:relative; }
     .plan-card.popular { border-color: var(--brand-indigo); box-shadow:0 12px 28px -10px rgba(79,70,229,.28); }
     .plan-badge { position:absolute; top:-12px; right:16px; background:linear-gradient(135deg,var(--brand-indigo),#2563EB); color:#fff; font-size:.72rem; font-weight:800; padding:.28rem .75rem; border-radius:999px; }
     .plan-price { font-size:1.45rem; font-weight:900; color:var(--text-heading); }
@@ -66,7 +71,7 @@
 </section>
 
 <section class="container myket-hide" style="max-width:860px; padding-top:2rem;">
-  <div style="background:#fff; border:1.5px solid var(--border-light); border-radius:18px; padding:1.4rem;">
+  <div style="background:var(--canvas-card); border:1.5px solid var(--border-light); border-radius:18px; padding:1.4rem;">
     <h3 style="font-weight:900; margin-bottom:.5rem;"><i class="bi bi-wallet2"></i> آدرس‌های رسمی واریز USDT</h3>
     <p style="color:var(--text-muted); font-size:.85rem; margin-bottom:.9rem;">فقط آدرس‌های رسمی زیر واریز پذیرفته می‌شود؛ ارسال با شبکه درست، الزامی است.</p>
     <div id="walletsBox" style="display:grid; gap:.7rem;">
@@ -76,24 +81,24 @@
 </section>
 
 <section class="container myket-hide" style="max-width:860px; padding-top:1rem;">
-  <div style="background:#fff; border:1.5px solid var(--border-light); border-radius:18px; padding:1.4rem;">
+  <div style="background:var(--canvas-card); border:1.5px solid var(--border-light); border-radius:18px; padding:1.4rem;">
     <h3 style="font-weight:900; margin-bottom:.6rem;"><i class="bi bi-clipboard2-check"></i> ثبت تراکنش پرداختی (TxHash)</h3>
     <div id="verifyLoginGate" style="display:none; color:var(--amber-gold); font-weight:700; font-size:.9rem; margin-bottom:.8rem;">
       برای ثبت تراکنش، ابتدا <a href="/#login" style="color:var(--brand-indigo);">وارد شوید یا ثبت‌نام کنید</a>.
     </div>
     <div style="display:grid; gap:.7rem; grid-template-columns:repeat(auto-fit,minmax(180px,1fr));">
       <label style="font-size:.8rem; color:var(--text-muted);">شبکه
-        <select id="vNetwork" style="width:100%; margin-top:.3rem; padding:.55rem .75rem; border:1.5px solid var(--border-light); border-radius:10px; background:#fff;">
+        <select id="vNetwork" style="width:100%; margin-top:.3rem; padding:.55rem .75rem; border:1.5px solid var(--border-light); border-radius:10px; background:var(--canvas-card);">
           <option value="USDT_TRC20">USDT — TRC20 (ترون)</option>
           <option value="USDT_BEP20">USDT — BEP20 (BNB Chain)</option>
           <option value="USDT_TON">USDT — TON</option>
         </select>
       </label>
       <label style="font-size:.8rem; color:var(--text-muted);">پلن
-        <select id="vPlan" style="width:100%; margin-top:.3rem; padding:.55rem .75rem; border:1.5px solid var(--border-light); border-radius:10px; background:#fff;"></select>
+        <select id="vPlan" style="width:100%; margin-top:.3rem; padding:.55rem .75rem; border:1.5px solid var(--border-light); border-radius:10px; background:var(--canvas-card);"></select>
       </label>
       <label style="font-size:.8rem; color:var(--text-muted);">افزودن ربات معامله‌گر
-        <select id="vBot" style="width:100%; margin-top:.3rem; padding:.55rem .75rem; border:1.5px solid var(--border-light); border-radius:10px; background:#fff;">
+        <select id="vBot" style="width:100%; margin-top:.3rem; padding:.55rem .75rem; border:1.5px solid var(--border-light); border-radius:10px; background:var(--canvas-card);">
           <option value="false">خیر — فقط سیگنال‌ها</option>
         </select>
       </label>
@@ -109,7 +114,7 @@
 <section class="container myket-hide" style="max-width:960px; padding-top:1.5rem; padding-bottom:3rem;">
   <h2 class="section-title" style="text-align:center;">سفارش‌های من</h2>
   <p class="section-subtitle" style="text-align:center;">تاریخچه واقعی پرداخت‌ها از سرور: موفق، در انتظار بررسی، ناموفق یا منقضی.</p>
-  <div style="background:#fff; border:1.5px solid var(--border-light); border-radius:18px; padding:1.2rem;">
+  <div style="background:var(--canvas-card); border:1.5px solid var(--border-light); border-radius:18px; padding:1.2rem;">
     <div id="ordersGate" style="display:none; text-align:center; color:var(--text-muted); font-size:.9rem;">
       برای نمایش سفارش‌ها ابتدا <a href="/#login" style="color:var(--brand-indigo);">وارد شوید</a>.
     </div>
@@ -134,8 +139,8 @@
 </section>
 
 </main>
-<script src="/static/js/template.js?v=2.3.2"></script>
-<script src="/static/js/purchase.js?v=2.3.2"></script>
+<script src="/static/js/template.js?v=20261027d"></script>
+<script src="/static/js/purchase.js?v=20261025d"></script>
 <script>
 (function () {
   const token = (function () { try { return localStorage.getItem('ibots_token'); } catch (e) { return null; } })();
@@ -156,7 +161,7 @@
 
   function fmtDate(s) {
     if (!s) return '—';
-    try { return new Date(s).toLocaleDateString('fa-IR', { year: 'numeric', month: '2-digit', day: '2-digit' }); }
+    try { return new Date(s).toLocaleDateString('en-GB', { year: 'numeric', month: '2-digit', day: '2-digit' }); }
     catch (e) { return s; }
   }
 

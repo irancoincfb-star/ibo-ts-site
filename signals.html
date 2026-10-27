@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
+  <script>
+  /* Early theme bootstrap — prevents any light flash before CSS paints */
+  (function(){try{var t=localStorage.getItem('ibo-theme');if(t!=='dark'&&t!=='light'){t=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}var d=document.documentElement;d.setAttribute('data-theme',t);d.setAttribute('data-bs-theme',t);d.style.colorScheme=t;}catch(e){}})();
+  </script>
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
   <title>سیگنال معاملاتی IBO-TS — ورود، حد ضرر و تارگت الگوریتمی</title>
@@ -53,7 +58,7 @@
 </section>
 
 <section class="container" style="padding-top:1.5rem; padding-bottom:1rem; max-width:820px;">
-  <div style="background:#FBFBFF; border:1.5px solid rgba(226,232,240,.85); border-radius:18px; padding:1.5rem;">
+  <div style="background:#FBFBFF; border:1.5px solid var(--border-light); border-radius:18px; padding:1.5rem;">
     <h3 style="font-weight:900; margin-bottom:.6rem;"><i class="bi bi-info-circle"></i> دسترسی به سیگنال‌ها</h3>
     <p style="color:var(--text-body); line-height:1.95; margin:0; font-size:.92rem;">
       نمایش سیگنال‌های زنده مخصوص اشتراک فعال است — و این محدودیت برای کیفیت است، نه فروش:
@@ -68,7 +73,7 @@
 </section>
 
 </main>
-<script src="/static/js/template.js?v=2.3.2"></script>
+<script src="/static/js/template.js?v=20261027d"></script>
 
 <nav aria-label="پیوندهای سایت" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;">
   <a href="/">خانه</a> <a href="/features">امکانات</a> <a href="/signals">سیگنال‌ها</a>

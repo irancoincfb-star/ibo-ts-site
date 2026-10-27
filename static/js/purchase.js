@@ -43,7 +43,7 @@
     crypto: { logo: LOGO.crypto, title: 'پرداخت با ارز دیجیتال',      sub: 'USDT (TRC20 / BEP20 / TON)' }
   };
 
-  const fa = n => Number(n || 0).toLocaleString('fa-IR');
+  const fa = n => Number(n || 0).toLocaleString('en-US');
   const usdtF = n => '$' + (Math.round((Number(n) || 0) * 100) / 100);
 
   /* ── native market detection (Myket APK) ──

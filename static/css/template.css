@@ -937,3 +937,251 @@ body.tpl-menu-open::after {
   .profile-avatar-wrap { width: 70px; height: 70px; }
   .profile-avatar-initials { font-size: 1.3rem; }
 }
+
+/* ==========================================================================
+   DARK THEME — shared chrome (header / dock / menu sheet / profile)
+   Loaded after style.css, so these rules win the cascade for the injected
+   template chrome. Every hard-coded white glass surface becomes midnight
+   glass with a vivid indigo-cyan-emerald spectrum.
+   ========================================================================== */
+
+[data-theme="dark"] {
+  --tpl-rgb-grad: linear-gradient(115deg,
+      #4F46E5 0%, #06B6D4 24%, #10B981 48%, #8B5CF6 72%, #4F46E5 100%);
+  --tpl-rgb-ink: #A5B4FC;
+}
+
+/* ── Theme toggle: jewel-like sun/moon switch ─────────────────────────── */
+.tpl-theme-toggle {
+  position: relative;
+  overflow: hidden;
+  border-radius: 50%;
+  border-color: rgba(79, 70, 229, 0.22);
+  background: radial-gradient(circle at 32% 26%, #FFFFFF 0%, #EEF2FF 52%, #E0E7FF 100%);
+  color: #4F46E5;
+  box-shadow: 0 8px 18px -8px rgba(79, 70, 229, 0.55),
+              inset 0 1px 0 #FFFFFF;
+}
+.tpl-theme-toggle::after {
+  content: "";
+  position: absolute;
+  inset: -40%;
+  background: conic-gradient(from 0deg, transparent 0deg, rgba(79, 70, 229, 0.18) 70deg, transparent 140deg);
+  opacity: 0;
+  transition: opacity .25s ease;
+  pointer-events: none;
+}
+.tpl-theme-toggle:hover::after { opacity: 1; }
+.tpl-theme-toggle:hover {
+  background: radial-gradient(circle at 32% 26%, #FFFFFF 0%, #E0E7FF 55%, #C7D2FE 100%);
+  color: #3730A3;
+  border-color: rgba(79, 70, 229, 0.45);
+  transform: translateY(-1px) scale(1.06);
+}
+.tpl-theme-toggle i {
+  position: relative;
+  z-index: 1;
+  font-size: 1.15rem;
+  filter: drop-shadow(0 1px 2px rgba(79, 70, 229, 0.25));
+}
+
+[data-theme="dark"] .tpl-theme-toggle {
+  border-color: rgba(252, 211, 77, 0.35);
+  background: radial-gradient(circle at 32% 26%, #24324D 0%, #101B30 58%, #0B1424 100%);
+  color: #FCD34D;
+  box-shadow: 0 0 20px -2px rgba(252, 211, 77, 0.28),
+              inset 0 1px 0 rgba(255, 255, 255, 0.09);
+}
+[data-theme="dark"] .tpl-theme-toggle::after {
+  background: conic-gradient(from 0deg, transparent 0deg, rgba(252, 211, 77, 0.22) 70deg, transparent 140deg);
+}
+[data-theme="dark"] .tpl-theme-toggle:hover {
+  background: radial-gradient(circle at 32% 26%, #3B4A68 0%, #17243B 58%, #0B1424 100%);
+  color: #FDE68A;
+  border-color: rgba(252, 211, 77, 0.7);
+  transform: translateY(-1px) scale(1.06);
+}
+
+/* ── Header glass ─────────────────────────────────────────────────────── */
+[data-theme="dark"] .site-header.tpl-header {
+  background: rgba(10, 18, 32, 0.78);
+  border-color: rgba(56, 78, 112, 0.72);
+  box-shadow: 0 18px 44px -22px rgba(0, 0, 0, 0.95),
+              0 0 0 1px rgba(129, 140, 248, 0.08) inset;
+}
+[data-theme="dark"] .site-header.tpl-header::before {
+  opacity: 0.16;
+}
+[data-theme="dark"] .tpl-main-nav .nav-link {
+  color: #C7D2E4;
+}
+[data-theme="dark"] .tpl-main-nav .nav-link:hover {
+  color: #E0E7FF;
+  background: rgba(129, 140, 248, 0.14);
+  box-shadow: inset 0 0 0 1.5px rgba(129, 140, 248, 0.42),
+              0 8px 20px -10px rgba(0, 0, 0, 0.85);
+}
+
+/* ── Hamburger ────────────────────────────────────────────────────────── */
+[data-theme="dark"] .tpl-burger {
+  background: rgba(22, 35, 58, 0.85);
+  border-color: rgba(56, 78, 112, 0.85);
+}
+[data-theme="dark"] .tpl-burger:hover {
+  background: rgba(34, 52, 82, 0.95);
+  border-color: rgba(129, 140, 248, 0.55);
+}
+[data-theme="dark"] .tpl-burger-glyph i {
+  background: #E2E8F0;
+}
+[data-theme="dark"] body.tpl-menu-open .tpl-burger-glyph i:nth-child(1) { background: #A5B4FC; }
+[data-theme="dark"] body.tpl-menu-open .tpl-burger-glyph i:nth-child(2) { background: #67E8F9; }
+
+/* ── Bottom dock ──────────────────────────────────────────────────────── */
+[data-theme="dark"] .tpl-dock {
+  background: rgba(12, 21, 38, 0.82);
+  border-color: rgba(56, 78, 112, 0.78);
+  box-shadow: 0 20px 46px -22px rgba(0, 0, 0, 0.98),
+              0 0 0 1px rgba(129, 140, 248, 0.08) inset;
+}
+[data-theme="dark"] .tpl-dock::before {
+  opacity: 0.16;
+}
+[data-theme="dark"] .tpl-dock-item i { color: #94A3B8; }
+[data-theme="dark"] .tpl-dock-item b { color: #C7D2E4; }
+[data-theme="dark"] .tpl-dock-item:hover {
+  background: rgba(129, 140, 248, 0.13);
+}
+[data-theme="dark"] .tpl-dock-item:hover i,
+[data-theme="dark"] .tpl-dock-item:hover b {
+  color: #C7D2FE;
+}
+[data-theme="dark"] .tpl-dock-item.tpl-active {
+  background: linear-gradient(180deg, rgba(129, 140, 248, 0.24), rgba(34, 211, 238, 0.10));
+  box-shadow: inset 0 0 0 1.5px rgba(129, 140, 248, 0.55),
+              0 8px 22px -10px rgba(0, 0, 0, 0.9);
+}
+[data-theme="dark"] .tpl-dock-item.tpl-active i,
+[data-theme="dark"] .tpl-dock-item.tpl-active b {
+  color: #E0E7FF;
+}
+[data-theme="dark"] .tpl-dock-center i,
+[data-theme="dark"] .tpl-dock-center b {
+  color: #C7D2FE;
+}
+
+/* ── Mobile menu sheet ────────────────────────────────────────────────── */
+[data-theme="dark"] .tpl-menu-sheet {
+  background: rgba(10, 18, 32, 0.97);
+  border-left-color: rgba(56, 78, 112, 0.8);
+  box-shadow: -24px 0 56px -22px rgba(0, 0, 0, 0.98);
+}
+[data-theme="dark"] .tpl-menu-sheet::before { opacity: 0.16; }
+[data-theme="dark"] .tpl-menu-head {
+  border-bottom-color: rgba(45, 65, 98, 0.9);
+}
+[data-theme="dark"] .tpl-menu-head .brand-sub { color: #94A3B8; }
+[data-theme="dark"] .tpl-menu-close {
+  background: rgba(22, 35, 58, 0.9);
+  border-color: rgba(56, 78, 112, 0.9);
+  color: #E2E8F0;
+}
+[data-theme="dark"] .tpl-menu-close:hover {
+  background: #FCD34D;
+  color: #0B1424;
+  border-color: #FCD34D;
+}
+[data-theme="dark"] .tpl-menu-group-title { color: #94A3B8; }
+[data-theme="dark"] .tpl-menu-link {
+  color: #E2E8F0;
+}
+[data-theme="dark"] .tpl-menu-link i { color: #94A3B8; }
+[data-theme="dark"] .tpl-menu-link:hover,
+[data-theme="dark"] .tpl-menu-link:focus {
+  background: rgba(129, 140, 248, 0.14);
+  color: #E0E7FF;
+  box-shadow: inset 0 0 0 1.5px rgba(129, 140, 248, 0.32);
+}
+[data-theme="dark"] .tpl-menu-link.tpl-menu-active {
+  background: linear-gradient(90deg, rgba(129, 140, 248, 0.24), rgba(34, 211, 238, 0.10));
+  color: #E0E7FF;
+  box-shadow: inset 0 0 0 1.5px rgba(129, 140, 248, 0.5);
+}
+[data-theme="dark"] .tpl-menu-auth {
+  background: rgba(7, 13, 24, 0.92);
+  border-top-color: rgba(45, 65, 98, 0.9);
+}
+[data-theme="dark"] body.tpl-menu-open::after {
+  background: rgba(2, 6, 14, 0.78);
+}
+
+/* ── Profile card ─────────────────────────────────────────────────────── */
+[data-theme="dark"] .profile-card {
+  background: linear-gradient(160deg, rgba(23, 37, 61, 0.94), rgba(12, 21, 38, 0.97));
+  border-color: rgba(56, 78, 112, 0.82);
+  box-shadow: 0 22px 50px -24px rgba(0, 0, 0, 0.98),
+              inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+[data-theme="dark"] .profile-avatar-cam {
+  background: #4F46E5;
+  border-color: #101B30;
+  box-shadow: 0 6px 16px -6px rgba(0, 0, 0, 0.9);
+}
+[data-theme="dark"] .profile-avatar-cam:hover { background: #6366F1; }
+[data-theme="dark"] .profile-form,
+[data-theme="dark"] .profile-meta {
+  border-top-color: rgba(45, 65, 98, 0.9);
+}
+[data-theme="dark"] .profile-badge.profile-badge-ok {
+  background: rgba(52, 211, 153, 0.16);
+  color: #6EE7B7;
+  box-shadow: inset 0 0 0 1.5px rgba(52, 211, 153, 0.42);
+}
+[data-theme="dark"] .profile-badge.profile-badge-wait {
+  background: rgba(251, 191, 36, 0.16);
+  color: #FCD34D;
+  box-shadow: inset 0 0 0 1.5px rgba(251, 191, 36, 0.45);
+}
+[data-theme="dark"] .profile-msg.profile-msg-ok {
+  background: rgba(52, 211, 153, 0.14);
+  color: #6EE7B7;
+  box-shadow: inset 0 0 0 1.5px rgba(52, 211, 153, 0.38);
+}
+[data-theme="dark"] .profile-msg.profile-msg-err {
+  background: rgba(251, 113, 133, 0.14);
+  color: #FDA4AF;
+  box-shadow: inset 0 0 0 1.5px rgba(251, 113, 133, 0.4);
+}
+[data-theme="dark"] .profile-field .form-input[readonly] {
+  background: #0C1526;
+  color: #94A3B8;
+}
+[data-theme="dark"] .profile-eye {
+  background: rgba(22, 35, 58, 0.9);
+  border-color: rgba(56, 78, 112, 0.9);
+  color: #C7D2E4;
+}
+[data-theme="dark"] .profile-eye:hover {
+  background: #818CF8;
+  color: #0B1424;
+  border-color: #818CF8;
+}
+
+/* ── Smooth cross-fade for the injected chrome ────────────────────────── */
+.site-header.tpl-header,
+.tpl-dock,
+.tpl-menu-sheet,
+.tpl-burger,
+.tpl-theme-toggle,
+.profile-card,
+.tpl-menu-close,
+.profile-eye,
+.tpl-menu-auth {
+  transition: background-color .35s ease, border-color .35s ease,
+              color .35s ease, box-shadow .35s ease;
+}
+
+/* Onboarding must never swallow clicks on the real chrome (theme toggle,
+   header links). The dim layer is visual only; the tooltip stays clickable. */
+#tpl-onboarding-overlay { pointer-events: none !important; }
+#tpl-onboarding-tooltip { pointer-events: auto !important; }

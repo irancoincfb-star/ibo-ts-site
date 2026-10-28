@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl" data-bs-theme="light">
+<head>
+  <script>
+  /* Early theme bootstrap — prevents any light flash before CSS paints */
+  (function(){try{var t=localStorage.getItem('ibo-theme');if(t!=='dark'&&t!=='light'){t=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}var d=document.documentElement;d.setAttribute('data-theme',t);d.setAttribute('data-bs-theme',t);d.style.colorScheme=t;}catch(e){}})();
+  </script>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <meta name="robots" content="noindex,nofollow">
+  <title>تنظیمات کاربر و ربات معامله‌گر — IBO-TS</title>
+  <meta name="description" content="صفحه اختصاصی تنظیمات کاربر IBO-TS: ثبت امن API Key و Secret Key صرافی، آزمایش اتصال، ذخیره تنظیمات، نمایش مانده USDT و شروع ربات معامله‌گر.">
+  <link rel="canonical" href="https://ibo-ts.com/settings">
+  <link rel="icon" type="image/png" sizes="32x32" href="/static/assets/icons/favicon.png">
+  <link rel="shortcut icon" href="/static/assets/icons/favicon.ico">
+  <link rel="apple-touch-icon" href="/static/assets/icons/icon-192.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&family=Outfit:wght@500;600;700;800;900&family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="/static/css/style.css?v=20261028a">
+  <link rel="stylesheet" href="/static/css/template.css?v=20261028a">
+  <style>
+    .settings-hero{padding:2.2rem 0 1.2rem;text-align:center}
+    .settings-hero h1{font-size:clamp(1.5rem,3vw,2.2rem);font-weight:900;color:var(--text-heading);margin:0 0 .5rem}
+    .settings-hero p{color:var(--text-muted);font-size:.95rem;margin:0}
+    .settings-grid{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:1.25rem;align-items:start}
+    @media(max-width:991px){.settings-grid{grid-template-columns:1fr}}
+    .settings-card{background:var(--canvas-card);border:1.5px solid var(--border-light);border-radius:20px;padding:1.5rem;box-shadow:var(--shadow-md)}
+    .settings-card h2{font-size:1.08rem;font-weight:900;color:var(--text-heading);margin:0 0 .35rem;display:flex;align-items:center;gap:.55rem}
+    .settings-card .sub{color:var(--text-muted);font-size:.82rem;margin:0 0 1.15rem;line-height:1.9}
+    .settings-label{display:block;font-size:.82rem;font-weight:800;color:var(--text-heading);margin:0 0 .4rem}
+    .settings-input,.settings-select{width:100%;padding:.72rem .85rem;border:1.5px solid var(--border-light);border-radius:12px;background:var(--canvas-subtle);color:var(--text-heading);font-family:inherit;font-size:.9rem;outline:none;transition:border-color .2s,box-shadow .2s}
+    .settings-input:focus,.settings-select:focus{border-color:var(--brand-indigo);box-shadow:0 0 0 3px rgba(99,102,241,.18)}
+    .settings-row{display:grid;grid-template-columns:1fr 1fr;gap:.85rem;margin-bottom:.85rem}
+    @media(max-width:575px){.settings-row{grid-template-columns:1fr}}
+    .indicator-row{display:flex;gap:.6rem;flex-wrap:wrap;margin:.25rem 0 1rem}
+    .indicator{display:inline-flex;align-items:center;gap:.4rem;padding:.38rem .8rem;border-radius:999px;font-size:.78rem;font-weight:800;border:1.5px solid transparent;transition:all .25s;background:var(--canvas-subtle);color:var(--text-muted);border-color:var(--border-light)}
+    .indicator .dot{width:9px;height:9px;border-radius:50%;background:#94A3B8;box-shadow:0 0 0 3px rgba(148,163,184,.18)}
+    .indicator.testing{color:#B45309;border-color:#F59E0B;background:rgba(245,158,11,.12)}
+    .indicator.testing .dot{background:#F59E0B;animation:blink 1s infinite}
+    .indicator.ok{color:#047857;border-color:#10B981;background:rgba(16,185,129,.12)}
+    .indicator.ok .dot{background:#10B981;box-shadow:0 0 10px rgba(16,185,129,.85)}
+    .indicator.err{color:#B91C1C;border-color:#EF4444;background:rgba(239,68,68,.1)}
+    .indicator.err .dot{background:#EF4444}
+    @keyframes blink{0%,100%{opacity:1}50%{opacity:.25}}
+    .settings-actions{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin-top:.35rem}
+    .balance-card{margin-top:1.1rem;border-radius:18px;padding:1.25rem 1.35rem;background:linear-gradient(135deg,rgba(15,118,110,.95),rgba(5,150,105,.9) 52%,rgba(245,158,11,.88));color:#fff;position:relative;overflow:hidden;box-shadow:0 14px 40px rgba(15,118,110,.28),inset 0 1px 0 rgba(255,255,255,.28)}
+    .balance-card::after{content:'';position:absolute;inset:-40%;background:radial-gradient(circle at 25% 20%,rgba(255,255,255,.2),transparent 55%);pointer-events:none}
+    .balance-label{font-size:.8rem;font-weight:800;opacity:.92;position:relative;z-index:1}
+    .balance-value{display:block;font-family:'JetBrains Mono',monospace;font-size:clamp(1.9rem,4vw,2.8rem);font-weight:900;letter-spacing:-.03em;line-height:1.15;position:relative;z-index:1}
+    .balance-unit{font-size:.95rem;font-weight:800;opacity:.92;position:relative;z-index:1}
+    .balance-meta{font-size:.76rem;opacity:.9;margin-top:.35rem;position:relative;z-index:1}
+    .start-bot-btn{width:100%;border:0;border-radius:16px;padding:1rem 1.2rem;font-size:1.05rem;font-weight:900;font-family:inherit;color:#fff;background:linear-gradient(135deg,#059669,#10B981);cursor:pointer;box-shadow:0 10px 30px rgba(16,185,129,.32);transition:transform .15s,box-shadow .2s;position:relative;overflow:hidden}
+    .start-bot-btn:hover{transform:translateY(-1px)}
+    .start-bot-btn:disabled{opacity:.65;cursor:not-allowed;transform:none}
+    .start-bot-btn.flashing{animation:startFlash .45s 6}
+    .start-bot-btn.running{background:#39FF14;color:#05301A;box-shadow:0 0 0 4px rgba(57,255,20,.22),0 0 34px rgba(57,255,20,.75);text-shadow:0 1px 0 rgba(255,255,255,.35)}
+    .start-bot-btn.stopping{background:#EF4444;box-shadow:0 10px 30px rgba(239,68,68,.3)}
+    @keyframes startFlash{0%,100%{filter:brightness(1);box-shadow:0 10px 30px rgba(16,185,129,.32)}50%{filter:brightness(1.75);box-shadow:0 0 0 6px rgba(57,255,20,.35),0 0 38px rgba(57,255,20,.9)}}
+    .bot-state-note{font-size:.8rem;color:var(--text-muted);margin:.65rem 0 0;line-height:1.9;min-height:2.6em}
+    .user-line{display:flex;justify-content:space-between;gap:.75rem;padding:.6rem 0;border-bottom:1px dashed var(--border-light);font-size:.86rem}
+    .user-line:last-child{border-bottom:0}
+    .user-line b{color:var(--text-heading)}
+    .settings-toast{position:fixed;bottom:1.2rem;left:50%;transform:translateX(-50%) translateY(120%);background:#0F172A;color:#fff;padding:.8rem 1.15rem;border-radius:12px;font-size:.86rem;font-weight:700;z-index:9999;transition:transform .3s;max-width:92vw;text-align:center;box-shadow:0 18px 50px rgba(0,0,0,.35)}
+    .settings-toast.show{transform:translateX(-50%) translateY(0)}
+    .settings-toast.ok{background:#047857}.settings-toast.err{background:#B91C1C}
+    .auth-gate{display:none;text-align:center;padding:3rem 1rem;background:var(--canvas-card);border:1.5px solid var(--border-light);border-radius:20px;margin:2rem auto;max-width:640px}
+    .auth-gate i{font-size:2.2rem;color:var(--brand-indigo)}
+  </style>
+</head>
+<body>
+  <main class="container" style="padding-bottom:5rem">
+    <section class="settings-hero">
+      <h1><i class="bi bi-gear-fill" style="color:var(--brand-indigo)"></i> تنظیمات کاربر و ربات معامله‌گر</h1>
+      <p>اتصال امن صرافی، آزمایش و ذخیره کلیدها، مشاهده مانده USDT و کنترل شروع ربات — همه در یک صفحه اختصاصی.</p>
+    </section>
+
+    <div id="authGate" class="auth-gate">
+      <i class="bi bi-person-lock"></i>
+      <h2 style="font-weight:900;margin:.75rem 0 .5rem">برای ورود به تنظیمات، ابتدا وارد حساب شوید</h2>
+      <p style="color:var(--text-muted);font-size:.9rem;line-height:1.9">این صفحه فقط برای کاربران دارای اشتراک فعال باز می‌شود. پس از ورود، به‌صورت خودکار به همین صفحه بازمی‌گردید.</p>
+      <a class="btn btn-primary btn-lg" href="/?auth=login"><i class="bi bi-box-arrow-in-right"></i> ورود به حساب</a>
+    </div>
+
+    <div id="settingsContent" class="settings-grid" style="display:none">
+      <div>
+        <section class="settings-card" id="exchangeCard">
+          <h2><i class="bi bi-key-fill" style="color:var(--brand-indigo)"></i> اتصال ربات به صرافی</h2>
+          <p class="sub">کلیدهای API را با مجوز <b>معامله (Trade)</b> و بدون مجوز برداشت بسازید. سیستم ابتدا اتصال را آزمایش می‌کند، سپس ذخیره می‌کند و مانده حساب را به USDT نشان می‌دهد.</p>
+
+          <div class="settings-row">
+            <div>
+              <label class="settings-label" for="exchangeSelect">صرافی</label>
+              <select id="exchangeSelect" class="settings-select">
+                <optgroup label="صرافی‌های بین‌المللی — فیوچرز (Futures)">
+                  <option value="binance">Binance</option>
+                  <option value="bybit">Bybit</option>
+                  <option value="bitunix">Bitunix</option>
+                  <option value="bingx">BingX</option>
+                  <option value="gateio">Gate.io</option>
+                  <option value="coinex">CoinEx</option>
+                  <option value="htx">HTX</option>
+                  <option value="lbank">LBank</option>
+                  <option value="toobit">Toobit</option>
+                </optgroup>
+                <optgroup label="صرافی‌های ایرانی — اسپات (Spot)">
+                  <option value="nobitex">نوبیتکس (Nobitex)</option>
+                  <option value="wallex" disabled>والکس (Wallex) — به‌زودی</option>
+                  <option value="ramzinex">رمزینکس (Ramzinex)</option>
+                  <option value="bitpin">بیت‌پین (Bitpin)</option>
+                  <option value="abantether">آبان‌تتر (AbanTether)</option>
+                  <option value="bit24">بیت‌24 (Bit24)</option>
+                  <option value="arzplus">آرزپلاس (ArzPlus)</option>
+                  <option value="bitbarg">بیت‌بارگ (Bitbarg)</option>
+                  <option value="okexchange">OK-Exchange</option>
+                  <option value="rastin">راستین (Rastin)</option>
+                </optgroup>
+              </select>
+              <div class="balance-meta" id="marketTypeHint" style="color:var(--text-muted);margin-top:.4rem">بازار اجرا: فیوچرز (Futures)</div>
+            </div>
+            <div>
+              <label class="settings-label" for="labelInput">برچسب حساب</label>
+              <input id="labelInput" class="settings-input" value="Primary" autocomplete="off">
+            </div>
+          </div>
+
+          <div class="settings-row">
+            <div>
+              <label class="settings-label" for="apiKeyInput">API Key</label>
+              <input id="apiKeyInput" class="settings-input" placeholder="API Key صرافی" autocomplete="off" spellcheck="false">
+            </div>
+            <div>
+              <label class="settings-label" for="secretKeyInput">Secret Key</label>
+              <input id="secretKeyInput" class="settings-input" type="password" placeholder="Secret Key صرافی" autocomplete="off" spellcheck="false">
+            </div>
+          </div>
+
+          <div style="margin-bottom:.85rem">
+            <label class="settings-label" for="passphraseInput">Passphrase <span style="font-weight:500;color:var(--text-muted)">(اختیاری — فقط برای صرافی‌های دارای Passphrase)</span></label>
+            <input id="passphraseInput" class="settings-input" type="password" placeholder="در صورت نیاز صرافی" autocomplete="off" spellcheck="false">
+          </div>
+
+          <div class="indicator-row">
+            <span class="indicator" id="testIndicator"><span class="dot"></span><span id="testIndicatorText">چراغ آزمایش: خاموش</span></span>
+            <span class="indicator" id="saveIndicator"><span class="dot"></span><span id="saveIndicatorText">چراغ ذخیره: خاموش</span></span>
+          </div>
+
+          <div class="settings-actions">
+            <button type="button" class="btn btn-outline" id="testBtn" onclick="testConnectionOnly()"><i class="bi bi-check-circle"></i> آزمایش اتصال</button>
+            <button type="button" class="btn btn-primary" id="testSaveBtn" onclick="testAndSave()"><i class="bi bi-shield-check"></i> آزمایش و ذخیره</button>
+          </div>
+          <p class="bot-state-note" id="exchangeStatusText">وضعیت: آماده. ابتدا کلیدها را وارد کنید.</p>
+
+          <div class="balance-card" id="balanceCard">
+            <div class="balance-label" id="balanceLabel">مانده حساب به USDT <span id="balanceMarketBadge">—</span></div>
+            <strong class="balance-value" id="balanceValue">—</strong>
+            <span class="balance-unit">USDT</span>
+            <div class="balance-meta" id="balanceMeta">پس از آزمایش و ذخیره، مانده واقعی حساب شما نمایش داده می‌شود.</div>
+          </div>
+        </section>
+
+        <section class="settings-card" style="margin-top:1.15rem">
+          <h2><i class="bi bi-robot" style="color:#10B981"></i> شروع ربات معامله‌گر</h2>
+          <p class="sub">با شروع ربات، تمام دارایی‌های آزاد حساب — چه تومان، چه هر کوین دیگری — به‌صورت <b>100% به USDT</b> تبدیل می‌شود؛ سپس ربات با تنظیمات ریسک شما شروع به کار می‌کند. صرافی‌های ایرانی روی <b>Spot</b> و صرافی‌های بین‌المللی روی <b>Futures</b> اجرا می‌شوند.</p>
+          <button type="button" class="start-bot-btn" id="startBotBtn" onclick="toggleBot(true)"><i class="bi bi-play-fill"></i> شروع ربات و تبدیل 100% به USDT</button>
+          <button type="button" class="btn btn-outline btn-sm" id="stopBotBtn" style="margin-top:.7rem;display:none" onclick="toggleBot(false)"><i class="bi bi-stop-fill"></i> توقف ربات</button>
+          <p class="bot-state-note" id="botStateNote">وضعیت ربات: نامشخص</p>
+        </section>
+      </div>
+
+      <div>
+        <section class="settings-card">
+          <h2><i class="bi bi-person-vcard-fill" style="color:var(--brand-indigo)"></i> حساب کاربری</h2>
+          <div class="user-line"><span>ایمیل</span><b id="userEmail">—</b></div>
+          <div class="user-line"><span>نام</span><b id="userName">—</b></div>
+          <div class="user-line"><span>وضعیت اشتراک</span><b id="subStatus">—</b></div>
+          <div class="user-line"><span>پلن فعال</span><b id="subPlan">—</b></div>
+          <div class="user-line"><span>روزهای باقی‌مانده</span><b id="subDays">—</b></div>
+          <div class="user-line"><span>افزونه ربات</span><b id="subBot">—</b></div>
+          <div class="settings-actions" style="margin-top:1rem">
+            <a href="/#profile" class="btn btn-outline btn-sm"><i class="bi bi-pencil-square"></i> ویرایش پروفایل و رمز</a>
+            <a href="/#dashboard" class="btn btn-primary btn-sm"><i class="bi bi-speedometer2"></i> داشبورد معاملاتی</a>
+          </div>
+        </section>
+
+        <section class="settings-card" style="margin-top:1.15rem">
+          <h2><i class="bi bi-shield-lock-fill" style="color:#10B981"></i> امنیت و خروج</h2>
+          <p class="sub">کلیدها با AES-256 رمزنگاری می‌شوند و هرگز به‌صورت متن ساده ذخیره نمی‌شوند. برای پایان نشست از دکمه زیر استفاده کنید.</p>
+          <button type="button" class="btn btn-outline btn-sm" style="color:#EF4444;border-color:#EF4444" onclick="if(window.handleLogout)window.handleLogout()"><i class="bi bi-box-arrow-right"></i> خروج از حساب</button>
+        </section>
+
+        <section class="settings-card" style="margin-top:1.15rem">
+          <h2><i class="bi bi-lightbulb-fill" style="color:#F59E0B"></i> راهنمای سریع</h2>
+          <ol style="font-size:.82rem;color:var(--text-body);line-height:2;margin:0;padding-inline-start:1.15rem">
+            <li>در صرافی، API Key با مجوز Trade بسازید (برداشت را غیرفعال کنید).</li>
+            <li>کلیدها را اینجا وارد و «آزمایش و ذخیره» را بزنید.</li>
+            <li>پس از سبز شدن هر دو چراغ، مانده USDT را بررسی کنید.</li>
+            <li>دکمه شروع را بزنید؛ 3 بار چشمک سبز می‌زند و ثابت می‌شود.</li>
+          </ol>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <div class="settings-toast" id="settingsToast"></div>
+  <script src="/static/js/template.js?v=20261028a"></script>
+  <script>
+  (function () {
+    'use strict';
+    var IRANIAN = ['nobitex','ramzinex','bitpin','abantether','bit24','arzplus','bitbarg','okexchange','rastin'];
+    var token = localStorage.getItem('ibots_token');
+    var state = { exchange: 'binance', botEnabled: false, savedCreds: [], sub: null, balance: null };
+
+    function $(id) { return document.getElementById(id); }
+    function isIranian(id) { return IRANIAN.indexOf((id || '').toLowerCase()) !== -1; }
+    function fmt(n, d) { return (n === null || n === undefined || isNaN(n)) ? '—' : Number(n).toFixed(d === undefined ? 2 : d); }
+
+    function toast(msg, kind) {
+      var t = $('settingsToast');
+      t.textContent = msg;
+      t.className = 'settings-toast show' + (kind ? ' ' + kind : '');
+      clearTimeout(t._t);
+      t._t = setTimeout(function () { t.className = 'settings-toast'; }, 5200);
+    }
+
+    async function api(path, opts) {
+      opts = opts || {};
+      opts.headers = Object.assign({}, opts.headers || {}, { 'Authorization': 'Bearer ' + token });
+      if (opts.body && !opts.headers['Content-Type']) opts.headers['Content-Type'] = 'application/json';
+      var res = await fetch(path, opts);
+      var data = null;
+      try { data = await res.json(); } catch (e) { data = {}; }
+      if (!res.ok) {
+        var detail = data && (data.detail || data.message);
+        if (detail && typeof detail === 'object') detail = detail.message || JSON.stringify(detail);
+        throw new Error(detail || ('HTTP ' + res.status));
+      }
+      return data;
+    }
+
+    function setIndicator(el, textEl, kind, text) {
+      var box = $(el);
+      box.className = 'indicator' + (kind ? ' ' + kind : '');
+      $(textEl).textContent = text;
+    }
+
+    function marketLabel(id) { return isIranian(id) ? 'اسپات (Spot)' : 'فیوچرز (Futures)'; }
+    function marketValue(id) { return isIranian(id) ? 'spot' : 'futures'; }
+
+    function updateMarketHint() {
+      var id = $('exchangeSelect').value;
+      state.exchange = id;
+      $('marketTypeHint').textContent = 'بازار اجرا: ' + marketLabel(id);
+      $('balanceMarketBadge').textContent = isIranian(id) ? '— اسپات' : '— فیوچرز';
+    }
+
+    function renderBalance(payload) {
+      if (!payload) return;
+      state.balance = payload;
+      $('balanceValue').textContent = fmt(payload.total_usdt, 2);
+      $('balanceMarketBadge').textContent = payload.market_type === 'futures' ? '— فیوچرز' : '— اسپات';
+      var count = (payload.assets || []).length;
+      $('balanceMeta').textContent = 'ارزش‌گذاری ' + count + ' دارایی در ' + (payload.market_type === 'futures' ? 'حساب فیوچرز' : 'حساب اسپات') + ' — به‌روزرسانی: ' + new Date().toLocaleTimeString('en-GB');
+    }
+
+    async function refreshBalance() {
+      try {
+        var data = await api('/api/v1/vault/balance', {
+          method: 'POST',
+          body: JSON.stringify({ exchange_id: state.exchange, label: $('labelInput').value.trim() || 'Primary' })
+        });
+        if (data.success && data.data) renderBalance(data.data);
+        return data.data;
+      } catch (e) {
+        $('balanceValue').textContent = '—';
+        $('balanceMeta').textContent = 'مانده قابل خواندن نیست: ' + e.message;
+        return null;
+      }
+    }
+
+    async function loadUser() {
+      try {
+        var me = await api('/api/v1/auth/me');
+        var u = me.user || {};
+        $('userEmail').textContent = u.email || '—';
+        $('userName').textContent = u.full_name || u.first_name || '—';
+      } catch (e) { toast('دریافت پروفایل ناموفق بود: ' + e.message, 'err'); }
+
+      try {
+        var s = await api('/api/v1/subscriptions/current');
+        var sub = s.subscription || null;
+        state.sub = sub;
+        if (sub && sub.payment_status === 'active') {
+          $('subStatus').textContent = 'فعال';
+          $('subPlan').textContent = sub.plan_title || sub.plan_code || '—';
+          var daysLeft = (sub.countdown && sub.countdown.days !== undefined) ? sub.countdown.days : '—';
+          $('subDays').textContent = daysLeft + ' روز';
+          $('subBot').textContent = sub.has_bot_addon ? 'فعال' : 'غیرفعال';
+        } else {
+          $('subStatus').textContent = 'غیرفعال';
+          $('subPlan').textContent = '—';
+          $('subDays').textContent = '—';
+          $('subBot').textContent = '—';
+        }
+      } catch (e) { $('subStatus').textContent = 'نامشخص'; }
+    }
+
+    async function loadSettings() {
+      try {
+        var data = await api('/api/v1/trading/settings');
+        var s = data.settings || {};
+        if (s.exchange_id) {
+          state.exchange = s.exchange_id;
+          $('exchangeSelect').value = s.exchange_id;
+          updateMarketHint();
+        }
+        state.botEnabled = !!s.bot_enabled;
+        if (state.botEnabled) {
+          $('startBotBtn').classList.add('running');
+          $('startBotBtn').innerHTML = '<i class="bi bi-check-circle-fill"></i> ربات فعال است';
+          $('stopBotBtn').style.display = 'inline-flex';
+          $('botStateNote').textContent = 'وضعیت ربات: فعال — در حال پایش بازار و اجرای معاملات.';
+        }
+      } catch (e) { /* non-fatal */ }
+    }
+
+    async function loadCreds() {
+      try {
+        var data = await api('/api/v1/vault/credentials');
+        state.savedCreds = data.data || [];
+        if (state.savedCreds.length) {
+          var c = state.savedCreds[0];
+          $('exchangeSelect').value = c.exchange_id;
+          $('labelInput').value = c.label || 'Primary';
+          updateMarketHint();
+          setIndicator('saveIndicator', 'saveIndicatorText', 'ok', 'چراغ ذخیره: ذخیره‌شده');
+          setIndicator('testIndicator', 'testIndicatorText', c.last_verified_at ? 'ok' : '', c.last_verified_at ? 'چراغ آزمایش: تاییدشده' : 'چراغ آزمایش: ذخیره‌شده');
+          $('exchangeStatusText').textContent = 'وضعیت: کلید ' + c.exchange_id + ' در Vault ذخیره شده است' + (c.last_verified_at ? ' و آخرین آزمایش موفق بوده است.' : '. برای آزمایش دوباره دکمه را بزنید.');
+          await refreshBalance();
+        }
+      } catch (e) { /* non-fatal */ }
+    }
+
+    async function testConnectionOnly() {
+      var id = $('exchangeSelect').value;
+      var apiKey = $('apiKeyInput').value.trim();
+      var secret = $('secretKeyInput').value.trim();
+      var pass = $('passphraseInput').value.trim();
+      var label = $('labelInput').value.trim() || 'Primary';
+      if (!apiKey || !secret) { toast('لطفاً API Key و Secret Key را وارد کنید.', 'err'); return; }
+      setIndicator('testIndicator', 'testIndicatorText', 'testing', 'چراغ آزمایش: در حال آزمایش...');
+      $('testBtn').disabled = true;
+      try {
+        await api('/api/v1/vault/credentials', {
+          method: 'POST',
+          body: JSON.stringify({ exchange_id: id, api_key: apiKey, secret_key: secret, passphrase: pass || null, label: label, testnet: false })
+        });
+        await api('/api/v1/vault/credentials/' + encodeURIComponent(id) + '/verify?label=' + encodeURIComponent(label), { method: 'POST' });
+        setIndicator('testIndicator', 'testIndicatorText', 'ok', 'چراغ آزمایش: اتصال تایید شد');
+        $('exchangeStatusText').textContent = 'وضعیت: اتصال به ' + id + ' با موفقیت آزمایش شد. برای ذخیره نهایی «آزمایش و ذخیره» را بزنید.';
+        toast('اتصال به صرافی با موفقیت آزمایش شد.', 'ok');
+      } catch (e) {
+        setIndicator('testIndicator', 'testIndicatorText', 'err', 'چراغ آزمایش: خطا');
+        $('exchangeStatusText').textContent = 'وضعیت: آزمایش ناموفق — ' + e.message;
+        toast('آزمایش اتصال ناموفق: ' + e.message, 'err');
+      } finally { $('testBtn').disabled = false; }
+    }
+
+    async function testAndSave() {
+      var id = $('exchangeSelect').value;
+      var apiKey = $('apiKeyInput').value.trim();
+      var secret = $('secretKeyInput').value.trim();
+      var pass = $('passphraseInput').value.trim();
+      var label = $('labelInput').value.trim() || 'Primary';
+      if (!apiKey || !secret) { toast('لطفاً API Key و Secret Key را وارد کنید.', 'err'); return; }
+      var btn = $('testSaveBtn');
+      btn.disabled = true;
+      setIndicator('testIndicator', 'testIndicatorText', 'testing', 'چراغ آزمایش: در حال آزمایش...');
+      setIndicator('saveIndicator', 'saveIndicatorText', '', 'چراغ ذخیره: در انتظار آزمایش');
+      try {
+        await api('/api/v1/vault/credentials', {
+          method: 'POST',
+          body: JSON.stringify({ exchange_id: id, api_key: apiKey, secret_key: secret, passphrase: pass || null, label: label, testnet: false })
+        });
+        await api('/api/v1/vault/credentials/' + encodeURIComponent(id) + '/verify?label=' + encodeURIComponent(label), { method: 'POST' });
+        setIndicator('testIndicator', 'testIndicatorText', 'ok', 'چراغ آزمایش: تایید شد');
+        setIndicator('saveIndicator', 'saveIndicatorText', 'ok', 'چراغ ذخیره: ذخیره شد');
+        $('exchangeStatusText').textContent = 'وضعیت: کلیدها با موفقیت ذخیره و تایید شدند.';
+        await api('/api/v1/trading/settings', {
+          method: 'POST',
+          body: JSON.stringify({
+            exchange_id: id,
+            bot_enabled: false,
+            capital_allocation_pct: 1,
+            market_type: marketValue(id),
+            auto_convert_to_usdt: true
+          })
+        });
+        await refreshBalance();
+        toast('کلیدها آزمایش، ذخیره و مانده حساب به USDT نمایش داده شد.', 'ok');
+      } catch (e) {
+        setIndicator('testIndicator', 'testIndicatorText', 'err', 'چراغ آزمایش: خطا');
+        setIndicator('saveIndicator', 'saveIndicatorText', 'err', 'چراغ ذخیره: ناموفق');
+        $('exchangeStatusText').textContent = 'وضعیت: خطا — ' + e.message;
+        toast('آزمایش/ذخیره ناموفق: ' + e.message, 'err');
+      } finally { btn.disabled = false; }
+    }
+
+    async function toggleBot(start) {
+      var id = $('exchangeSelect').value;
+      var btn = $('startBotBtn');
+      if (start) {
+        btn.disabled = true;
+        btn.classList.add('flashing');
+        btn.innerHTML = '<i class="bi bi-arrow-repeat"></i> در حال آزمایش و شروع...';
+      }
+      try {
+        var res = await api('/api/v1/trading/toggle-bot', {
+          method: 'POST',
+          body: JSON.stringify({ exchange_id: id, bot_enabled: !!start })
+        });
+        if (start && (res.status === 'error' || res.bot_enabled === false)) {
+          var convErr = res.usdt_conversion || {};
+          throw new Error(res.message || convErr.reason || 'تبدیل 100% دارایی‌ها به USDT ناموفق بود.');
+        }
+        if (start) {
+          state.botEnabled = true;
+          var conv = res.usdt_conversion || {};
+          var note = 'وضعیت ربات: فعال. ';
+          if (conv.status === 'ok') {
+            note += (conv.conversions || []).length + ' دارایی به USDT تبدیل شد. ';
+          } else if (conv.status === 'nothing_to_convert') {
+            note += 'همه دارایی‌های آزاد از قبل USDT بودند. ';
+          } else if (conv.status === 'failed') {
+            note += 'هشدار تبدیل: ' + (conv.reason || 'خطای صرافی') + '. ';
+          } else if (isIranian(id)) {
+            note += 'سیاست تبدیل 100% به USDT اجرا شد. ';
+          } else {
+            note += 'حساب فیوچرز؛ مانده به USDT نگهداری می‌شود. ';
+          }
+          setTimeout(async function () {
+            btn.classList.remove('flashing');
+            btn.classList.add('running');
+            btn.disabled = false;
+            btn.innerHTML = '<i class="bi bi-check-circle-fill"></i> ربات فعال است';
+            $('stopBotBtn').style.display = 'inline-flex';
+            await refreshBalance();
+            $('botStateNote').textContent = note;
+          }, 2700);
+          toast('ربات با موفقیت فعال شد.', 'ok');
+        } else {
+          state.botEnabled = false;
+          btn.classList.remove('running', 'flashing');
+          btn.disabled = false;
+          btn.innerHTML = '<i class="bi bi-play-fill"></i> شروع ربات و تبدیل 100% به USDT';
+          $('stopBotBtn').style.display = 'none';
+          $('botStateNote').textContent = 'وضعیت ربات: متوقف.';
+          toast('ربات متوقف شد.', 'ok');
+        }
+      } catch (e) {
+        btn.classList.remove('flashing');
+        btn.disabled = false;
+        btn.innerHTML = '<i class="bi bi-play-fill"></i> شروع ربات و تبدیل 100% به USDT';
+        $('botStateNote').textContent = 'وضعیت ربات: خطا — ' + e.message;
+        toast('شروع ربات ناموفق: ' + e.message, 'err');
+      }
+    }
+
+    $('exchangeSelect').addEventListener('change', updateMarketHint);
+
+    (async function init() {
+      if (!token) {
+        $('authGate').style.display = 'block';
+        return;
+      }
+      $('settingsContent').style.display = 'grid';
+      updateMarketHint();
+      await loadUser();
+      await loadSettings();
+      await loadCreds();
+    })();
+
+    window.testConnectionOnly = testConnectionOnly;
+    window.testAndSave = testAndSave;
+    window.toggleBot = toggleBot;
+  })();
+  </script>
+</body>
+</html>

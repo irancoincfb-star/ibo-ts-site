@@ -3,7 +3,7 @@
    Offline caching, background sync, and trading signal push notifications
    ========================================================================== */
 
-const CACHE_NAME = 'ibots-pwa-v2.6.5';
+const CACHE_NAME = 'ibots-pwa-v2.6.6';
 const STATIC_ASSETS = [
   '/',
   '/manifest.json',

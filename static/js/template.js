@@ -100,7 +100,7 @@
             '<img alt="" hidden><span class="tpl-chip-initials">IB</span>' +
           '</a>' +
           '<a href="/#dashboard" class="btn btn-emerald btn-sm tpl-btn-flex"><i class="bi bi-speedometer2"></i> <span class="tpl-btn-label">داشبورد معاملاتی</span></a>' +
-          '<a href="#" onclick="if(window.handleLogout){handleLogout();return false;}" class="btn btn-outline btn-sm tpl-btn-flex" title="خروج از حساب" aria-label="خروج از حساب"><i class="bi bi-box-arrow-right"></i> <span class="tpl-btn-label">خروج</span></a>' +
+          '<a href="/settings" class="btn btn-outline btn-sm tpl-btn-flex" title="تنظیمات کاربر و کانفیگ ربات" aria-label="تنظیمات کاربر"><i class="bi bi-gear-fill"></i> <span class="tpl-btn-label">تنظیمات کاربر</span></a>' +
         '</div>';
       loadProfileChip();
     } else {
@@ -247,7 +247,7 @@
       ? '<div class="tpl-menu-user">' +
           '<a href="/#profile" class="tpl-menu-link"><i class="bi bi-person-vcard-fill"></i><span>پروفایل کاربری</span></a>' +
           '<a href="/#dashboard" class="tpl-menu-link"><i class="bi bi-speedometer2"></i><span>داشبورد معاملاتی</span></a>' +
-          '<a href="#" class="tpl-menu-link tpl-api-logout" onclick="if(window.handleLogout){handleLogout();return false;}"><i class="bi bi-box-arrow-right"></i><span>خروج از حساب</span></a>' +
+          '<a href="/settings" class="tpl-menu-link"><i class="bi bi-gear-fill"></i><span>تنظیمات کاربر و کانفیگ</span></a>' +
         '</div>'
       : '<div class="tpl-menu-user">' +
           '<a href="/#login" class="tpl-menu-link"><i class="bi bi-person-fill-lock"></i><span>ورود و ثبت‌نام</span></a>' +
@@ -377,13 +377,12 @@
       dock.appendChild(item({ href: '/pricing', icon: 'bi-tag', label: 'تعرفه' }));
       const token = getToken();
       if (token) {
-        const logoutLink = document.createElement('a');
-        logoutLink.href = '#';
-        logoutLink.className = 'tpl-dock-item';
-        logoutLink.setAttribute('aria-label', 'خروج از حساب');
-        logoutLink.innerHTML = '<i class="bi bi-box-arrow-right" aria-hidden="true"></i><b>خروج</b>';
-        logoutLink.onclick = function (ev) { ev.preventDefault(); if (window.handleLogout) handleLogout(); };
-        dock.appendChild(logoutLink);
+        const settingsLink = document.createElement('a');
+        settingsLink.href = '/settings';
+        settingsLink.className = 'tpl-dock-item';
+        settingsLink.setAttribute('aria-label', 'تنظیمات کاربر و کانفیگ');
+        settingsLink.innerHTML = '<i class="bi bi-gear-fill" aria-hidden="true"></i><b>تنظیمات</b>';
+        dock.appendChild(settingsLink);
       } else {
         const spacer = document.createElement('a');
         spacer.className = 'tpl-dock-item';

@@ -4,7 +4,7 @@
 > Entity: IBO-TS (IBO-TS TRADING SIGNALS)
 > Category: algorithmic crypto trading platform / financial technology
 > Language: Persian (fa-IR)
-> Last updated: 2026-10-25
+> Last updated: 2026-10-28
 
 ## What IBO-TS is
 
@@ -18,7 +18,7 @@ IBO-TS is a financial-technology platform that generates algorithmic trading sig
 
 ## Supported exchanges (18)
 
-Binance, Bybit, Bitunix, BingX, OKX, Gate.io, KuCoin, MEXC, Bitget, Nobitex, Wallex, Tabdeal, Ramzinex, Bitpin, Sarmayex, Exir, Ompfinex and additional integrated venues.
+Binance, Bybit, Bitunix, BingX, Gate.io, CoinEx, HTX, LBank, Toobit, Nobitex, Ramzinex, Bitpin, AbanTether, Bit24, ArzPlus, Bitbarg, OK-Exchange and Rastin.
 
 ## Transparent performance (as of October 2026)
 

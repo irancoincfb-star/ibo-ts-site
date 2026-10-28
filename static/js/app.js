@@ -4,7 +4,7 @@
  * Pure Vanilla JS, Google Identity Services, Live USDT/TMN Converter & Multi-Exchange Vault
  */
 
-const PERFORMANCE_REFRESH_MS = 15000;
+const PERFORMANCE_REFRESH_MS = 5000;
 const LIVE_SIGNALS_REFRESH_MS = 10000;
 const HEALTH_CHECK_MS = 30000;      // Backend + scanner health every 30s
 const CONNECTION_TIMEOUT_MS = 10000; // Consider connection dead after 10s silence
@@ -20,6 +20,7 @@ const state = {
   currentTimeframe: 'all',
   pnlData: null,
   exchangeBalances: {},
+  exchangeId: 'nobitex',
   depositWallets: null,
   pricingPlans: [
     { code: '1w', title: 'اشتراک هفتگی پایه (افتتاحیه)', days: 7, baseUsdt: 10, addonUsdt: 15, tag: 'افتتاحیه — 7 روزه', icon: 'bi-lightning-charge' },
@@ -420,9 +421,9 @@ function checkAuth() {
           <button class="btn btn-emerald btn-sm" onclick="showDashboardView()">
             <i class="bi bi-speedometer2"></i> داشبورد معاملاتی <i class="bi bi-lightning-charge-fill" style="color: #FDE047;"></i>
           </button>
-          <button class="btn btn-outline btn-sm" onclick="handleLogout()" title="خروج از حساب">
-            <i class="bi bi-box-arrow-right"></i>
-          </button>
+          <a href="/settings" class="btn btn-outline btn-sm" title="تنظیمات کاربر و کانفیگ ربات">
+            <i class="bi bi-gear-fill"></i>
+          </a>
         </div>
       `;
     }
@@ -1068,7 +1069,7 @@ function renderPricingCards() {
             ? `<li style="color: var(--brand-indigo); font-weight: 800;"><i class="bi bi-robot" style="color: var(--brand-indigo);"></i> اتصال مستقیم ربات اتوتریدر با API</li>`
             : `<li style="color: var(--text-muted);"><i class="bi bi-dash-circle"></i> بدون اتصال ربات معامله‌گر</li>`
           }
-          <li><i class="bi bi-check-circle-fill"></i> مدیریت سرمایه ریاضیاتی از 1٪ تا 100٪</li>
+          <li><i class="bi bi-check-circle-fill"></i> مدیریت سرمایه ریاضیاتی از 1% تا 100%</li>
           <li><i class="bi bi-check-circle-fill"></i> پشتیبانی اولویت‌دار اختصاصی</li>
         </ul>
 
@@ -1379,6 +1380,34 @@ function renderKPIValues(m) {
   if (elBest) elBest.innerText = m.best_trade_pct != null ? `${m.best_trade_pct >= 0 ? '+' : ''}${m.best_trade_pct}%` : '—';
   const elAvg = document.getElementById('metricAvgTrade');
   if (elAvg) elAvg.innerText = m.avg_trade_pct != null ? `${m.avg_trade_pct >= 0 ? '+' : ''}${m.avg_trade_pct}%` : '—';
+
+  // ── Two extra hero KPIs: daily-reset PnL + cumulative growth ──────────
+  const daily = Number(m.daily_reset_pnl_pct != null ? m.daily_reset_pnl_pct : 0);
+  const growth = Number(m.cumulative_growth_pct != null ? m.cumulative_growth_pct : (m.cumulative_pnl_pct || 0));
+  const fmtPct = (v) => `${v >= 0 ? '+' : ''}${Number(v).toFixed(2)}%`;
+  const hDaily = document.getElementById('heroDailyPnl');
+  const hGrowth = document.getElementById('heroCumulativeGrowth');
+  if (hDaily) {
+    hDaily.innerText = fmtPct(daily);
+    hDaily.style.color = daily >= 0 ? 'var(--profit-emerald)' : 'var(--loss-rose)';
+  }
+  if (hGrowth) {
+    hGrowth.innerText = fmtPct(growth);
+    hGrowth.style.color = growth >= 0 ? 'var(--profit-emerald)' : 'var(--loss-rose)';
+  }
+
+  // ── Live explanatory text above the charts (same cadence as data) ─────
+  const liveExpl = document.getElementById('pnlLiveExplanation');
+  if (liveExpl) {
+    const now = new Date().toLocaleTimeString('en-GB');
+    const resetAt = m.daily_reset_at ? new Date(m.daily_reset_at).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', timeZone: 'Asia/Tehran' }) : '00:00';
+    const wr = m.total_trades > 0 ? `${m.win_rate_pct}%` : 'در حال ثبت';
+    liveExpl.innerHTML =
+      `به‌روزرسانی زنده (${now}) — نرخ برد: <b>${wr}</b> | سود تجمعی: <b>${fmtPct(m.cumulative_pnl_pct || 0)}</b> | ` +
+      `PnL امروز تا بازنشانی ${resetAt}: <b>${fmtPct(daily)}</b> | رشد تجمعی: <b>${fmtPct(growth)}</b> | ` +
+      `فاکتور سود: <b>${m.profit_factor}</b> | معاملات بسته‌شده: <b>${m.total_trades}</b> — ` +
+      `<a href="/performance" style="color:var(--brand-indigo);">کارنامه کامل</a>`;
+  }
 }
 
 // 1. Sleek Donut Win Rate Chart
@@ -1798,10 +1827,12 @@ async function fetchUserTradingSettings() {
     });
     if (res.ok) {
       const data = await res.json();
+      const s = data.settings || {};
+      if (s.exchange_id) state.exchangeId = s.exchange_id;
       const slider = document.getElementById('capitalPctSlider');
       const valDisp = document.getElementById('capitalPctDisplay');
       if (slider && valDisp) {
-        slider.value = data.settings.capital_allocation_pct || 1;
+        slider.value = s.capital_allocation_pct || 1;
         valDisp.innerText = `${slider.value}%`;
       }
     }
@@ -1820,7 +1851,7 @@ async function updateCapitalAllocation(pct) {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${state.token}`
       },
-      body: JSON.stringify({ capital_allocation_pct: parseFloat(pct) })
+      body: JSON.stringify({ exchange_id: state.exchangeId || 'nobitex', capital_allocation_pct: parseFloat(pct) })
     });
     showToast(`تخصیص سرمایه برای هر معامله به ${pct}% تغییر یافت.`, 'info');
   } catch (e) {}

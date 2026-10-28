@@ -26,7 +26,7 @@
 
 ## Key facts
 
-- Supported exchanges: Binance, Bybit, Bitunix, BingX, OKX, Gate.io, KuCoin, MEXC, Bitget, Nobitex, Wallex, Tabdeal, Ramzinex, Bitpin, Sarmayex, Exir, Ompfinex and more (18 total).
+- Supported exchanges (18): Binance, Bybit, Bitunix, BingX, Gate.io, CoinEx, HTX, LBank, Toobit, Nobitex, Ramzinex, Bitpin, AbanTether, Bit24, ArzPlus, Bitbarg, OK-Exchange, Rastin.
 - Interface language: Persian (fa-IR). Currency: USDT.
 - Platforms: Web, Android (APK, Cafe Bazaar, Myket), Telegram bot.
 - Official domain: https://ibo-ts.com. Telegram support: @IBOTradingSignalsBot.

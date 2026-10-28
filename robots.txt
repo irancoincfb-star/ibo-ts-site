@@ -1,5 +1,70 @@
+# IBO-TS — robots.txt
+# Public marketing pages are open to search engines and AI answer engines.
+# Private/authenticated surfaces and APIs are excluded.
+
 User-agent: *
 Allow: /
 Disallow: /api/
+Disallow: /settings
+
+# ── AI / answer-engine crawlers (GEO / AEO) ──────────────────────────────
+User-agent: GPTBot
+Allow: /
+Disallow: /api/
+Disallow: /settings
+
+User-agent: ChatGPT-User
+Allow: /
+Disallow: /api/
+Disallow: /settings
+
+User-agent: OAI-SearchBot
+Allow: /
+Disallow: /api/
+Disallow: /settings
+
+User-agent: PerplexityBot
+Allow: /
+Disallow: /api/
+Disallow: /settings
+
+User-agent: Perplexity-User
+Allow: /
+Disallow: /api/
+Disallow: /settings
+
+User-agent: ClaudeBot
+Allow: /
+Disallow: /api/
+Disallow: /settings
+
+User-agent: Claude-User
+Allow: /
+Disallow: /api/
+Disallow: /settings
+
+User-agent: Google-Extended
+Allow: /
+Disallow: /api/
+Disallow: /settings
+
+User-agent: Applebot-Extended
+Allow: /
+Disallow: /api/
+Disallow: /settings
+
+User-agent: CCBot
+Allow: /
+Disallow: /api/
+Disallow: /settings
+
+User-agent: Bytespider
+Allow: /
+Disallow: /api/
+Disallow: /settings
+
+# ── Machine-readable references ──────────────────────────────────────────
+# llms.txt: https://ibo-ts.com/llms.txt
+# llms-full.txt: https://ibo-ts.com/llms-full.txt
 
 Sitemap: https://ibo-ts.com/sitemap.xml

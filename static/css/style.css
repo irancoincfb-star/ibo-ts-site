@@ -521,10 +521,18 @@ td .sym-logo {
 
 .hero-kpis {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1rem;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 0.75rem;
   padding-top: 1.5rem;
   border-top: 1.5px solid var(--border-light);
+}
+
+@media (max-width: 1199.98px) {
+  .hero-kpis { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+@media (max-width: 767.98px) {
+  .hero-kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
 .kpi-card {
@@ -2125,6 +2133,18 @@ html, body, .site-header, .chart-card, .plan-card, .feature-box, .faq-item,
 }
 
 /* ── Chrome ──────────────────────────────────────────────────────────── */
+[data-theme="dark"] .tf-btn {
+  background: #101B30;
+  border-color: #2B3E5E;
+  color: #C7D2E4;
+}
+[data-theme="dark"] .tf-btn.active,
+[data-theme="dark"] .tf-btn:hover {
+  background: #818CF8;
+  border-color: #818CF8;
+  color: #070D18;
+  box-shadow: 0 4px 16px rgba(129, 140, 248, 0.35);
+}
 [data-theme="dark"] .site-header {
   background: rgba(10, 18, 32, 0.92);
   border-color: rgba(43, 62, 94, 0.9);
